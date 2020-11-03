@@ -65,17 +65,16 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <EmbeddedResource Include="Scripts\0001_Excercise.sql" />
+    <EmbeddedResource Include="Scripts\0001_Exercise.sql" />
     <EmbeddedResource Include="Scripts\0002_RehabProgram.sql" />
-    <EmbeddedResource Include="Scripts\0003_ExcerciseLine.sql" />
+    <EmbeddedResource Include="Scripts\0003_ExerciseLine.sql" />
     <EmbeddedResource Include="Scripts\0004_City.sql" />
     <EmbeddedResource Include="Scripts\0005_Clinic.sql" />
-    <EmbeddedResource Include="Scripts\0006_Person.sql" />
-    <EmbeddedResource Include="Scripts\0007_Type.sql" />
-    <EmbeddedResource Include="Scripts\0008_Practitioner.sql" />
-    <EmbeddedResource Include="Scripts\0009_Customer.sql" />
+    <EmbeddedResource Include="Scripts\0006_Type.sql" />
+    <EmbeddedResource Include="Scripts\0007_Person.sql" />
+    <EmbeddedResource Include="Scripts\0008_InjuryType.sql" />
+    <EmbeddedResource Include="Scripts\0009_Injury.sql" />
     <EmbeddedResource Include="Scripts\0010_Appointment.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,7 +1,7 @@
 USE [project3]
 GO
 
-/****** Object:  Table [dbo].[Appointment]    Script Date: 02-11-2020 17:13:47 ******/
+/****** Object:  Table [dbo].[Appointment]    Script Date: 03-11-2020 12:28:49 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -22,14 +22,14 @@ CREATE TABLE [dbo].[Appointment](
 GO
 
 ALTER TABLE [dbo].[Appointment]  WITH CHECK ADD  CONSTRAINT [FK_Appointment_Customer] FOREIGN KEY([customerId])
-REFERENCES [dbo].[Customer] ([id])
+REFERENCES [dbo].[Person] ([id])
 GO
 
 ALTER TABLE [dbo].[Appointment] CHECK CONSTRAINT [FK_Appointment_Customer]
 GO
 
 ALTER TABLE [dbo].[Appointment]  WITH CHECK ADD  CONSTRAINT [FK_Appointment_Practitioner] FOREIGN KEY([practionerId])
-REFERENCES [dbo].[Practitioner] ([id])
+REFERENCES [dbo].[Person] ([id])
 GO
 
 ALTER TABLE [dbo].[Appointment] CHECK CONSTRAINT [FK_Appointment_Practitioner]

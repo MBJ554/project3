@@ -11,3 +11,16 @@ E:\repo\project3\DatabaseDBUP\obj\Debug\DatabaseDBUP.csproj.CoreCompileInputs.ca
 E:\repo\project3\DatabaseDBUP\obj\Debug\DatabaseDBUP.csproj.CopyComplete
 E:\repo\project3\DatabaseDBUP\obj\Debug\DatabaseDBUP.exe
 E:\repo\project3\DatabaseDBUP\obj\Debug\DatabaseDBUP.pdb
+C:\repo\project3\DatabaseDBUP\bin\Debug\DatabaseDBUP.exe.config
+C:\repo\project3\DatabaseDBUP\bin\Debug\DatabaseDBUP.exe
+C:\repo\project3\DatabaseDBUP\bin\Debug\DatabaseDBUP.pdb
+C:\repo\project3\DatabaseDBUP\bin\Debug\dbup-core.dll
+C:\repo\project3\DatabaseDBUP\bin\Debug\dbup-sqlserver.dll
+C:\repo\project3\DatabaseDBUP\bin\Debug\Microsoft.Azure.Services.AppAuthentication.dll
+C:\repo\project3\DatabaseDBUP\bin\Debug\Microsoft.IdentityModel.Clients.ActiveDirectory.dll
+C:\repo\project3\DatabaseDBUP\bin\Debug\Microsoft.IdentityModel.Clients.ActiveDirectory.xml
+C:\repo\project3\DatabaseDBUP\obj\Debug\DatabaseDBUP.csprojAssemblyReference.cache
+C:\repo\project3\DatabaseDBUP\obj\Debug\DatabaseDBUP.csproj.CoreCompileInputs.cache
+C:\repo\project3\DatabaseDBUP\obj\Debug\DatabaseDBUP.csproj.CopyComplete
+C:\repo\project3\DatabaseDBUP\obj\Debug\DatabaseDBUP.exe
+C:\repo\project3\DatabaseDBUP\obj\Debug\DatabaseDBUP.pdb

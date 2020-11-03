@@ -1,7 +1,7 @@
 USE [project3]
 GO
 
-/****** Object:  Table [dbo].[ExerciseLine]    Script Date: 02-11-2020 17:05:45 ******/
+/****** Object:  Table [dbo].[ExerciseLine]    Script Date: 03-11-2020 12:15:15 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -17,7 +17,7 @@ CREATE TABLE [dbo].[ExerciseLine](
 GO
 
 ALTER TABLE [dbo].[ExerciseLine]  WITH CHECK ADD  CONSTRAINT [FK_ExerciseLine_Excercise] FOREIGN KEY([excerciseId])
-REFERENCES [dbo].[Excercise] ([id])
+REFERENCES [dbo].[Exercise] ([id])
 GO
 
 ALTER TABLE [dbo].[ExerciseLine] CHECK CONSTRAINT [FK_ExerciseLine_Excercise]
