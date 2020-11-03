@@ -65,3 +65,5 @@ E:\repo\project3\API\obj\Debug\API.csproj.CoreCompileInputs.cache
 E:\repo\project3\API\obj\Debug\API.csproj.CopyComplete
 E:\repo\project3\API\obj\Debug\API.dll
 E:\repo\project3\API\obj\Debug\API.pdb
+E:\repo\project3\API\bin\Dapper.dll
+E:\repo\project3\API\bin\Dapper.xml
