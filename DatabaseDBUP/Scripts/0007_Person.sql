@@ -10,7 +10,7 @@ GO
 
 CREATE TABLE [dbo].[Person](
 	[id] [int] IDENTITY(1,1) NOT NULL,
-	[typeId] [int] NOT NULL,
+	[personTypeId] [int] NOT NULL,
 	[clinicId] [int] NOT NULL,
 	[practitionerId] [int] NULL,
 	[rehabProgramId] [int] NULL,
@@ -49,11 +49,11 @@ GO
 ALTER TABLE [dbo].[Person] CHECK CONSTRAINT [FK_Person_Clinic]
 GO
 
-ALTER TABLE [dbo].[Person]  WITH CHECK ADD  CONSTRAINT [FK_Person_Type] FOREIGN KEY([typeId])
-REFERENCES [dbo].[Type] ([id])
+ALTER TABLE [dbo].[Person]  WITH CHECK ADD  CONSTRAINT [FK_Person_PersonType] FOREIGN KEY([personTypeId])
+REFERENCES [dbo].[PersonType] ([id])
 GO
 
-ALTER TABLE [dbo].[Person] CHECK CONSTRAINT [FK_Person_Type]
+ALTER TABLE [dbo].[Person] CHECK CONSTRAINT [FK_Person_PersonType]
 GO
 
 ALTER TABLE [dbo].[Person]  WITH CHECK ADD  CONSTRAINT [FK_Practitioner_Customer] FOREIGN KEY([practitionerId])

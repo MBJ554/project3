@@ -8,7 +8,7 @@ namespace API.Models
 	public class Customer
 	{
 		public int Id { get; set; }
-		public int TypeId { get; set; }
+		public int PersonTypeId { get; set; }
 		public int ClinicId { get; set; }
 		public int PractitionerId { get; set; }
 		public int RehabProgramId { get; set; }
@@ -20,10 +20,10 @@ namespace API.Models
 		public string Address { get; set; }
 		public string ZipCode { get; set; }
 
-		public Customer(int id_, int typeId_, int clinicId_, int practitionerId_, int rehabProgramId_, string firstName_, string lastName_, string phoneNo_, string email_, string password_, string address_, string zipCode_)
+		public Customer(int id_, int personTypeId_, int clinicId_, int practitionerId_, int rehabProgramId_, string firstName_, string lastName_, string phoneNo_, string email_, string password_, string address_, string zipCode_)
 		{
 			this.Id = id_;
-			this.TypeId = typeId_;
+			this.PersonTypeId = personTypeId_;
 			this.ClinicId = clinicId_;
 			this.PractitionerId = practitionerId_;
 			this.RehabProgramId = rehabProgramId_;
