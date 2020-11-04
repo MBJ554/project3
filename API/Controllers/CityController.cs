@@ -25,10 +25,15 @@ namespace API.Controllers
             }
         }
 
-        // GET: api/City/5
-        public string Get(int id)
+        // GET: api/City/GetById
+        public City Get(int zipCode)
         {
-            return "value";
+            using (var conn = new SqlConnection(connectionString))
+            {
+                string sql = "SELECT * FROM City Where zipCode = @zipCode";
+                Customer c = new Customer();
+                return conn.Query<City>(sql, new { zipCode }).SingleOrDefault();
+            }
         }
 
         // POST: api/City
@@ -41,14 +46,17 @@ namespace API.Controllers
             }
         }
 
-        // PUT: api/City/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
         // DELETE: api/City/5
-        public void Delete(int id)
+        public City Delete(int zipCode)
         {
+            using (var conn = new SqlConnection(connectionString))
+            {
+                string sql = "Delete FROM City where zipcode = @zipCode";
+                //return conn.Execute(sql, city) == 1;
+                City c = Get(zipCode);
+                conn.Query<City>(sql, new { zipCode }).SingleOrDefault();
+                return c;
+            }
         }
     }
 }

@@ -8,7 +8,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-CREATE TABLE [dbo].[Type](
+CREATE TABLE [dbo].[PersonType](
 	[id] [int] IDENTITY(1,1) NOT NULL,
 	[type] [varchar](50) NOT NULL,
  CONSTRAINT [PK_Type] PRIMARY KEY CLUSTERED 

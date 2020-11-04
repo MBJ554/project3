@@ -24,3 +24,16 @@ C:\repo\project3\DatabaseDBUP\obj\Debug\DatabaseDBUP.csproj.CoreCompileInputs.ca
 C:\repo\project3\DatabaseDBUP\obj\Debug\DatabaseDBUP.csproj.CopyComplete
 C:\repo\project3\DatabaseDBUP\obj\Debug\DatabaseDBUP.exe
 C:\repo\project3\DatabaseDBUP\obj\Debug\DatabaseDBUP.pdb
+C:\Users\Magnus Munk Jensen\Desktop\3. Semester Projekt\TrackSpace\project3\DatabaseDBUP\bin\Debug\DatabaseDBUP.exe.config
+C:\Users\Magnus Munk Jensen\Desktop\3. Semester Projekt\TrackSpace\project3\DatabaseDBUP\bin\Debug\DatabaseDBUP.exe
+C:\Users\Magnus Munk Jensen\Desktop\3. Semester Projekt\TrackSpace\project3\DatabaseDBUP\bin\Debug\DatabaseDBUP.pdb
+C:\Users\Magnus Munk Jensen\Desktop\3. Semester Projekt\TrackSpace\project3\DatabaseDBUP\bin\Debug\dbup-core.dll
+C:\Users\Magnus Munk Jensen\Desktop\3. Semester Projekt\TrackSpace\project3\DatabaseDBUP\bin\Debug\dbup-sqlserver.dll
+C:\Users\Magnus Munk Jensen\Desktop\3. Semester Projekt\TrackSpace\project3\DatabaseDBUP\bin\Debug\Microsoft.Azure.Services.AppAuthentication.dll
+C:\Users\Magnus Munk Jensen\Desktop\3. Semester Projekt\TrackSpace\project3\DatabaseDBUP\bin\Debug\Microsoft.IdentityModel.Clients.ActiveDirectory.dll
+C:\Users\Magnus Munk Jensen\Desktop\3. Semester Projekt\TrackSpace\project3\DatabaseDBUP\bin\Debug\Microsoft.IdentityModel.Clients.ActiveDirectory.xml
+C:\Users\Magnus Munk Jensen\Desktop\3. Semester Projekt\TrackSpace\project3\DatabaseDBUP\obj\Debug\DatabaseDBUP.csprojAssemblyReference.cache
+C:\Users\Magnus Munk Jensen\Desktop\3. Semester Projekt\TrackSpace\project3\DatabaseDBUP\obj\Debug\DatabaseDBUP.csproj.CoreCompileInputs.cache
+C:\Users\Magnus Munk Jensen\Desktop\3. Semester Projekt\TrackSpace\project3\DatabaseDBUP\obj\Debug\DatabaseDBUP.csproj.CopyComplete
+C:\Users\Magnus Munk Jensen\Desktop\3. Semester Projekt\TrackSpace\project3\DatabaseDBUP\obj\Debug\DatabaseDBUP.exe
+C:\Users\Magnus Munk Jensen\Desktop\3. Semester Projekt\TrackSpace\project3\DatabaseDBUP\obj\Debug\DatabaseDBUP.pdb

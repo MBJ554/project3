@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Controllers;
 
 namespace API.Controllers
 {
@@ -26,9 +27,13 @@ namespace API.Controllers
         }
 
         // GET: api/Customer/5
-        public string GetById(int id)
+        public Customer GetById(int id)
         {
-            return "value";
+            using (var conn = new SqlConnection(connectionString))
+            {
+                string sql = "SELECT * FROM Person Where id = @id";
+                return conn.Query<Customer>(sql, new { id }).SingleOrDefault();
+            }
         }
 
         // POST: api/Customer
@@ -37,10 +42,8 @@ namespace API.Controllers
             using (var conn = new SqlConnection(connectionString))
             {
                 string sql = "INSERT INTO [dbo].[Person] " +
-                    "([type], " +
+                    "([personTypeId], " +
                     "[clinicId], " +
-                    "[practitionerId], " +
-                    "[rehabProgramId]," +
                     "[firstName]," +
                     "[lastName]," +
                     "[phoneNo]," +
@@ -48,19 +51,39 @@ namespace API.Controllers
                     "[password]," +
                     "[address]," +
                     "[zipCode])" +
-                    "VALUES (@type, @clinicId, @practitionerId, @rehabProgramId, @firstName, @lastName, @phoneNo, @email, @password, @address, @zipCode)";
+                    "VALUES (@PersonTypeId, @clinicId, @firstName, @lastName, @phoneNo, @email, @password, @address, @zipCode)";
                 conn.Execute(sql, customer);
             }
         }
 
         // PUT: api/Customer/5
-        public void Put(int id, [FromBody]string value)
+        public void Put(int id,[FromBody]Customer customer)
         {
+            using (var conn = new SqlConnection(connectionString))
+            {
+                string sql = "UPDATE [dbo].[Person] SET [clinicId] = @ClinicId " +
+                    ",[practitionerId] = @PractitionerId " +
+                    ",[rehabProgramId] = @RehabProgramId " +
+                    ",[firstName] = @FirstName " +
+                    ",[lastName] = @LastName" +
+                    ",[phoneNo] = @PhoneNo" +
+                    ",[email] = @Email ," +
+                    "[password] = @Password ," +
+                    "[address] = @Address ," +
+                    "[zipCode] = @ZipCode WHERE id = @Id";
+                conn.Execute(sql, customer);
+            }
         }
 
         // DELETE: api/Customer/5
-        public void Delete(int id)
+        public bool Delete(int id)
         {
+            using (var conn = new SqlConnection(connectionString))
+            {
+                string sql = "DELETE FROM Person where id = @Id";
+                
+                return conn.Execute(sql, id) == 1;
+            }
         }
     }
 }
