@@ -21,8 +21,13 @@ namespace API.Controllers
             using (var conn = new SqlConnection(connectionString))
             {
                 string sql = "SELECT * FROM Person";
-
-                return conn.Query<Customer>(sql);
+                string sql2 = "SELECT city FROM City WHERE zipCode = @zipCode";
+                var customers = conn.Query<Customer>(sql);
+                foreach (var customer in customers)
+                {
+                    customer.City = conn.QuerySingleOrDefault<string>(sql2, new { zipCode = customer.ZipCode });
+                }
+                return customers;
             }
         }
 
@@ -32,18 +37,23 @@ namespace API.Controllers
             using (var conn = new SqlConnection(connectionString))
             {
                 string sql = "SELECT * FROM Person Where id = @id";
-                return conn.Query<Customer>(sql, new { id }).SingleOrDefault();
+                var customer = conn.Query<Customer>(sql, new { id }).SingleOrDefault();
+                string sql2 = "SELECT city FROM City WHERE zipCode = @zipCode";
+                customer.City = conn.QuerySingleOrDefault<string>(sql2, new { zipCode = customer.ZipCode });
+                return customer;
             }
         }
 
         // POST: api/Customer
-        public void Post([FromBody]Customer customer)
+        public void Post([FromBody] Customer customer)
         {
             using (var conn = new SqlConnection(connectionString))
             {
                 string sql = "INSERT INTO [dbo].[Person] " +
                     "([personTypeId], " +
-                    "[clinicId], " +
+                    "[clinicId]," +
+                    "[practitionerId]," +
+                    "[rehabProgramId]," +
                     "[firstName]," +
                     "[lastName]," +
                     "[phoneNo]," +
@@ -57,7 +67,7 @@ namespace API.Controllers
         }
 
         // PUT: api/Customer/5
-        public void Put(int id,[FromBody]Customer customer)
+        public void Put(int id, [FromBody] Customer customer)
         {
             using (var conn = new SqlConnection(connectionString))
             {
@@ -81,7 +91,7 @@ namespace API.Controllers
             using (var conn = new SqlConnection(connectionString))
             {
                 string sql = "DELETE FROM Person where id = @Id";
-                
+
                 return conn.Execute(sql, id) == 1;
             }
         }

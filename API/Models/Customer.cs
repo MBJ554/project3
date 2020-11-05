@@ -19,8 +19,9 @@ namespace API.Models
 		public string Password { get; set; }
 		public string Address { get; set; }
 		public string ZipCode { get; set; }
+        public string City { get; set; }
 
-		public Customer(int id_, int personTypeId_, int clinicId_, int practitionerId_, int rehabProgramId_, string firstName_, string lastName_, string phoneNo_, string email_, string password_, string address_, string zipCode_)
+        public Customer(int id_, int personTypeId_, int clinicId_, int practitionerId_, int rehabProgramId_, string firstName_, string lastName_, string phoneNo_, string email_, string password_, string address_, string zipCode_, string city_)
 		{
 			this.Id = id_;
 			this.PersonTypeId = personTypeId_;
@@ -34,6 +35,7 @@ namespace API.Models
 			this.Password = password_;
 			this.Address = address_;
 			this.ZipCode = zipCode_;
+			this.City = city_;
 		}
         public Customer()
         {
