@@ -16,19 +16,23 @@ using System.Windows.Shapes;
 namespace Desktop
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for CreateUser.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class CreateUser : Page
     {
-        public MainWindow()
+        public CreateUser()
         {
             InitializeComponent();
         }
 
-        private void btnCreateUser(object sender, RoutedEventArgs e)
+        private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            Content = new CreateUser();
+
         }
 
-    }    
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+    }
 }
