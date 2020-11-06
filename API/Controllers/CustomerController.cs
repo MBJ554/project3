@@ -1,4 +1,5 @@
-﻿using API.Models;
+﻿using API.DAL.Interfaces;
+using API.Models;
 using Dapper;
 using System;
 using System.Collections.Generic;
@@ -15,20 +16,29 @@ namespace API.Controllers
     public class CustomerController : ApiController
     {
         private readonly string connectionString = ConfigurationManager.ConnectionStrings["connStr"].ConnectionString;
+        private readonly ICustomerRepository _customerRepository;
+
+        public CustomerController(ICustomerRepository customerRepository)
+        {
+            _customerRepository = customerRepository;
+        }
+
         // GET: api/Customer
         public IEnumerable<Customer> GetAll()
         {
-            using (var conn = new SqlConnection(connectionString))
-            {
-                string sql = "SELECT * FROM Person";
-                string sql2 = "SELECT city FROM City WHERE zipCode = @zipCode";
-                var customers = conn.Query<Customer>(sql);
-                foreach (var customer in customers)
-                {
-                    customer.City = conn.QuerySingleOrDefault<string>(sql2, new { zipCode = customer.ZipCode });
-                }
-                return customers;
-            }
+            //using (var conn = new SqlConnection(connectionString))
+            //{
+            //    string sql = "SELECT * FROM Person";
+            //    string sql2 = "SELECT city FROM City WHERE zipCode = @zipCode";
+            //    var customers = conn.Query<Customer>(sql);
+            //    foreach (var customer in customers)
+            //    {
+            //        customer.City = conn.QuerySingleOrDefault<string>(sql2, new { zipCode = customer.ZipCode });
+            //    }
+            //    return customers;
+            //}
+
+            return _customerRepository.GetAll();
         }
 
         // GET: api/Customer/5
