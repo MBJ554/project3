@@ -38,6 +38,9 @@
     <WarningLevel>4</WarningLevel>
     <LangVersion>8.0</LangVersion>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="MaterialDesignColors, Version=1.2.7.1979, Culture=neutral, PublicKeyToken=df2a72020bd7962a, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignColors.1.2.7\lib\net45\MaterialDesignColors.dll</HintPath>
@@ -98,10 +101,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="App.xaml">
+    <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
+    </ApplicationDefinition>
     <Page Include="CreateUser.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

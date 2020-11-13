@@ -91,7 +91,7 @@
                     </ListViewItem>
                 </ListView>
             </StackPanel>
-            
+
         </Grid>
         <Grid Width="880" Height="530" HorizontalAlignment="Right" VerticalAlignment="Bottom">
             <Frame x:Name="Main" NavigationUIVisibility="Hidden"></Frame>
@@ -100,4 +100,3 @@
 
     </Grid>
 </Window>
-test

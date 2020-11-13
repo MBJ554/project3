@@ -33,5 +33,3 @@
         <TextBlock Grid.Row="5" Grid.Column="5" Height="400" Width="300" Background="#FFF0F0F0" Text="Her kommer nyheder i appen til at stå."/>
     </Grid>
 </Page>
-
-    test
