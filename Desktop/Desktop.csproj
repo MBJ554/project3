@@ -65,10 +65,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="..\..\..\Backup 11-11-2020\Home.xaml.cs">
-      <DependentUpon>Home.xaml</DependentUpon>
-      <Link>Home.xaml.cs</Link>
-    </Compile>
     <Page Include="..\..\..\Backup 11-11-2020\CreateUser.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -88,17 +84,17 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="..\..\..\Backup 11-11-2020\CreateUser.xaml.cs">
-      <DependentUpon>CreateUser.xaml</DependentUpon>
-      <Link>CreateUser.xaml.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\Backup 11-11-2020\MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-      <Link>MainWindow.xaml.cs</Link>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CreateUser.xaml.cs">
+      <DependentUpon>CreateUser.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Home.xaml.cs">
+      <DependentUpon>Home.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
