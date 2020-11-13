@@ -12,7 +12,7 @@ namespace API.DAL.Interfaces
         TEntity GetById(int id);
         TEntity Create(TEntity obj);
         TEntity Update(TEntity obj);
-        bool Delete(TEntity obj);
+        bool Delete(int id);
 
     }
 }

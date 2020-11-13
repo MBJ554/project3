@@ -10,10 +10,11 @@ using System.Web;
 
 namespace API.DAL.Repositories
 {
-    public class ClinicRepository : IClinicRepository
+    public class RehabProgramRepository : IRehabProgramRepository
     {
         private readonly string connectionString = ConfigurationManager.ConnectionStrings["connStr"].ConnectionString;
-        public Clinic Create(Clinic obj)
+
+        public RehabProgram Create(RehabProgram obj)
         {
             throw new NotImplementedException();
         }
@@ -23,26 +24,25 @@ namespace API.DAL.Repositories
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Clinic> GetAll()
+        public IEnumerable<RehabProgram> GetAll()
         {
             using (var conn = new SqlConnection(connectionString))
             {
-                string sql = "SELECT * FROM Clinic";
-
-                return conn.Query<Clinic>(sql);
+                var sql = "SELECT * FROM RehabProgram";
+                return conn.Query<RehabProgram>(sql);
             }
         }
 
-        public Clinic GetById(int id)
+        public RehabProgram GetById(int id)
         {
             using (var conn = new SqlConnection(connectionString))
             {
-                string sql = "SELECT * FROM Clinic Where id = @id";
-                return conn.Query<Clinic>(sql, new { id }).SingleOrDefault();
+                var sql = "SELECT * FROM RehabProgram WHERE id = @id";
+                return conn.QuerySingleOrDefault<RehabProgram>(sql, new { id });
             }
         }
 
-        public Clinic Update(Clinic obj)
+        public RehabProgram Update(RehabProgram obj)
         {
             throw new NotImplementedException();
         }

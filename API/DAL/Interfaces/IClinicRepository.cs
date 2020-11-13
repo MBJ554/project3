@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace API.DAL.Interfaces
 {
-    public interface ICustomerRepository : IGenericRepository<Customer>
+    public interface IClinicRepository : IGenericRepository<Clinic>
     {
     }
 }

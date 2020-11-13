@@ -32,6 +32,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -41,6 +42,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Autofac, Version=6.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
@@ -115,6 +117,7 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApiHelpers\ApiHelper.cs" />
     <Compile Include="App_Start\ContainerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AppointmentController.cs" />
@@ -123,11 +126,30 @@
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\InjuryController.cs" />
     <Compile Include="Controllers\InjuryTypeController.cs" />
+    <Compile Include="Controllers\PractitionerController.cs" />
     <Compile Include="Controllers\RehabProgramController.cs" />
+    <Compile Include="DAL\Interfaces\ICityRepository.cs" />
+    <Compile Include="DAL\Interfaces\IClinicRepository.cs" />
     <Compile Include="DAL\Interfaces\ICustomerRepository.cs" />
+    <Compile Include="DAL\Interfaces\IExerciseLineRepository.cs" />
+    <Compile Include="DAL\Interfaces\IExerciseRepository.cs" />
     <Compile Include="DAL\Interfaces\IGenericRepository.cs" />
+    <Compile Include="DAL\Interfaces\IPractitionerRepository.cs" />
+    <Compile Include="DAL\Interfaces\IRehabProgramRepository.cs" />
+    <Compile Include="DAL\Models\City.cs" />
+    <Compile Include="DAL\Models\Clinic.cs" />
+    <Compile Include="DAL\Models\Customer.cs" />
+    <Compile Include="DAL\Models\Exercise.cs" />
+    <Compile Include="DAL\Models\ExerciseLine.cs" />
+    <Compile Include="DAL\Models\Practitioner.cs" />
+    <Compile Include="DAL\Models\RehabProgram.cs" />
+    <Compile Include="DAL\Repositories\CityRepository.cs" />
     <Compile Include="DAL\Repositories\ClinicRepository.cs" />
     <Compile Include="DAL\Repositories\CustomerRepository.cs" />
+    <Compile Include="DAL\Repositories\ExerciseLineRepository.cs" />
+    <Compile Include="DAL\Repositories\ExerciseRepository.cs" />
+    <Compile Include="DAL\Repositories\PractitionerRepository.cs" />
+    <Compile Include="DAL\Repositories\RehabProgramRepository.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -135,8 +157,11 @@
     <Compile Include="Models\City.cs" />
     <Compile Include="Models\Clinic.cs" />
     <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\Exercise.cs" />
+    <Compile Include="Models\ExerciseLine.cs" />
     <Compile Include="Models\Injury.cs" />
     <Compile Include="Models\InjuryType.cs" />
+    <Compile Include="Models\Practitioner.cs" />
     <Compile Include="Models\RehabProgram.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

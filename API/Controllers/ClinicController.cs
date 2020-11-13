@@ -16,8 +16,8 @@ namespace API.Controllers
     {
         private readonly string connectionString = ConfigurationManager.ConnectionStrings["connStr"].ConnectionString;
         // GET: api/Clinic
-        private readonly IGenericRepository<Clinic> _clinicRepository;
-        public ClinicController(IGenericRepository<Clinic> clinicRepository)
+        private readonly IClinicRepository _clinicRepository;
+        public ClinicController(IClinicRepository clinicRepository)
         {
             _clinicRepository = clinicRepository;
         }
@@ -31,17 +31,23 @@ namespace API.Controllers
             //    return conn.Query<Clinic>(sql);
             //}
 
-            return _clinicRepository.GetAll();
+            //return _clinicRepository.GetAll();
+            return null;
         }
 
         // GET: api/City/GetById
         public Clinic Get(int id)
         {
-            using (var conn = new SqlConnection(connectionString))
+            var clinicDAL = _clinicRepository.GetById(id);
+            return new Clinic()
             {
-                string sql = "SELECT * FROM Clinic Where id = @id";
-                return conn.Query<Clinic>(sql, new { id }).SingleOrDefault();
-            }
+                Id =  clinicDAL.Id,
+                Name = clinicDAL.Name,
+                Address = clinicDAL.Address,
+                ZipCode = clinicDAL.ZipCode,
+                PhoneNo = clinicDAL.PhoneNo,
+                Description = clinicDAL.Description
+            }; 
         }
 
         // POST: api/City

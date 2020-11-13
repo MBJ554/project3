@@ -1,5 +1,5 @@
 ﻿using API.DAL.Interfaces;
-using API.Models;
+using API.DAL.Models;
 using Dapper;
 using System;
 using System.Collections.Generic;
@@ -13,39 +13,85 @@ namespace API.DAL.Repositories
     public class CustomerRepository : ICustomerRepository
     {
         private readonly string connectionString = ConfigurationManager.ConnectionStrings["connStr"].ConnectionString;
-        public Customer Create(Customer obj)
+        public Customer Create(Customer customer)
         {
-            throw new NotImplementedException();
+            using (var conn = new SqlConnection(connectionString))
+            {
+                string sql = "INSERT INTO [dbo].[Person] " +
+                    "([personTypeId], " +
+                    "[clinicId]," +
+                    "[firstName]," +
+                    "[lastName]," +
+                    "[phoneNo]," +
+                    "[email]," +
+                    "[password]," +
+                    "[address]," +
+                    "[zipCode])" +
+                    "VALUES ((SELECT id FROM PersonType WHERE type = 'Customer')" +
+                    ", @clinicId" +
+                    ", @firstName" +
+                    ", @lastName" +
+                    ", @phoneNo" +
+                    ", @email" +
+                    ", @password" +
+                    ", @address" +
+                    ", @zipCode)";
+                if (conn.Execute(sql, customer) > 0)
+                {
+                    return customer;
+                }
+                return null;
+            }
         }
 
-        public bool Delete(Customer obj)
+        public bool Delete(int id)
         {
-            throw new NotImplementedException();
+            using (var conn = new SqlConnection(connectionString))
+            {
+                string sql = "DELETE FROM Person where id = @id";
+
+                return conn.Execute(sql, new { id }) == 1;
+            }
         }
 
         public IEnumerable<Customer> GetAll()
         {
             using (var conn = new SqlConnection(connectionString))
             {
-                string sql = "SELECT * FROM Person";
-                string sql2 = "SELECT city FROM City WHERE zipCode = @zipCode";
-                var customers = conn.Query<Customer>(sql);
-                foreach (var customer in customers)
-                {
-                    customer.City = conn.QuerySingleOrDefault<string>(sql2, new { zipCode = customer.ZipCode });
-                }
-                return customers;
+                string sql = "SELECT * FROM Person p INNER JOIN City c ON c.zipCode = p.zipCode WHERE personTypeId = 1";
+                return conn.Query<Customer>(sql);
             }
         }
 
         public Customer GetById(int id)
         {
-            throw new NotImplementedException();
+            using (var conn = new SqlConnection(connectionString))
+            {
+                string sql = "SELECT * FROM Person p INNER JOIN City c ON c.zipCode = p.zipCode WHERE personTypeId = 1 AND id = @id ";
+                return conn.QuerySingleOrDefault<Customer>(sql, new { id });
+            }
         }
 
-        public Customer Update(Customer obj)
+        public Customer Update(Customer customer)
         {
-            throw new NotImplementedException();
+            using (var conn = new SqlConnection(connectionString))
+            {
+                string sql = "UPDATE [dbo].[Person] SET [clinicId] = @ClinicId " +
+                    ",[practitionerId] = @PractitionerId " +
+                    ",[rehabProgramId] = @RehabProgramId " +
+                    ",[firstName] = @FirstName " +
+                    ",[lastName] = @LastName" +
+                    ",[phoneNo] = @PhoneNo" +
+                    ",[email] = @Email ," +
+                    "[password] = @Password ," +
+                    "[address] = @Address ," +
+                    "[zipCode] = @ZipCode WHERE id = @Id";
+                if (conn.Execute(sql, customer) > 0)
+                {
+                    return customer;
+                }
+                return null;
+            }
         }
     }
 }

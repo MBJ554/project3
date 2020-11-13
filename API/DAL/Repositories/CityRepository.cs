@@ -10,10 +10,10 @@ using System.Web;
 
 namespace API.DAL.Repositories
 {
-    public class ClinicRepository : IClinicRepository
+    public class CityRepository : ICityRepository
     {
         private readonly string connectionString = ConfigurationManager.ConnectionStrings["connStr"].ConnectionString;
-        public Clinic Create(Clinic obj)
+        public City Create(City obj)
         {
             throw new NotImplementedException();
         }
@@ -23,26 +23,27 @@ namespace API.DAL.Repositories
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Clinic> GetAll()
+        public IEnumerable<City> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public City GetById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public City GetCityByZipCode(string zipCode)
         {
             using (var conn = new SqlConnection(connectionString))
             {
-                string sql = "SELECT * FROM Clinic";
-
-                return conn.Query<Clinic>(sql);
+                string sql = "SELECT * FROM City Where zipCode = @zipCode";
+                return conn.QuerySingleOrDefault<City>(sql, new { zipCode });
             }
         }
+    
 
-        public Clinic GetById(int id)
-        {
-            using (var conn = new SqlConnection(connectionString))
-            {
-                string sql = "SELECT * FROM Clinic Where id = @id";
-                return conn.Query<Clinic>(sql, new { id }).SingleOrDefault();
-            }
-        }
-
-        public Clinic Update(Clinic obj)
+        public City Update(City obj)
         {
             throw new NotImplementedException();
         }

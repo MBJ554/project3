@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace API.DAL.Interfaces
 {
-    public interface ICustomerRepository : IGenericRepository<Customer>
+    public interface IExerciseLineRepository : IGenericRepository<ExerciseLine>
     {
+        IEnumerable<ExerciseLine> GetAllByRehabProgramId(int id);
     }
 }
