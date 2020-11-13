@@ -1,4 +1,5 @@
-﻿using API.Models;
+﻿using API.DAL.Interfaces;
+using API.Models;
 using Dapper;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,12 @@ namespace API.Controllers
     public class CityController : ApiController
     {
         private readonly string connectionString = ConfigurationManager.ConnectionStrings["connStr"].ConnectionString;
+        private readonly ICityRepository _cityRepository;
+        public CityController(ICityRepository cityRepository)
+        {
+            _cityRepository = cityRepository;
+        }
+
         // GET: api/City
         public IEnumerable<City> Get()
         {
@@ -26,14 +33,14 @@ namespace API.Controllers
         }
 
         // GET: api/City/GetById
-        public City Get(int zipCode)
+        public City Get(string zipCode)
         {
-            using (var conn = new SqlConnection(connectionString))
+            var cityDAL = _cityRepository.GetCityByZipCode(zipCode);
+            return new City
             {
-                string sql = "SELECT * FROM City Where zipCode = @zipCode";
-                Customer c = new Customer();
-                return conn.Query<City>(sql, new { zipCode }).SingleOrDefault();
-            }
+                zipCode = cityDAL.zipCode,
+                city = cityDAL.city
+            };
         }
 
         // POST: api/City
@@ -47,15 +54,13 @@ namespace API.Controllers
         }
 
         // DELETE: api/City/5
-        public City Delete(int zipCode)
+        public City Delete(string zipCode)
         {
             using (var conn = new SqlConnection(connectionString))
             {
                 string sql = "Delete FROM City where zipcode = @zipCode";
-                //return conn.Execute(sql, city) == 1;
-                City c = Get(zipCode);
-                conn.Query<City>(sql, new { zipCode }).SingleOrDefault();
-                return c;
+                return conn.Query<City>(sql, new { zipCode }).SingleOrDefault();
+
             }
         }
     }

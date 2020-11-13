@@ -1,4 +1,5 @@
-﻿using API.Models;
+﻿using API.DAL.Interfaces;
+using API.Models;
 using Dapper;
 using System;
 using System.Collections.Generic;
@@ -15,24 +16,38 @@ namespace API.Controllers
     {
         private readonly string connectionString = ConfigurationManager.ConnectionStrings["connStr"].ConnectionString;
         // GET: api/Clinic
+        private readonly IClinicRepository _clinicRepository;
+        public ClinicController(IClinicRepository clinicRepository)
+        {
+            _clinicRepository = clinicRepository;
+        }
+
         public IEnumerable<Clinic> Get()
         {
-            using (var conn = new SqlConnection(connectionString))
-            {
-                string sql = "SELECT * FROM Clinic";
+            //using (var conn = new SqlConnection(connectionString))
+            //{
+            //    string sql = "SELECT * FROM Clinic";
 
-                return conn.Query<Clinic>(sql);
-            }
+            //    return conn.Query<Clinic>(sql);
+            //}
+
+            //return _clinicRepository.GetAll();
+            return null;
         }
 
         // GET: api/City/GetById
         public Clinic Get(int id)
         {
-            using (var conn = new SqlConnection(connectionString))
+            var clinicDAL = _clinicRepository.GetById(id);
+            return new Clinic()
             {
-                string sql = "SELECT * FROM Clinic Where id = @id";
-                return conn.Query<Clinic>(sql, new { id }).SingleOrDefault();
-            }
+                Id =  clinicDAL.Id,
+                Name = clinicDAL.Name,
+                Address = clinicDAL.Address,
+                ZipCode = clinicDAL.ZipCode,
+                PhoneNo = clinicDAL.PhoneNo,
+                Description = clinicDAL.Description
+            }; 
         }
 
         // POST: api/City
