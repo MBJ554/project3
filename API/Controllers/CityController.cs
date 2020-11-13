@@ -22,6 +22,7 @@ namespace API.Controllers
         }
 
         // GET: api/City
+        [HttpGet]
         public IEnumerable<City> Get()
         {
             using (var conn = new SqlConnection(connectionString))
@@ -32,10 +33,13 @@ namespace API.Controllers
             }
         }
 
+
+        
         // GET: api/City/GetById
-        public City Get(string zipCode)
+        [HttpGet]
+        public City Get(string id)
         {
-            var cityDAL = _cityRepository.GetCityByZipCode(zipCode);
+            var cityDAL = _cityRepository.GetCityByZipCode(id);
             return new City
             {
                 zipCode = cityDAL.zipCode,
