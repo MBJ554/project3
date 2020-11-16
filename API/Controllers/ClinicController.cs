@@ -22,32 +22,31 @@ namespace API.Controllers
             _clinicRepository = clinicRepository;
         }
 
-        public IEnumerable<Clinic> Get()
+        public IHttpActionResult Get()
         {
-            //using (var conn = new SqlConnection(connectionString))
-            //{
-            //    string sql = "SELECT * FROM Clinic";
-
-            //    return conn.Query<Clinic>(sql);
-            //}
-
-            //return _clinicRepository.GetAll();
-            return null;
+            var clinicsDAL = _clinicRepository.GetAll();
+            var clinics = new List<Clinic>();
+            foreach (var clinic in clinicsDAL)
+            {
+                clinics.Add(buildClinic(clinic));
+            }
+            if (clinics.Count == 0)
+            {
+                return NotFound();
+            }
+           return Ok(clinics);
         }
 
         // GET: api/City/GetById
-        public Clinic Get(int id)
+        public IHttpActionResult Get(int id)
         {
             var clinicDAL = _clinicRepository.GetById(id);
-            return new Clinic()
+            if (clinicDAL != null)
             {
-                Id =  clinicDAL.Id,
-                Name = clinicDAL.Name,
-                Address = clinicDAL.Address,
-                ZipCode = clinicDAL.ZipCode,
-                PhoneNo = clinicDAL.PhoneNo,
-                Description = clinicDAL.Description
-            }; 
+                var clinic = buildClinic(clinicDAL);
+                return Ok(clinic);
+            }
+            return NotFound();
         }
 
         // POST: api/City
@@ -76,10 +75,23 @@ namespace API.Controllers
             {
                 string sql = "Delete FROM Clinic where id = @id";
                 //return conn.Execute(sql, city) == 1;
-                Clinic c = Get(id);
                 conn.Query<Clinic>(sql, new { id }).SingleOrDefault();
-                return c;
+                return null;
             }
+        }
+
+        private Clinic buildClinic(API.DAL.Models.Clinic clinic)
+        {
+            return new Clinic
+            {
+                Id = clinic.Id,
+                Name = clinic.Name,
+                Address = clinic.Address,
+                ZipCode = clinic.ZipCode,
+                City = clinic.City,
+                PhoneNo = clinic.PhoneNo,
+                Description = clinic.Description
+            };
         }
     }
 }
