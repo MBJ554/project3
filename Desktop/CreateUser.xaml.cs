@@ -75,5 +75,16 @@ namespace Desktop
             city.Text = c.city;      
         }
 
+        private void postnr_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (postnr.Text.Length == 4)
+            {
+                if (numbersOnly(postnr.Text))
+                {
+
+                    setCity(postnr.Text);
+                }
+            }
+        }
     }
 }

@@ -49,7 +49,9 @@ namespace Desktop.Callers
 
         public City GetByZipCode(string id)
         {
-            throw new NotImplementedException();
+            var request = new RestRequest("city/" + id, Method.GET);
+            var response = client.Execute<City>(request);
+            return response.Data;
         }
 
 

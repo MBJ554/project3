@@ -63,9 +63,9 @@
                  Width="150" Margin="5,5,0,0"/>
         <TextBox x:Name="email" Grid.Column="2" Grid.Row="6"
                  Width="150" Margin="5,5,0,0"/>
-        <StackPanel Grid.Column="2" Grid.Row="7" Orientation="Horizontal">
-            <TextBox x:Name="zipCode" Grid.Column="2" Grid.Row="7"
-                 Width="150" Margin="5,5,0,0">PostNr
+        <StackPanel Grid.Column="2" Grid.Row="8" Orientation="Horizontal">
+            <TextBox x:Name="zipCode" Grid.Column="2" Grid.Row="8"
+                 Width="150" Margin="5,5,0,0">
             </TextBox>
             <TextBox x:Name="city" IsEnabled="False"></TextBox>
 
@@ -73,7 +73,7 @@
         
        
         <TextBox x:Name="postnr" Grid.Column="2" Grid.Row="8"
-                 Width="150" Margin="5,5,0,0"/>
+                 Width="150" Margin="5,5,0,0" TextChanged="postnr_TextChanged"/>
         <PasswordBox x:Name="password" Grid.Column="2" Grid.Row="9"
                  Width="150" Margin="5,5,0,0" />
         
