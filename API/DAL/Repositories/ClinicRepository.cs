@@ -27,7 +27,7 @@ namespace API.DAL.Repositories
         {
             using (var conn = new SqlConnection(connectionString))
             {
-                string sql = "SELECT * FROM Clinic";
+                string sql = "SELECT * FROM Clinic cl INNER JOIN City c ON c.zipCode = cl.zipCode";
 
                 return conn.Query<Clinic>(sql);
             }
@@ -37,7 +37,7 @@ namespace API.DAL.Repositories
         {
             using (var conn = new SqlConnection(connectionString))
             {
-                string sql = "SELECT * FROM Clinic Where id = @id";
+                string sql = "SELECT * FROM Clinic cl INNER JOIN City c ON c.zipCode = cl.zipCode WHERE id = @id";
                 return conn.Query<Clinic>(sql, new { id }).SingleOrDefault();
             }
         }

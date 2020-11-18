@@ -22,7 +22,7 @@ namespace API.Controllers
         }
 
         // GET: api/Customer
-        public IEnumerable<Customer> GetAll()
+        public IHttpActionResult GetAll()
         {
             List<Customer> customers = new List<Customer>();
             var customerDAL = _customerRepository.GetAll();
@@ -30,18 +30,22 @@ namespace API.Controllers
             {
                 customers.Add(BuildCustomer(customer));
             }
-            return customers;
+            if (customers.Count == 0)
+            {
+                return NotFound();
+            }
+            return Ok(customers);
         }
 
         // GET: api/Customer/5
-        public Customer GetById(int id)
+        public IHttpActionResult GetById(int id)
         {
             var customer = _customerRepository.GetById(id);
             if (customer != null)
             {
-                return BuildCustomer(customer);
+                return Ok(BuildCustomer(customer));
             }
-            return null;
+            return NotFound();
         }
 
         // POST: api/Customer
