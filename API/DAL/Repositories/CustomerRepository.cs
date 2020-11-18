@@ -62,7 +62,7 @@ namespace API.DAL.Repositories
                 return conn.Query<Customer>(sql);
             }
         }
-
+        //TODO FIX personTypeId
         public Customer GetById(int id)
         {
             using (var conn = new SqlConnection(connectionString))

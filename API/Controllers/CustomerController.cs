@@ -20,7 +20,7 @@ namespace API.Controllers
         {
             _customerRepository = customerRepository;
         }
-
+        //TODO kig på hvordan det er løst i CityController
         // GET: api/Customer
         public IHttpActionResult GetAll()
         {
@@ -28,7 +28,10 @@ namespace API.Controllers
             var customerDAL = _customerRepository.GetAll();
             foreach (var customer in customerDAL)
             {
-                customers.Add(BuildCustomer(customer));
+                if (customer != null)
+                {
+                    customers.Add(BuildCustomer(customer));
+                }
             }
             if (customers.Count == 0)
             {
@@ -88,7 +91,7 @@ namespace API.Controllers
                 Clinic = customer.ClinicId != 0 ? ApiHelper.BuildClinicURL(customer.ClinicId) : null,
                 Practitioner = customer.PractitionerId != 0 ? ApiHelper.BuildPractitionerURL(customer.PractitionerId) : null,
                 RehabProgram = customer.RehabProgramId != 0 ? ApiHelper.BuildRehabProgramURL(customer.RehabProgramId) : null,
-                City = customer.City,
+                City = customer.CityName,
                 FirstName = customer.FirstName,
                 LastName = customer.LastName,
                 PhoneNo = customer.PhoneNo,

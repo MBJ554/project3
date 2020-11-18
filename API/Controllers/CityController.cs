@@ -23,28 +23,34 @@ namespace API.Controllers
 
         // GET: api/City
         [HttpGet]
-        public IEnumerable<City> Get()
+        public IHttpActionResult Get()
         {
-            using (var conn = new SqlConnection(connectionString))
+            List<City> cities = new List<City>();
+            var citiesDAL = _cityRepository.GetAll();
+            if (citiesDAL.Count() == 0)
             {
-                string sql = "SELECT * FROM City";
-
-                return conn.Query<City>(sql);
+                return NotFound();
             }
+            foreach (var city in citiesDAL)
+            {
+                cities.Add(BuildCity(city));
+            }
+            return Ok(cities);
+            
         }
 
 
         
         // GET: api/City/GetById
         [HttpGet]
-        public City Get(string id)
+        public IHttpActionResult Get(string id)
         {
             var cityDAL = _cityRepository.GetCityByZipCode(id);
-            return new City
+            if (cityDAL != null)
             {
-                zipCode = cityDAL.zipCode,
-                city = cityDAL.city
-            };
+                return Ok(BuildCity(cityDAL));
+            }
+            return NotFound();
         }
 
         // POST: api/City
@@ -66,6 +72,15 @@ namespace API.Controllers
                 return conn.Query<City>(sql, new { zipCode }).SingleOrDefault();
 
             }
+        }
+
+        private City BuildCity(API.DAL.Models.City city)
+        {
+            return new City
+            {
+                ZipCode = city.ZipCode,
+                CityName = city.CityName
+            };
         }
     }
 }
