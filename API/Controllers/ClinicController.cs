@@ -88,7 +88,7 @@ namespace API.Controllers
                 Name = clinic.Name,
                 Address = clinic.Address,
                 ZipCode = clinic.ZipCode,
-                City = clinic.City,
+                City = clinic.CityName,
                 PhoneNo = clinic.PhoneNo,
                 Description = clinic.Description
             };

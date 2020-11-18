@@ -24,21 +24,21 @@ namespace API.Models
 		public string ZipCode { get; set; }
         public string City { get; set; }
 
-        public Customer(int id_, string clinic_, string practitioner_, string rehabProgram_, string firstName_, string lastName_, string phoneNo_, string email_, string password_, string address_, string zipCode_, string city_)
+        public Customer(int _id, string _clinic, string _practitioner, string _rehabProgram, string _firstName, string _lastName, string _phoneNo, string _email, string _password, string _address, string _zipCode, string _city)
 		{
-			this.Id = id_;
+			this.Id = _id;
 			//this.PersonTypeId = personTypeId_;
-			this.Clinic = clinic_;
-			this.Practitioner = practitioner_;
-			this.RehabProgram = rehabProgram_;
-			this.FirstName = firstName_;
-			this.LastName = lastName_;
-			this.PhoneNo = phoneNo_;
-			this.Email = email_;
-			this.Password = password_;
-			this.Address = address_;
-			this.ZipCode = zipCode_;
-			this.City = city_;
+			this.Clinic = _clinic;
+			this.Practitioner = _practitioner;
+			this.RehabProgram = _rehabProgram;
+			this.FirstName = _firstName;
+			this.LastName = _lastName;
+			this.PhoneNo = _phoneNo;
+			this.Email = _email;
+			this.Password = _password;
+			this.Address = _address;
+			this.ZipCode = _zipCode;
+			this.City = _city;
 		}
         public Customer()
         {

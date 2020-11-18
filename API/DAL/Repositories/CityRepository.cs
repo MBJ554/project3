@@ -25,7 +25,11 @@ namespace API.DAL.Repositories
 
         public IEnumerable<City> GetAll()
         {
-            throw new NotImplementedException();
+            using (var conn = new SqlConnection(connectionString))
+            {
+                string sql = "SELECT * FROM City";
+                return conn.Query<City>(sql);
+            };
         }
 
         public City GetById(int id)

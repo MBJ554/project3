@@ -10,7 +10,7 @@ GO
 
 CREATE TABLE [dbo].[City](
 	[zipCode] [varchar](4) NOT NULL,
-	[city] [varchar](50) NOT NULL,
+	[cityName] [varchar](50) NOT NULL,
  CONSTRAINT [PK_City] PRIMARY KEY CLUSTERED 
 (
 	[zipCode] ASC
