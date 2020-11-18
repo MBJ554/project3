@@ -51,34 +51,47 @@
         <TextBlock Grid.Column="1" Grid.Row="7" Margin="0,10,0,0">Adresse</TextBlock>
         <TextBlock Grid.Column="1" Grid.Row="8" Margin="0,10,0,0">Post nr.</TextBlock>
         <TextBlock Grid.Column="1" Grid.Row="9" Margin="0,10,0,0">Password</TextBlock>
-        <TextBlock Grid.Column="1" Grid.Row="10" Margin="0,10,0,0">Postnr/By</TextBlock>
+        <TextBlock Grid.Column="1" Grid.Row="10" Margin="0,10,0,0">Clinic ID</TextBlock>
 
 
 
         <TextBox x:Name="fornavn" Grid.Column="2" Grid.Row="3"
-                 Width="150" Margin="5,5,0,0"/>
+                 Width="150" Margin="5,5,0,0" Text="{Binding Path=Customer.FirstName, Mode=OneWayToSource}"/>
         <TextBox x:Name="efternavn" Grid.Column="2" Grid.Row="4"
-                 Width="150" Margin="5,5,0,0"/>
+                 Width="150" Margin="5,5,0,0" Text="{Binding Path=Customer.LastName, Mode=OneWayToSource}"/>
         <TextBox x:Name="mobil" Grid.Column="2" Grid.Row="5"
-                 Width="150" Margin="5,5,0,0"/>
+                 Width="150" Margin="5,5,0,0" Text="{Binding Path=Customer.PhoneNo, Mode=OneWayToSource}"/>
         <TextBox x:Name="email" Grid.Column="2" Grid.Row="6"
-                 Width="150" Margin="5,5,0,0"/>
+                 Width="150" Margin="5,5,0,0" Text="{Binding Path=Customer.Email, Mode=OneWayToSource}"/>
+        <TextBox x:Name="adresse" Grid.Column="2" Grid.Row="7"
+                 Width="150" Margin="5,5,0,0" Text="{Binding Path=Customer.Address, Mode=OneWayToSource}"/>
         <StackPanel Grid.Column="2" Grid.Row="8" Orientation="Horizontal">
-            <TextBox x:Name="zipCode" Grid.Column="2" Grid.Row="8"
-                 Width="150" Margin="5,5,0,0">
-            </TextBox>
-            <TextBox x:Name="city" IsEnabled="False"></TextBox>
+
+            <TextBox x:Name="postnr" Grid.Column="2" Grid.Row="8"
+                 Width="150" Margin="5,5,0,0" TextChanged="postnr_TextChanged" Text="{Binding Path=Customer.ZipCode, Mode=OneWayToSource}"/>
+           
+            <TextBox x:Name="city" IsEnabled="False" Text="{Binding Path=Custmer.City, Mode=OneWayToSource}"></TextBox>
 
         </StackPanel>
-        
-       
-        <TextBox x:Name="postnr" Grid.Column="2" Grid.Row="8"
-                 Width="150" Margin="5,5,0,0" TextChanged="postnr_TextChanged"/>
+
+
+
         <PasswordBox x:Name="password" Grid.Column="2" Grid.Row="9"
-                 Width="150" Margin="5,5,0,0" />
+                 Width="150" Margin="6,5,1,0" Height="25" VerticalAlignment="Top"/>
         
-       
-        <Button Grid.Column="2" Grid.Row="10" Margin="5,5,0,0" Height="40" Background="#FF4A9338" Click="Button_Click">Opret</Button>
+        <ComboBox x:Name="ClinicList" ItemsSource="{Binding Clinics}" Grid.Row="10" Grid.Column="2" >
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock x:Name="clinicName" Text="{Binding Name}"/>
+                        <TextBlock x:Name="clinicId" Text="{Binding Id}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+
+
+        <Button Grid.Column="2" Grid.Row="11" Margin="5,5,0,0" Height="40" Background="#FF4A9338" Click="Button_Click">Opret</Button>
         
 
     </Grid>

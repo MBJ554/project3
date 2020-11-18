@@ -23,27 +23,36 @@ namespace Desktop
     /// </summary>
     public partial class CreateUser : Page
     {
-        private CityCaller cc;
-        private List<City> cities;
+
+        private DataContextForCreateUser dcfcu;
+
+      
+
+        public DataContextForCreateUser DCFCU { get 
+            {
+                return dcfcu;
+            } 
+            set 
+            {
+                dcfcu = value;
+            } 
+        }
 
         public CreateUser()
         {
 
-            cc = new CityCaller();
-            cities = (List<City>)cc.GetAll();
+            dcfcu = new DataContextForCreateUser();
             InitializeComponent();
-            DataContext = new DataContextForCreateUser();
+            DataContext = dcfcu;
            
-        }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
+            dcfcu.Customer.Password = password.Password;
+            Clinic cl = (Clinic)ClinicList.SelectedItem;
+            dcfcu.Customer.ClinicId = cl.Id;
+            dcfcu.CUC.Create(dcfcu.Customer);
         }
 
         public static implicit operator UserControl(CreateUser v)
@@ -51,16 +60,16 @@ namespace Desktop
             throw new NotImplementedException();
         }
 
-        private void zipCode_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (zipCode.Text.Length == 4) {
-                if (numbersOnly(zipCode.Text))
-                {
+        //private void zipCode_TextChanged(object sender, TextChangedEventArgs e)
+        //{
+        //    if (zipCode.Text.Length == 4) {
+        //        if (numbersOnly(zipCode.Text))
+        //        {
                     
-                    setCity(zipCode.Text);
-                }
-            }
-        }
+        //            setCity(zipCode.Text);
+        //        }
+        //    }
+        //}
 
         public bool numbersOnly(String checkString) {
 
@@ -71,8 +80,10 @@ namespace Desktop
 
         private void setCity(string zipCode) {
 
-            City c = cc.GetByZipCode(zipCode);
-            city.Text = c.city;      
+            City c = dcfcu.CC.GetByZipCode(zipCode);
+                city.Text = c.CityName;
+ 
+                
         }
 
         private void postnr_TextChanged(object sender, TextChangedEventArgs e)

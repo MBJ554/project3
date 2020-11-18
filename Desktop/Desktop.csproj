@@ -71,6 +71,7 @@
       <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -89,6 +90,8 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Callers\CityCaller.cs" />
+    <Compile Include="Callers\ClinicCaller.cs" />
+    <Compile Include="Callers\CustomerCaller.cs" />
     <Compile Include="Callers\ICaller.cs" />
     <Compile Include="CreateUser.xaml.cs">
       <DependentUpon>CreateUser.xaml</DependentUpon>
@@ -99,12 +102,11 @@
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Models\Byer.cs" />
-    <Compile Include="Models\ByListe.cs" />
     <Compile Include="Models\CitiesList.cs" />
     <Compile Include="Models\City.cs" />
+    <Compile Include="Models\Clinic.cs" />
+    <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\DataContextForCreateUser.cs" />
-    <Compile Include="Models\Kommuner.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

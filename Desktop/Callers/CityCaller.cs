@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Desktop.Callers
 {
-    class CityCaller : ICaller<City>
+    public class CityCaller : ICaller<City>
     {
 
         
@@ -21,7 +21,7 @@ namespace Desktop.Callers
 
         public CityCaller() {
 
-            client = new RestClient(ConfigurationManager.AppSettings["ProjectApi"]);
+            client = new RestClient(ConfigurationManager.AppSettings["ByApi"]);
         }
 
 
@@ -37,7 +37,7 @@ namespace Desktop.Callers
 
         public IEnumerable<City> GetAll()
         {
-            var request = new RestRequest("city", Method.GET);
+            var request = new RestRequest("postnumre", Method.GET);
             var response = client.Execute<List<City>>(request);
             return response.Data;
         }
@@ -49,7 +49,7 @@ namespace Desktop.Callers
 
         public City GetByZipCode(string id)
         {
-            var request = new RestRequest("city/" + id, Method.GET);
+            var request = new RestRequest("postnumre/" + id, Method.GET);
             var response = client.Execute<City>(request);
             return response.Data;
         }
