@@ -24,7 +24,7 @@ namespace Desktop.Callers
 
         public void Create(Customer obj)
         {
-            var request = new RestRequest("Customer", Method.POST);
+            var request = new RestRequest("/Customer", Method.POST);
             request.RequestFormat = DataFormat.Json;
             
             var json = new JavaScriptSerializer().Serialize(obj);

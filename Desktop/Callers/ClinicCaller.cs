@@ -33,7 +33,7 @@ namespace Desktop.Callers
 
         public IEnumerable<Clinic> GetAll()
         {
-            var request = new RestRequest("Clinic", Method.GET);
+            var request = new RestRequest("/Clinic", Method.GET);
             var response = client.Execute<List<Clinic>>(request);
             return response.Data;
         }

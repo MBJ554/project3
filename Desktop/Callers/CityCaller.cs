@@ -37,7 +37,7 @@ namespace Desktop.Callers
 
         public IEnumerable<City> GetAll()
         {
-            var request = new RestRequest("postnumre", Method.GET);
+            var request = new RestRequest("/postnumre", Method.GET);
             var response = client.Execute<List<City>>(request);
             return response.Data;
         }
@@ -49,7 +49,7 @@ namespace Desktop.Callers
 
         public City GetByZipCode(string id)
         {
-            var request = new RestRequest("postnumre/" + id, Method.GET);
+            var request = new RestRequest("/postnumre/" + id, Method.GET);
             var response = client.Execute<City>(request);
             return response.Data;
         }

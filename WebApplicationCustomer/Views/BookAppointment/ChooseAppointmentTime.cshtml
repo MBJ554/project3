@@ -1,0 +1,40 @@
+﻿@model IEnumerable<WebApplication.Models.Appointment>
+
+@{
+    ViewBag.Title = "ChooseAppointmentTime";
+}
+
+<h2>ChooseAppointmentTime</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Startdate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Enddate)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.StartEndDate)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Startdate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Enddate)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.StartEndDate)
+            </td>
+
+        </tr>
+    }
