@@ -57,7 +57,8 @@ namespace API.DAL.Repositories
         {
             using (var conn = new SqlConnection(connectionString))
             {
-                string sql = "SELECT * FROM Appointment WHERE startdate AS DATE = @date AND practitionerId = @practitionerId";
+                // TODO: Fix stavefejl i database med practitioner
+                string sql = "SELECT * FROM Appointment WHERE (SELECT CONVERT (date , startdate)) = @date  AND practionerId = @practitionerId";
                 return conn.Query<Appointment>(sql, new { date.Date, practitionerId } );
             }
         }

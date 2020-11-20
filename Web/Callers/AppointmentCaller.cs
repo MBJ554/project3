@@ -18,7 +18,7 @@ namespace Web.Callers
         public AppointmentCaller()
         {
 
-            client = new RestClient(ConfigurationManager.AppSettings["ProjectApi2"]);
+            client = new RestClient(ConfigurationManager.AppSettings["ProjectApi"]);
         }
 
         public void Create(Appointment obj)
@@ -50,7 +50,10 @@ namespace Web.Callers
 
         public async Task<List<Appointment>> GetByDate(DateTime appointmentDate)
         {
-            var request = new RestRequest("Appointment/" + appointmentDate, Method.GET);
+
+
+            var request = new RestRequest("Appointment/"+ 1, Method.GET);
+            request.AddParameter("date", appointmentDate.ToString());
             var response = await Task.Run(() => client.Execute<List<Appointment>>(request));
             return response.Data;
         }
