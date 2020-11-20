@@ -89,7 +89,7 @@
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
-
+       
 
         <Button Grid.Column="2" Grid.Row="11" Margin="5,5,0,0" Height="40" Background="#FF4A9338" Click="Button_Click">Opret</Button>
         

@@ -44,10 +44,8 @@ namespace Desktop
 
             dcfcu = new DataContextForCreateUser();
             InitializeComponent();
-            Thread t = new Thread(() => DataContext = dcfcu);
-            t.Start();
-            t.Join();
-           
+            DataContext = dcfcu;
+            Customer c = new Customer();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

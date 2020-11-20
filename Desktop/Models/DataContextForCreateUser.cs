@@ -101,24 +101,43 @@ namespace Desktop.Models
         {
 
             // TODO: husk at kald retride data
-          
+            RetrieveDataSync();
+            
+        }
+
+        private void RetrieveDataSync() {
+            
+                customer = new Customer();
+                cc = new CityCaller();
+                cuc = new CustomerCaller();
+                clc = new ClinicCaller();
+
+               
+
+                
+                //Clinics = (List<Clinic>)getClinics.Result;
+
+                Clinics = (List<Clinic>)clc.GetAllSync();
+            Cities = (List<City>)cc.GetAllSync();
+
+            
         }
 
         private async Task RetrieveData()
         {
-
+            customer = new Customer();
             cc = new CityCaller();
             cuc = new CustomerCaller();
             clc = new ClinicCaller();
+            
             var getClinics = clc.GetAll();
             var getCities = cc.GetAll();
 
             await Task.WhenAll(getClinics, getCities);
-            cities = (List<City>)getCities.Result;
-            clinics = (List<Clinic>)getClinics.Result;
-
-            customer = new Customer();
-
+            //Clinics = (List<Clinic>)getClinics.Result;
+            
+            //Clinics = (List<Clinic>)clc.GetAll1();
+            Cities = (List<City>)getCities.Result;
 
         }
 

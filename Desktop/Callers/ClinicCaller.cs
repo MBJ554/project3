@@ -47,5 +47,13 @@ namespace Desktop.Callers
         {
             throw new NotImplementedException();
         }
+
+        public IEnumerable<Clinic> GetAllSync()
+        {
+            var request = new RestRequest("/Clinic", Method.GET);
+            var response = client.Execute<List<Clinic>>(request);
+            return response.Data;
+        }
+
     }
 }
