@@ -6,7 +6,9 @@
 
 <h2>ChooseAppointmentTime</h2>
 
-
+<p>
+    @Html.ActionLink("BookAppointment", "BookTime")
+</p>
 <table class="table">
     <tr>
         <th>
@@ -15,28 +17,28 @@
         <th>
             @Html.DisplayNameFor(model => model.Enddate)
         </th>
-
         <th>
             @Html.DisplayNameFor(model => model.StartEndDate)
         </th>
         <th></th>
     </tr>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Startdate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Enddate)
-            </td>
-
-            <td>
-                @Html.DisplayFor(modelItem => item.StartEndDate)
-            </td>
-
-        </tr>
-    }
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Startdate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Enddate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StartEndDate)
+        </td>
+        <td>
+            @Html.ActionLink("Book", "Book", new {  date=item.Startdate  }) |
+          
+        </td>
+    </tr>
+}
 
 </table>

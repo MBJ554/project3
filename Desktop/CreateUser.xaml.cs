@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -43,7 +44,9 @@ namespace Desktop
 
             dcfcu = new DataContextForCreateUser();
             InitializeComponent();
-            DataContext = dcfcu;
+            Thread t = new Thread(() => DataContext = dcfcu);
+            t.Start();
+            t.Join();
            
         }
 

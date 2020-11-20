@@ -35,10 +35,10 @@ namespace Desktop.Callers
             throw new NotImplementedException();
         }
 
-        public IEnumerable<City> GetAll()
+        public async Task<IEnumerable<City>> GetAll()
         {
             var request = new RestRequest("/postnumre", Method.GET);
-            var response = client.Execute<List<City>>(request);
+            var response = await Task.Run(() => client.Execute<List<City>>(request));
             return response.Data;
         }
 

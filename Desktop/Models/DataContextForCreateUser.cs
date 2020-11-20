@@ -100,19 +100,27 @@ namespace Desktop.Models
         public DataContextForCreateUser()
         {
 
-            //CityCaller cc = new CityCaller();
+            // TODO: husk at kald retride data
+          
+        }
+
+        private async Task RetrieveData()
+        {
+
             cc = new CityCaller();
             cuc = new CustomerCaller();
             clc = new ClinicCaller();
-            clinics = (List<Clinic>)clc.GetAll();
-            cities = (List<City>)cc.GetAll();
-            //Task t1 = Task.Run(() => Cities = (List<City>)cc.GetAll());
-            //t1.Wait();
+            var getClinics = clc.GetAll();
+            var getCities = cc.GetAll();
+
+            await Task.WhenAll(getClinics, getCities);
+            cities = (List<City>)getCities.Result;
+            clinics = (List<Clinic>)getClinics.Result;
+
             customer = new Customer();
+
+
         }
-
-
-
 
     }
 }

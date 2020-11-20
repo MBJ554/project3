@@ -9,7 +9,7 @@ namespace Web.Callers
     interface ICaller<TEntity>
     {
 
-        IEnumerable<TEntity> GetAll();
+        Task<IEnumerable<TEntity>> GetAll();
 
         TEntity GetById(int id);
 

@@ -41,7 +41,7 @@ namespace Desktop.Callers
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Customer> GetAll()
+        public Task<IEnumerable<Customer>> GetAll()
         {
             throw new NotImplementedException();
         }

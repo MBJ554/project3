@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using Web.Models;
 
@@ -30,10 +31,10 @@ namespace Web.Callers
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Appointment> GetAll()
+        public async Task<IEnumerable<Appointment>> GetAll()
         {
             var request = new RestRequest("Appointment", Method.GET);
-            var response = client.Execute<List<Appointment>>(request);
+            var response = await Task.Run(() => client.Execute<List<Appointment>>(request));
             return response.Data;
         }
 
@@ -47,10 +48,10 @@ namespace Web.Callers
             throw new NotImplementedException();
         }
 
-        public List<Appointment> GetByDate(DateTime appointmentDate)
+        public async Task<List<Appointment>> GetByDate(DateTime appointmentDate)
         {
             var request = new RestRequest("Appointment/" + appointmentDate, Method.GET);
-            var response = client.Execute<List<Appointment>>(request);
+            var response = await Task.Run(() => client.Execute<List<Appointment>>(request));
             return response.Data;
         }
     }
