@@ -25,6 +25,7 @@ namespace API
             builder.RegisterType<RehabProgramRepository>().As<IRehabProgramRepository>();
             builder.RegisterType<ExerciseLineRepository>().As<IExerciseLineRepository>();
             builder.RegisterType<ExerciseRepository>().As<IExerciseRepository>();
+            builder.RegisterType<AppointmentRepository>().As<IAppointmentRepository>();
             var container = builder.Build();
             var resolver = new AutofacWebApiDependencyResolver(container);
             GlobalConfiguration.Configuration.DependencyResolver = resolver;
