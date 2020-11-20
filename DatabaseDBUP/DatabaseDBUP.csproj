@@ -79,5 +79,8 @@
     <EmbeddedResource Include="Scripts\0009_Injury.sql" />
     <EmbeddedResource Include="Scripts\0010_Appointment.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Scripts\0011_Insert.sql" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

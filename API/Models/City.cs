@@ -7,13 +7,13 @@ namespace API.Models
 {
 	public class City
 	{
-		public string zipCode { get; set; }
-		public string city { get; set; }
+		public string ZipCode { get; set; }
+		public string CityName { get; set; }
 
-		public City(string zipCode_, string city_)
+		public City(string _zipCode, string _cityName)
 		{
-			this.zipCode = zipCode_;
-			this.city = city_;
+			this.ZipCode = _zipCode;
+			this.CityName = _cityName;
 		}
         public City()
         {

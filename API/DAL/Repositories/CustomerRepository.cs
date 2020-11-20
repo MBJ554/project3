@@ -58,16 +58,16 @@ namespace API.DAL.Repositories
         {
             using (var conn = new SqlConnection(connectionString))
             {
-                string sql = "SELECT * FROM Person p INNER JOIN City c ON c.zipCode = p.zipCode WHERE personTypeId = 1";
+                string sql = "SELECT * FROM Person p INNER JOIN City c ON c.zipCode = p.zipCode WHERE personTypeId = (SELECT id FROM PersonType WHERE type = 'Customer')";
                 return conn.Query<Customer>(sql);
             }
         }
-
+     
         public Customer GetById(int id)
         {
             using (var conn = new SqlConnection(connectionString))
             {
-                string sql = "SELECT * FROM Person p INNER JOIN City c ON c.zipCode = p.zipCode WHERE personTypeId = 1 AND id = @id ";
+                string sql = "SELECT * FROM Person p INNER JOIN City c ON c.zipCode = p.zipCode WHERE personTypeId = (SELECT id FROM PersonType WHERE type = 'Customer') AND id = @id ";
                 return conn.QuerySingleOrDefault<Customer>(sql, new { id });
             }
         }

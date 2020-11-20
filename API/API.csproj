@@ -128,6 +128,7 @@
     <Compile Include="Controllers\InjuryTypeController.cs" />
     <Compile Include="Controllers\PractitionerController.cs" />
     <Compile Include="Controllers\RehabProgramController.cs" />
+    <Compile Include="DAL\Interfaces\IAppointmentRepository.cs" />
     <Compile Include="DAL\Interfaces\ICityRepository.cs" />
     <Compile Include="DAL\Interfaces\IClinicRepository.cs" />
     <Compile Include="DAL\Interfaces\ICustomerRepository.cs" />
@@ -136,6 +137,7 @@
     <Compile Include="DAL\Interfaces\IGenericRepository.cs" />
     <Compile Include="DAL\Interfaces\IPractitionerRepository.cs" />
     <Compile Include="DAL\Interfaces\IRehabProgramRepository.cs" />
+    <Compile Include="DAL\Models\Appointment.cs" />
     <Compile Include="DAL\Models\City.cs" />
     <Compile Include="DAL\Models\Clinic.cs" />
     <Compile Include="DAL\Models\Customer.cs" />
@@ -143,6 +145,7 @@
     <Compile Include="DAL\Models\ExerciseLine.cs" />
     <Compile Include="DAL\Models\Practitioner.cs" />
     <Compile Include="DAL\Models\RehabProgram.cs" />
+    <Compile Include="DAL\Repositories\AppointmentRepository.cs" />
     <Compile Include="DAL\Repositories\CityRepository.cs" />
     <Compile Include="DAL\Repositories\ClinicRepository.cs" />
     <Compile Include="DAL\Repositories\CustomerRepository.cs" />

@@ -3,29 +3,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace API.Models
+namespace API.DAL.Models
 {
 	public class Appointment
 	{
 		public int Id { get; set; }
 		public DateTime Startdate { get; set; }
 		public DateTime Enddate { get; set; }
-		public string Customer { get; set; }
-		public string Practioner { get; set; }
+		public int CustomerId { get; set; }
+		public int PractionerId { get; set; }
 
-		public Appointment(int _Id, DateTime _startDate, DateTime _endDate, string _customer, string _practioner)
+		public Appointment(int _Id, DateTime _startDate, DateTime _endDate, int _customerId, int _practionerId)
 		{
 			this.Id = _Id;
 			this.Startdate = _startDate;
 			this.Enddate = _endDate;
-			this.Customer = _customer;
-			this.Practioner = _practioner;
+			this.CustomerId = _customerId;
+			this.PractionerId = _practionerId;
 		}
 		public Appointment()
-        {
+		{
 
-        }
+		}
 
 	}
-
 }
