@@ -33,8 +33,8 @@ namespace Desktop.Callers
 
         public async Task<IEnumerable<Clinic>> GetAll()
         {
-            var request = new RestRequest("/Clinic", Method.GET);
-            var response = await Task.Run(() => client.Execute<List<Clinic>>(request));
+            var request = new RestRequest("/clinic", Method.GET);
+            var response = await client.ExecuteAsync<List<Clinic>>(request);
             return response.Data;
         }
 

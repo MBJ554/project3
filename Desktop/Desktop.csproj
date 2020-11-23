@@ -106,7 +106,7 @@
     <Compile Include="Models\City.cs" />
     <Compile Include="Models\Clinic.cs" />
     <Compile Include="Models\Customer.cs" />
-    <Compile Include="Models\DataContextForCreateUser.cs" />
+    <Compile Include="ViewModels\DataContextForCreateUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

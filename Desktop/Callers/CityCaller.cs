@@ -38,7 +38,7 @@ namespace Desktop.Callers
         public async Task<IEnumerable<City>> GetAll()
         {
             var request = new RestRequest("/postnumre", Method.GET);
-            var response = await Task.Run(() => client.Execute<List<City>>(request));
+            var response = await client.ExecuteAsync<List<City>>(request);
             return response.Data;
         }
 

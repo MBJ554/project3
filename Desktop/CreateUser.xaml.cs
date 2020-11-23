@@ -1,5 +1,6 @@
 ﻿using Desktop.Callers;
 using Desktop.Models;
+using Desktop.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,7 +46,6 @@ namespace Desktop
             dcfcu = new DataContextForCreateUser();
             InitializeComponent();
             DataContext = dcfcu;
-            Customer c = new Customer();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

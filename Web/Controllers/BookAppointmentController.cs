@@ -18,18 +18,15 @@ namespace Web.Controllers
         }
 
        
-        public async Task<ActionResult> ChooseAppointmentTime(DateTime AppointmentDate)
+        public async Task<ActionResult> ChooseAppointmentTime(DateTime date)
         {
-            AppointmentCaller ac = new AppointmentCaller();
-            var getBookedAppointments = ac.GetByDate(AppointmentDate);
+            AppointmentCaller appointmentCaller = new AppointmentCaller();
+            var bookedAppointments = await appointmentCaller.GetByDate(date);
 
-            await Task.WhenAll(getBookedAppointments);
             // List<Appointment> bookedAppointments = new List<Appointment>();
             // Appointment bookedAppointment = new Appointment();
             // bookedAppointment.Startdate = DateTime.Today.AddHours(10);
-            List<Appointment> bookedAppointments = getBookedAppointments.Result; 
-            
-            
+
             List<Appointment> allowedAppointments = new List<Appointment>();
             for (int i = 0; i < 14; i++)
             {
@@ -37,17 +34,22 @@ namespace Web.Controllers
                 a.Startdate = DateTime.Today.AddHours(8 + (i * 0.50));
                 a.Enddate = DateTime.Today.AddHours(8 + (i * 0.5 + 0.5));
 
-                foreach (Appointment bookedA in bookedAppointments)
+                if (bookedAppointments != null)
                 {
-                    if (a.Startdate != bookedA.Startdate) {
-                        allowedAppointments.Add(a);
-                    }
+                    foreach (Appointment bookedA in bookedAppointments)
+                    {
+                        if (a.Startdate != bookedA.Startdate) {
+                            allowedAppointments.Add(a);
+                        }
                     
+                    }
+                }
+                else
+                {
+                    allowedAppointments.Add(a);
                 }
                 
             }
-            
-
 
             ViewBag.Appointments = allowedAppointments;
 

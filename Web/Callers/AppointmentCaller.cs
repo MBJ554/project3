@@ -34,7 +34,7 @@ namespace Web.Callers
         public async Task<IEnumerable<Appointment>> GetAll()
         {
             var request = new RestRequest("Appointment", Method.GET);
-            var response = await Task.Run(() => client.Execute<List<Appointment>>(request));
+            var response = await client.ExecuteAsync<List<Appointment>>(request);
             return response.Data;
         }
 
@@ -48,13 +48,12 @@ namespace Web.Callers
             throw new NotImplementedException();
         }
 
+        //TODO change to IEnumerable
         public async Task<List<Appointment>> GetByDate(DateTime appointmentDate)
         {
-
-
             var request = new RestRequest("Appointment/"+ 1, Method.GET);
             request.AddParameter("date", appointmentDate.ToString());
-            var response = await Task.Run(() => client.Execute<List<Appointment>>(request));
+            var response = await client.ExecuteAsync<List<Appointment>>(request);
             return response.Data;
         }
     }

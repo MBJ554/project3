@@ -1,4 +1,5 @@
 ﻿using Desktop.Callers;
+using Desktop.Models;
 using RestSharp;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Desktop.Models
+namespace Desktop.ViewModels
 {
     public class DataContextForCreateUser
     {
@@ -101,43 +102,43 @@ namespace Desktop.Models
         {
 
             // TODO: husk at kald retride data
-            RetrieveDataSync();
+            //RetrieveDataSync();
+            RetrieveData();
             
         }
 
         private void RetrieveDataSync() {
             
-                customer = new Customer();
-                cc = new CityCaller();
-                cuc = new CustomerCaller();
-                clc = new ClinicCaller();
+            customer = new Customer();
+            cc = new CityCaller();
+            cuc = new CustomerCaller();
+            clc = new ClinicCaller();
 
                
 
                 
-                //Clinics = (List<Clinic>)getClinics.Result;
+            //Clinics = (List<Clinic>)getClinics.Result;
 
-                Clinics = (List<Clinic>)clc.GetAllSync();
+            Clinics = (List<Clinic>)clc.GetAllSync();
             Cities = (List<City>)cc.GetAllSync();
 
             
         }
 
-        private async Task RetrieveData()
+        public async void RetrieveData()
         {
             customer = new Customer();
             cc = new CityCaller();
             cuc = new CustomerCaller();
             clc = new ClinicCaller();
             
-            var getClinics = clc.GetAll();
-            var getCities = cc.GetAll();
+            var clinics = clc.GetAll();
+            var cities = cc.GetAll();
 
-            await Task.WhenAll(getClinics, getCities);
-            //Clinics = (List<Clinic>)getClinics.Result;
-            
-            //Clinics = (List<Clinic>)clc.GetAll1();
-            Cities = (List<City>)getCities.Result;
+            await Task.WhenAll(clinics, cities);
+
+            Clinics = (List<Clinic>)clinics.Result;
+            Cities = (List<City>)cities.Result;
 
         }
 
