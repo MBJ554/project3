@@ -61,14 +61,15 @@ namespace API.Controllers
             {
                 appointsments.Add(BuildAppointment(appointment));
             }
-            return Ok();
+            return Ok(appointsments);
 
         }
 
         // POST: api/Appointment
-        public void Post([FromBody] API.DAL.Models.Appointment appointment)
+        public void Post([FromBody] Appointment appointment)
         {
-            _appointmentRepository.Create(appointment);
+            API.DAL.Models.Appointment c = BuildDalAppointment(appointment);
+            _appointmentRepository.Create(c);
         }
 
         // DELETE: api/Appointment/5
@@ -87,6 +88,21 @@ namespace API.Controllers
                 Practioner = ApiHelper.BuildPractitionerURL(appointment.PractionerId),
                 Customer = ApiHelper.BuildCustomerURL(appointment.CustomerId)
             };
+        }
+
+        private API.DAL.Models.Appointment BuildDalAppointment(Appointment appointment) {
+            
+            // TODO : Fix tidkonvertiring til UTC
+            return new API.DAL.Models.Appointment
+            {
+                Id = appointment.Id,
+                Startdate = appointment.Startdate.ToLocalTime(),
+                Enddate = appointment.Enddate.ToLocalTime(),
+                CustomerId = int.Parse(appointment.Customer),
+                PractionerId = int.Parse(appointment.Practioner)
+        };
+
+
         }
     }
 }

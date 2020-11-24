@@ -5,6 +5,7 @@ using System.Configuration;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Script.Serialization;
 using Web.Models;
 
 namespace Web.Callers
@@ -40,7 +41,7 @@ namespace Web.Callers
 
         public Appointment GetById(int id)
         {
-            throw new NotImplementedException();
+           throw new NotImplementedException();
         }
 
         public void Update(Appointment obj)
@@ -56,5 +57,22 @@ namespace Web.Callers
             var response = await client.ExecuteAsync<List<Appointment>>(request);
             return response.Data;
         }
+
+        public void BookTime(Appointment a)
+        {
+            var request = new RestRequest("/appointment", Method.POST);
+            
+
+           
+
+            request.AddJsonBody(a);
+            var response = client.Execute(request);
+        }
+
+       
+
+
+
+
     }
 }

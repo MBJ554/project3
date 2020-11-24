@@ -23,11 +23,11 @@ namespace API.DAL.Repositories
                     "([startdate], " +
                     "[enddate], " +
                     "[customerId], " +
-                    "[practitionerId]) VALUES " +
+                    "[practionerId]) VALUES " +
                     "(@startdate, " +
                     "@enddate, " +
                     "@customerId, " +
-                    "@practitionerId)";
+                    "@practionerId)";
                 conn.Execute(sql, obj);
                 return null;
             }
