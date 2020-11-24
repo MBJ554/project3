@@ -25,7 +25,7 @@ namespace Desktop
         public TestPage()
         {
             InitializeComponent();
-            DataContext = new DataContextForCreateUser();
+            DataContext = new ViewModelCreateUser();
            
         }
     }

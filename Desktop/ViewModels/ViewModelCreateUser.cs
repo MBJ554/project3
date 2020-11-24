@@ -3,18 +3,19 @@ using Desktop.Models;
 using RestSharp;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Configuration;
 using System.Linq;
 using System.Net;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Desktop.ViewModels
 {
-    public class DataContextForCreateUser
+    public class ViewModelCreateUser : INotifyPropertyChanged
     {
 
-        private List<City> cities;
 
         private List<Clinic> clinics;
 
@@ -25,6 +26,13 @@ namespace Desktop.ViewModels
         private CustomerCaller cuc;
 
         private ClinicCaller clc;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged([CallerMemberName] string name = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
 
         public CityCaller CC
         {
@@ -74,17 +82,7 @@ namespace Desktop.ViewModels
             }
         }
 
-        public List<City> Cities
-        {
-            get
-            {
-                return cities;
-            }
-            set
-            {
-                cities = value;
-            }
-        }
+      
 
         public List<Clinic> Clinics
         {
@@ -95,33 +93,16 @@ namespace Desktop.ViewModels
             set
             {
                 clinics = value;
+                OnPropertyChanged();
             }
         }
 
-        public DataContextForCreateUser()
+        public ViewModelCreateUser()
         {
 
             // TODO: husk at kald retride data
             //RetrieveDataSync();
             RetrieveData();
-            
-        }
-
-        private void RetrieveDataSync() {
-            
-            customer = new Customer();
-            cc = new CityCaller();
-            cuc = new CustomerCaller();
-            clc = new ClinicCaller();
-
-               
-
-                
-            //Clinics = (List<Clinic>)getClinics.Result;
-
-            Clinics = (List<Clinic>)clc.GetAllSync();
-            Cities = (List<City>)cc.GetAllSync();
-
             
         }
 
@@ -133,12 +114,12 @@ namespace Desktop.ViewModels
             clc = new ClinicCaller();
             
             var clinics = clc.GetAll();
-            var cities = cc.GetAll();
+            
 
-            await Task.WhenAll(clinics, cities);
+            await Task.WhenAll(clinics);
 
             Clinics = (List<Clinic>)clinics.Result;
-            Cities = (List<City>)cities.Result;
+          
 
         }
 

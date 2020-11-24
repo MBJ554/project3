@@ -58,8 +58,11 @@ namespace Web.Controllers
 
         public ActionResult BookTime(DateTime startDate) {
 
+            AppointmentCaller ac = new AppointmentCaller();
+            ac.BookTime()
 
-            return null;
+
+            return View(); ;
         }
 
 
