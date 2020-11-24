@@ -24,16 +24,9 @@ namespace Desktop.Callers
 
         public void Create(Customer obj)
         {
-            var request = new RestRequest("Customer", Method.POST);
-            request.RequestFormat = DataFormat.Json;
-            
-            var json = new JavaScriptSerializer().Serialize(obj);
-            
-            request.AddBody(obj);
-            var response = client.Execute(request);
-
-            
-            
+            var request = new RestRequest("/Customer", Method.POST);      
+            request.AddJsonBody(obj);
+            var response = client.Execute(request);          
         }
 
         public void Delete(int id)
@@ -41,7 +34,7 @@ namespace Desktop.Callers
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Customer> GetAll()
+        public Task<IEnumerable<Customer>> GetAll()
         {
             throw new NotImplementedException();
         }

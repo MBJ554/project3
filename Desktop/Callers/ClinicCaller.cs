@@ -31,10 +31,10 @@ namespace Desktop.Callers
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Clinic> GetAll()
+        public async Task<IEnumerable<Clinic>> GetAll()
         {
-            var request = new RestRequest("Clinic", Method.GET);
-            var response = client.Execute<List<Clinic>>(request);
+            var request = new RestRequest("/clinic", Method.GET);
+            var response = await client.ExecuteAsync<List<Clinic>>(request);
             return response.Data;
         }
 
@@ -47,5 +47,13 @@ namespace Desktop.Callers
         {
             throw new NotImplementedException();
         }
+
+        public IEnumerable<Clinic> GetAllSync()
+        {
+            var request = new RestRequest("/Clinic", Method.GET);
+            var response = client.Execute<List<Clinic>>(request);
+            return response.Data;
+        }
+
     }
 }

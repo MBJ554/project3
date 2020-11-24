@@ -1,4 +1,5 @@
 ﻿using Desktop.Models;
+using Desktop.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +25,7 @@ namespace Desktop
         public TestPage()
         {
             InitializeComponent();
-            DataContext = new DataContextForCreateUser();
+            DataContext = new ViewModelCreateUser();
            
         }
     }

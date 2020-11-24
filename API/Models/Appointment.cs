@@ -10,16 +10,16 @@ namespace API.Models
 		public int Id { get; set; }
 		public DateTime Startdate { get; set; }
 		public DateTime Enddate { get; set; }
-		public int CustomerId { get; set; }
-		public int PractionerId { get; set; }
+		public string Customer { get; set; }
+		public string Practioner { get; set; }
 
-		public Appointment(int Id_, DateTime startdate_, DateTime enddate_, int customerId_, int practionerId_)
+		public Appointment(int _Id, DateTime _startDate, DateTime _endDate, string _customer, string _practioner)
 		{
-			this.Id = Id_;
-			this.Startdate = startdate_;
-			this.Enddate = enddate_;
-			this.CustomerId = customerId_;
-			this.PractionerId = practionerId_;
+			this.Id = _Id;
+			this.Startdate = _startDate;
+			this.Enddate = _endDate;
+			this.Customer = _customer;
+			this.Practioner = _practioner;
 		}
 		public Appointment()
         {

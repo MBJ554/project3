@@ -1,0 +1,25 @@
+﻿@model Web.Models.Appointment
+
+@{
+    ViewBag.Title = "BookTime";
+}
+
+<h2>BookedTid</h2>
+
+<br>
+@Html.DisplayFor(model => model.Startdate)
+<br>
+
+<br>
+@Html.DisplayFor(model => model.Enddate)
+<br>
+<br>
+@Html.DisplayFor(model => model.Practioner)
+<br>
+<br>
+@Html.DisplayFor(model => model.Customer)
+<br>
+<br>
+@Html.ActionLink("Til Hovedmenuen", "Index", "Home")
+<br>
+

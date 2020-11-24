@@ -35,10 +35,10 @@ namespace Desktop.Callers
             throw new NotImplementedException();
         }
 
-        public IEnumerable<City> GetAll()
+        public async Task<IEnumerable<City>> GetAll()
         {
-            var request = new RestRequest("postnumre", Method.GET);
-            var response = client.Execute<List<City>>(request);
+            var request = new RestRequest("/postnumre", Method.GET);
+            var response = await client.ExecuteAsync<List<City>>(request);
             return response.Data;
         }
 
@@ -49,7 +49,7 @@ namespace Desktop.Callers
 
         public City GetByZipCode(string id)
         {
-            var request = new RestRequest("postnumre/" + id, Method.GET);
+            var request = new RestRequest("/postnumre/" + id, Method.GET);
             var response = client.Execute<City>(request);
             return response.Data;
         }
@@ -60,5 +60,13 @@ namespace Desktop.Callers
         {
             throw new NotImplementedException();
         }
+
+        public  IEnumerable<City> GetAllSync()
+        {
+            var request = new RestRequest("/postnumre", Method.GET);
+            var response = client.Execute<List<City>>(request);
+            return response.Data;
+        }
+
     }
 }

@@ -93,20 +93,20 @@
     <Compile Include="Callers\ClinicCaller.cs" />
     <Compile Include="Callers\CustomerCaller.cs" />
     <Compile Include="Callers\ICaller.cs" />
-    <Compile Include="CreateUser.xaml.cs">
+    <Compile Include="View\CreateUser.xaml.cs">
       <DependentUpon>CreateUser.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Home.xaml.cs">
+    <Compile Include="View\Home.xaml.cs">
       <DependentUpon>Home.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\CitiesList.cs" />
     <Compile Include="Models\City.cs" />
     <Compile Include="Models\Clinic.cs" />
     <Compile Include="Models\Customer.cs" />
-    <Compile Include="Models\DataContextForCreateUser.cs" />
+    <Compile Include="ViewModels\ViewModelCreateUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -139,15 +139,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="CreateUser.xaml">
+    <Page Include="View\CreateUser.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Home.xaml">
+    <Page Include="View\Home.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

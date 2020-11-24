@@ -1,19 +1,21 @@
 ﻿using Desktop.Callers;
+using Desktop.Models;
 using RestSharp;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Configuration;
 using System.Linq;
 using System.Net;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Desktop.Models
+namespace Desktop.ViewModels
 {
-    public class DataContextForCreateUser
+    public class ViewModelCreateUser : INotifyPropertyChanged
     {
 
-        private List<City> cities;
 
         private List<Clinic> clinics;
 
@@ -24,6 +26,13 @@ namespace Desktop.Models
         private CustomerCaller cuc;
 
         private ClinicCaller clc;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged([CallerMemberName] string name = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
 
         public CityCaller CC
         {
@@ -73,17 +82,7 @@ namespace Desktop.Models
             }
         }
 
-        public List<City> Cities
-        {
-            get
-            {
-                return cities;
-            }
-            set
-            {
-                cities = value;
-            }
-        }
+      
 
         public List<Clinic> Clinics
         {
@@ -94,25 +93,35 @@ namespace Desktop.Models
             set
             {
                 clinics = value;
+                OnPropertyChanged();
             }
         }
 
-        public DataContextForCreateUser()
+        public ViewModelCreateUser()
         {
 
-            //CityCaller cc = new CityCaller();
+            // TODO: husk at kald retride data
+            //RetrieveDataSync();
+            RetrieveData();
+            
+        }
+
+        public async void RetrieveData()
+        {
+            customer = new Customer();
             cc = new CityCaller();
             cuc = new CustomerCaller();
             clc = new ClinicCaller();
-            clinics = (List<Clinic>)clc.GetAll();
-            cities = (List<City>)cc.GetAll();
-            //Task t1 = Task.Run(() => Cities = (List<City>)cc.GetAll());
-            //t1.Wait();
-            customer = new Customer();
+            
+            var clinics = clc.GetAll();
+            
+
+            await Task.WhenAll(clinics);
+
+            Clinics = (List<Clinic>)clinics.Result;
+          
+
         }
-
-
-
 
     }
 }

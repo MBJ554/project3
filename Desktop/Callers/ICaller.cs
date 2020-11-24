@@ -13,7 +13,7 @@ namespace Desktop.Callers
       
 
 
-        IEnumerable<TEntity> GetAll();
+        Task<IEnumerable<TEntity>> GetAll();
 
         TEntity GetById(int id);
 

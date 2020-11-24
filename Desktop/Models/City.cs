@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RestSharp.Deserializers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,30 +14,13 @@ namespace Desktop.Models
 
         private string zipCode;
 
-        public string CityName { get { return cityName; } set { cityName = value; } }
+        [DeserializeAs(Name = "navn")]
+        public string CityName { get; set; }
+        
+        [DeserializeAs(Name = "nr")]
         public string ZipCode { get; set; }
 
-        public string navn { 
-            get 
-            { 
-                return cityName; 
-            } 
-            set 
-            { 
-                cityName = value; 
-            } 
-        }
-
-        public string nr { 
-            get 
-            {
-                return zipCode;
-            } 
-            set 
-            { 
-                zipCode = value; 
-            } 
-        }
+       
 
         public City() { 
         
