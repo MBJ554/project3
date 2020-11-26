@@ -8,6 +8,8 @@ namespace API.Models
 	public class Customer
 	{
 		public int Id { get; set; }
+
+		//TODO kig på hvad der sker her
 		public string PersonType { get { return "Customer"; } }
 		//public Clinic Clinic { get; set; }
 		public string Clinic { get; set; }
