@@ -26,11 +26,11 @@ namespace Desktop
     public partial class CreateUser : Page
     {
 
-        private ViewModelCreateUser dcfcu;
+        private ViewModelCreateCustomer dcfcu;
 
       
 
-        public ViewModelCreateUser DCFCU { get 
+        public ViewModelCreateCustomer DCFCU { get 
             {
                 return dcfcu;
             } 
@@ -43,7 +43,7 @@ namespace Desktop
         public CreateUser()
         {
 
-            dcfcu = new ViewModelCreateUser();
+            dcfcu = new ViewModelCreateCustomer();
             InitializeComponent();
             DataContext = dcfcu;
         }
@@ -102,10 +102,7 @@ namespace Desktop
             return res;
         }
 
-        public static implicit operator UserControl(CreateUser v)
-        {
-            throw new NotImplementedException();
-        }
+       
 
        
 
@@ -145,7 +142,7 @@ namespace Desktop
         {
             if (!(email.Text.Length > 8))
             {
-                emailErrorBox.Text = " - email er for kort";
+                emailErrorBox.Text = " - Email er for kort";
                 emailErrorBox.Foreground = Brushes.Red;
             }
             else
@@ -171,7 +168,7 @@ namespace Desktop
 
         private void efternavn_LostFocus(object sender, RoutedEventArgs e)
         {
-            if(!(lastNameErrorBox.Text.Length > 2))
+            if(!(efternavn.Text.Length > 2))
             {
                 lastNameErrorBox.Text = " - For kort efternavn";
                 lastNameErrorBox.Foreground = Brushes.Red;
@@ -179,7 +176,7 @@ namespace Desktop
             else
             {
                 lastNameErrorBox.Text = "";
-                lastNameErrorBox.Foreground = Brushes.Red;
+                lastNameErrorBox.Foreground = Brushes.White;
             }
         }
 
@@ -187,7 +184,7 @@ namespace Desktop
         {
             if(!(fornavn.Text.Length > 2))
             {
-                firstNameErrorBox.Text = " - for kort fornavn";
+                firstNameErrorBox.Text = " - For kort fornavn";
                 firstNameErrorBox.Foreground = Brushes.Red;
             }
             else
