@@ -66,9 +66,9 @@
                         </StackPanel>
                     </ListViewItem>
                     <ListViewItem Height="60">
-                        <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="Planner"  Width="25" Height="25" Margin="10" VerticalAlignment="Center" />
-                            <TextBlock Text="Genoptræning" VerticalAlignment="Center" Margin="20 10"/>
+                        <StackPanel Orientation="Horizontal" MouseDown="StackPanel_MouseDown_1">
+                            <materialDesign:PackIcon Kind="UserAdd"  Width="25" Height="25" Margin="10" VerticalAlignment="Center" />
+                            <TextBlock Text="Opret praktiserende" VerticalAlignment="Center" Margin="20 10"/>
                         </StackPanel>
                     </ListViewItem>
                     <ListViewItem x:Name="Create" Height="60">

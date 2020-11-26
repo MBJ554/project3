@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:Desktop"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="CreateUser" Background = "White">
+      Title="CreateUser" Background="LightGray">
       
     
     <Grid>
@@ -56,38 +56,38 @@
 
 
         <TextBox x:Name="fornavn" Grid.Column="2" Grid.Row="3"
-                 Width="150" Margin="5,5,0,0" Text="{Binding Path=Customer.FirstName, Mode=OneWayToSource}" LostFocus="fornavn_LostFocus"/>
+                 Width="150" Margin="5,5,0,0" Text="{Binding Path=Customer.FirstName, Mode=OneWayToSource}" LostFocus="fornavn_LostFocus" HorizontalAlignment="Left"/>
         <TextBox x:Name="efternavn" Grid.Column="2" Grid.Row="4"
-                 Width="150" Margin="5,5,0,0" Text="{Binding Path=Customer.LastName, Mode=OneWayToSource}" LostFocus="efternavn_LostFocus"/>
+                 Width="150" Margin="5,5,0,0" Text="{Binding Path=Customer.LastName, Mode=OneWayToSource}" LostFocus="efternavn_LostFocus" HorizontalAlignment="Left"/>
         <TextBox x:Name="mobil" Grid.Column="2" Grid.Row="5"
-                 Width="150" Margin="5,5,0,0" Text="{Binding Path=Customer.PhoneNo, Mode=OneWayToSource}" LostFocus="mobil_LostFocus"/>
+                 Width="150" Margin="5,5,0,0" Text="{Binding Path=Customer.PhoneNo, Mode=OneWayToSource}" LostFocus="mobil_LostFocus" HorizontalAlignment="Left"/>
         <TextBox x:Name="email" Grid.Column="2" Grid.Row="6"
-                 Width="150" Margin="5,5,0,0" Text="{Binding Path=Customer.Email, Mode=OneWayToSource}" LostFocus="email_LostFocus"/>
+                 Width="150" Margin="5,5,0,0" Text="{Binding Path=Customer.Email, Mode=OneWayToSource}" LostFocus="email_LostFocus" HorizontalAlignment="Left"/>
         <TextBox x:Name="adresse" Grid.Column="2" Grid.Row="7"
-                 Width="150" Margin="5,5,0,0" Text="{Binding Path=Customer.Address, Mode=OneWayToSource}" LostFocus="adresse_LostFocus"/>
+                 Width="150" Margin="5,5,0,0" Text="{Binding Path=Customer.Address, Mode=OneWayToSource}" LostFocus="adresse_LostFocus" HorizontalAlignment="Left"/>
         <TextBox x:Name="firstNameErrorBox" Grid.Column="3" Grid.Row="3"
-                 Width="150" Margin="5,5,0,0"/>
+                 Width="150" Margin="5,5,0,0" IsReadOnly = "True"/>
         <TextBox x:Name="lastNameErrorBox" Grid.Column="3" Grid.Row="4"
-                 Width="150" Margin="5,5,0,0"/>
+                 Width="150" Margin="5,5,0,0" IsReadOnly = "True"/>
         <TextBox x:Name="mobileErrorBox" Grid.Column="3" Grid.Row="5"
-                 Width="150" Margin="5,5,0,0"/>
+                 Width="150" Margin="5,5,0,0" IsReadOnly = "True"/>
         <TextBox x:Name="emailErrorBox" Grid.Column="3" Grid.Row="6"
-                 Width="150" Margin="5,5,0,0"/>
+                 Width="150" Margin="5,5,0,0" IsReadOnly = "True"/>
         <TextBox x:Name="addressErrorBox" Grid.Column="3" Grid.Row="7"
-                 Width="150" Margin="5,5,0,0"/>
+                 Width="150" Margin="5,5,0,0" IsReadOnly = "True"/>
         <TextBox x:Name="zipCodeErrorBox" Grid.Column="3" Grid.Row="8"
-                 Width="150" Margin="5,5,0,0"/>
+                 Width="150" Margin="5,5,0,0" IsReadOnly = "True"/>
         <TextBox x:Name="passwordErrorBox" Grid.Column="3" Grid.Row="9"
-                 Width="150" Margin="5,5,0,0"/>
+                 Width="150" Margin="5,5,0,0" IsReadOnly = "True"/>
         <TextBox x:Name="clinicErrorBox" Grid.Column="3" Grid.Row="10"
-                 Width="150" Margin="5,5,0,0"/>
+                 Width="150" Margin="5,5,0,0" IsReadOnly = "True"/>
 
 
 
         <StackPanel Grid.Column="2" Grid.Row="8" Orientation="Horizontal">
 
             <TextBox x:Name="postnr" Grid.Column="2" Grid.Row="8"
-                 Width="150" Margin="5,5,0,0" TextChanged="postnr_TextChanged" Text="{Binding Path=Customer.ZipCode, Mode=OneWayToSource}" LostFocus="postnr_LostFocus"/>
+                 Width="150" Margin="5,5,0,0" TextChanged="postnr_TextChanged" Text="{Binding Path=Customer.ZipCode, Mode=OneWayToSource}" LostFocus="postnr_LostFocus" HorizontalAlignment="Left"/>
            
             <TextBox x:Name="city" IsEnabled="False" Text="{Binding Path=Custmer.City, Mode=OneWayToSource}"></TextBox>
 
@@ -96,9 +96,9 @@
 
 
         <PasswordBox x:Name="password" Grid.Column="2" Grid.Row="9"
-                 Width="150" Margin="6,5,1,0" Height="25" VerticalAlignment="Top" LostFocus="password_LostFocus"/>
+                 Width="150" Margin="6,5,1,0" Height="25" VerticalAlignment="Top" LostFocus="password_LostFocus" HorizontalAlignment="Left"/>
         
-        <ComboBox x:Name="ClinicList" ItemsSource="{Binding Clinics}" Grid.Row="10" Grid.Column="2" LostFocus="ClinicList_LostFocus" >
+        <ComboBox x:Name="ClinicList" ItemsSource="{Binding Clinics}" Grid.Row="10" Grid.Column="2" LostFocus="ClinicList_LostFocus" HorizontalAlignment="Left" >
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
