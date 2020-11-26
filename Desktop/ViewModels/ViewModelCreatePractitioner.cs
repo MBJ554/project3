@@ -1,29 +1,22 @@
 ﻿using Desktop.Callers;
 using Desktop.Models;
-using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Configuration;
 using System.Linq;
-using System.Net;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Desktop.ViewModels
 {
-    public class ViewModelCreateUser : INotifyPropertyChanged
+    public class ViewModelCreatePractitioner
     {
-
-
         private List<Clinic> clinics;
 
-        private Customer customer;
+        private Practitioner practitioner;
 
-        private CityCaller cc;
-
-        private CustomerCaller cuc;
+        private PractitionerCaller pc;
 
         private ClinicCaller clc;
 
@@ -34,27 +27,16 @@ namespace Desktop.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
-        public CityCaller CC
-        {
-            get
-            {
-                return cc;
-            }
-            set
-            {
-                cc = value;
-            }
-        }
 
-        public CustomerCaller CUC
+        public PractitionerCaller PC
         {
             get
             {
-                return cuc;
+                return pc;
             }
             set
             {
-                cuc = value;
+                pc = value;
             }
         }
 
@@ -70,19 +52,19 @@ namespace Desktop.ViewModels
             }
         }
 
-        public Customer Customer
+        public Practitioner Practitioner
         {
             get
             {
-                return customer;
+                return practitioner;
             }
             set
             {
-                customer = value;
+                practitioner = value;
             }
         }
 
-      
+
 
         public List<Clinic> Clinics
         {
@@ -97,32 +79,32 @@ namespace Desktop.ViewModels
             }
         }
 
-        public ViewModelCreateUser()
+        public ViewModelCreatePractitioner()
         {
 
-            // TODO: husk at kald retride data
-            //RetrieveDataSync();
-            RetrieveData();
             
+            RetrieveData();
+
         }
 
         public async void RetrieveData()
         {
-            customer = new Customer();
-            cc = new CityCaller();
-            cuc = new CustomerCaller();
+            practitioner = new Practitioner();
+           
+            pc = new PractitionerCaller();
             clc = new ClinicCaller();
-            
+
             var clinics = clc.GetAll();
-            
+
 
             await Task.WhenAll(clinics);
 
             Clinics = (List<Clinic>)clinics.Result;
-          
+
 
         }
 
     }
+
 }
 
