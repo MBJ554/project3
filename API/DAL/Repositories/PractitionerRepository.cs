@@ -18,6 +18,7 @@ namespace API.DAL.Repositories
         {
             using (var conn = new SqlConnection(connectionString))
             {
+                conn.Open();
                 using (var transaction = conn.BeginTransaction())
                 {
                     string sql = "INSERT INTO[dbo].[Person] " +
@@ -25,19 +26,19 @@ namespace API.DAL.Repositories
                     "[clinicId]," +
                     "[firstName]," +
                     "[lastName]," +
-                    "[phoneNo,]" +
+                    "[phoneNo]," +
                     "[email]," +
-                    "[password]," +
+                    "[password])" +
                     "VALUES ((SELECT id FROM PersonType WHERE type = 'Practitioner')" +
                     ", @clinicId" +
                     ", @firstName" +
                     ", @lastName" +
                     ", @phoneNo" +
                     ", @email" +
-                    ", @password";
+                    ", @password)";
 
                     //TODO Kig på error codes fra api da den ikke returner customer
-                    var rowsAffected = conn.Execute(sql, obj);
+                    var rowsAffected = conn.Execute(sql, obj, transaction:transaction);
                     transaction.Commit();
                     if (rowsAffected > 0)
                     {

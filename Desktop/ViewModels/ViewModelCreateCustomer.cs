@@ -112,12 +112,9 @@ namespace Desktop.ViewModels
             cuc = new CustomerCaller();
             clc = new ClinicCaller();
             
-            var clinics = clc.GetAll();
-            
+            var clinics = await clc.GetAll();        
 
-            await Task.WhenAll(clinics);
-
-            Clinics = (List<Clinic>)clinics.Result;
+            Clinics = (List<Clinic>)clinics;
           
 
         }

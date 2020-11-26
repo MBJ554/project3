@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Desktop.ViewModels
 {
-    public class ViewModelCreatePractitioner
+    public class ViewModelCreatePractitioner : INotifyPropertyChanged
     {
         private List<Clinic> clinics;
 
@@ -94,12 +94,11 @@ namespace Desktop.ViewModels
             pc = new PractitionerCaller();
             clc = new ClinicCaller();
 
-            var clinics = clc.GetAll();
+            var clinics =  await clc.GetAll();
 
 
-            await Task.WhenAll(clinics);
-
-            Clinics = (List<Clinic>)clinics.Result;
+         
+            Clinics = (List<Clinic>)clinics;
 
 
         }

@@ -53,12 +53,12 @@
 
 
         <TextBox x:Name="fornavn" Grid.Column="2" Grid.Row="3"
-                 Width="150" Margin="5,5,0,0" HorizontalAlignment="Left" Text="{Binding Path=Practitioner.firstName, Mode=OneWayToSource}" LostFocus="fornavn_LostFocus" />
+                 Width="150" Margin="5,5,0,0" HorizontalAlignment="Left" Text="{Binding Path=Practitioner.FirstName, Mode=OneWayToSource}" LostFocus="fornavn_LostFocus" />
         <TextBox x:Name="firstNameErrorBox" Grid.Column="3" Grid.Row="3"
                  Width="150" Margin="5,5,0,0" HorizontalAlignment="Left" BorderThickness="0"/>
 
         <TextBox x:Name="efternavn" Grid.Column="2" Grid.Row="4"
-                 Width="150" Margin="5,5,0,0" HorizontalAlignment="Left" Text="{Binding Path=Practitioner.lastName, Mode=OneWayToSource}" LostFocus="efternavn_LostFocus"/>
+                 Width="150" Margin="5,5,0,0" HorizontalAlignment="Left" Text="{Binding Path=Practitioner.LastName, Mode=OneWayToSource}" LostFocus="efternavn_LostFocus"/>
         <TextBox x:Name="lastNameErrorBox" Grid.Column="3" Grid.Row="4"
                  Width="150" Margin="5,5,0,0" HorizontalAlignment="Left" BorderThickness="0"/>
 
