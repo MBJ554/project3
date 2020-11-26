@@ -8,10 +8,13 @@ namespace API.Models
 	public class Customer
 	{
 		public int Id { get; set; }
-		public int PersonTypeId { get; set; }
-		public int ClinicId { get; set; }
-		public int PractitionerId { get; set; }
-		public int RehabProgramId { get; set; }
+		public string PersonType { get { return "Customer"; } }
+		//public Clinic Clinic { get; set; }
+		public string Clinic { get; set; }
+		//public Practitioner Practitioner { get; set; }
+		public string Practitioner { get; set; }
+		//public RehabProgram RehabProgram { get; set; }
+		public string RehabProgram { get; set; }
 		public string FirstName { get; set; }
 		public string LastName { get; set; }
 		public string PhoneNo { get; set; }
@@ -21,21 +24,21 @@ namespace API.Models
 		public string ZipCode { get; set; }
         public string City { get; set; }
 
-        public Customer(int id_, int personTypeId_, int clinicId_, int practitionerId_, int rehabProgramId_, string firstName_, string lastName_, string phoneNo_, string email_, string password_, string address_, string zipCode_, string city_)
+        public Customer(int _id, string _clinic, string _practitioner, string _rehabProgram, string _firstName, string _lastName, string _phoneNo, string _email, string _password, string _address, string _zipCode, string _city)
 		{
-			this.Id = id_;
-			this.PersonTypeId = personTypeId_;
-			this.ClinicId = clinicId_;
-			this.PractitionerId = practitionerId_;
-			this.RehabProgramId = rehabProgramId_;
-			this.FirstName = firstName_;
-			this.LastName = lastName_;
-			this.PhoneNo = phoneNo_;
-			this.Email = email_;
-			this.Password = password_;
-			this.Address = address_;
-			this.ZipCode = zipCode_;
-			this.City = city_;
+			this.Id = _id;
+			//this.PersonTypeId = personTypeId_;
+			this.Clinic = _clinic;
+			this.Practitioner = _practitioner;
+			this.RehabProgram = _rehabProgram;
+			this.FirstName = _firstName;
+			this.LastName = _lastName;
+			this.PhoneNo = _phoneNo;
+			this.Email = _email;
+			this.Password = _password;
+			this.Address = _address;
+			this.ZipCode = _zipCode;
+			this.City = _city;
 		}
         public Customer()
         {
