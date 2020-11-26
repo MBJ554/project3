@@ -24,7 +24,7 @@ SET IDENTITY_INSERT [dbo].[PersonType] ON
 GO
 INSERT [dbo].[PersonType] ([id], [type]) VALUES (1, N'Customer')
 GO
-INSERT [dbo].[PersonType] ([id], [type]) VALUES (2, N'Doctor of some kind')
+INSERT [dbo].[PersonType] ([id], [type]) VALUES (2, N'Practitioner')
 GO
 SET IDENTITY_INSERT [dbo].[PersonType] OFF
 GO
