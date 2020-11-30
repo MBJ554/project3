@@ -66,32 +66,32 @@ namespace Desktop
         {
             bool res = true;
             string message = "";
-            if (!numbersOnly(mobil.Text) || mobil.Text.Length != 8)
+            if (vmpc.checkPhoneNo(mobil.Text))
             {
                 message += "- Nummeret skal være 8 cifre langt og må kun indeholde tal";
                 res = false;
             }
-            if (!(fornavn.Text.Length > 1))
+            if (!(vmpc.checkFirstName(fornavn.Text)))
             {
                 message += " - For kort fornavn";
                 res = false;
             }
-            if (!(efternavn.Text.Length > 1))
+            if (!(vmpc.checkLastName(efternavn.Text)))
             {
                 message += " - For kort efternavn";
                 res = false;
             }
-            if (!(password.Password.Length > 6))
+            if (!vmpc.checkPassword(password.Password))
             {
                 message += " - For kort kode";
                 res = false;
             }
-            if (!(email.Text.Length > 8))
+            if (!vmpc.checkEmail(email.Text))
             {
                 message += " - For kort Email";
                 res = false;
             }
-            if ((Clinic)ClinicList.SelectedItem == null)
+            if (!(vmpc.setClinic((Clinic)ClinicList.SelectedItem)))
             {
                 message += " - Vælg en klinik";
                 res = false;
@@ -114,7 +114,7 @@ namespace Desktop
 
         private void fornavn_LostFocus(object sender, RoutedEventArgs e)
         {
-            if (!(fornavn.Text.Length > 2))
+            if (!(vmpc.checkFirstName(fornavn.Text)))
             {
                 firstNameErrorBox.Text = " - For kort fornavn";
                 firstNameErrorBox.Foreground = Brushes.Red;
@@ -128,7 +128,7 @@ namespace Desktop
 
         private void efternavn_LostFocus(object sender, RoutedEventArgs e)
         {
-            if (!(efternavn.Text.Length > 2))
+            if (!(vmpc.checkLastName(efternavn.Text)))
             {
                 lastNameErrorBox.Text = " - For kort efternavn";
                 lastNameErrorBox.Foreground = Brushes.Red;
@@ -142,7 +142,7 @@ namespace Desktop
 
         private void mobil_LostFocus(object sender, RoutedEventArgs e)
         {
-            if (!numbersOnly(mobil.Text) || mobil.Text.Length != 8)
+            if (!(vmpc.checkPhoneNo(mobil.Text)))
             {
                 mobileErrorBox.Text = " - Nummeret skal være 8 cifre langt og må kun indeholde tal";
                 mobileErrorBox.Foreground = Brushes.Red;
@@ -156,7 +156,7 @@ namespace Desktop
 
         private void email_LostFocus(object sender, RoutedEventArgs e)
         {
-            if (!(email.Text.Length > 8))
+            if (!vmpc.checkEmail(email.Text))
             {
                 emailErrorBox.Text = " - Email er for kort";
                 emailErrorBox.Foreground = Brushes.Red;
@@ -184,7 +184,7 @@ namespace Desktop
 
         private void ClinicList_LostFocus(object sender, RoutedEventArgs e)
         {
-            if ((Clinic)ClinicList.SelectedItem == null)
+            if (!(vmpc.setClinic((Clinic)ClinicList.SelectedItem)))
             {
                 clinicErrorBox.Text = "Vælg en klinik";
                 clinicErrorBox.Foreground = Brushes.Red;
