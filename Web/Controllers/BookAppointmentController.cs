@@ -65,7 +65,7 @@ namespace Web.Controllers
             a.Startdate = startDate;
             // TODO tilføj kunde og udøver
             a.Customer = "2";
-            a.Practioner = "1";
+            a.Practitioner = "1";
 
 
             AppointmentCaller ac = new AppointmentCaller();

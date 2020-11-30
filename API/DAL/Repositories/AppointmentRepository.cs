@@ -23,7 +23,7 @@ namespace API.DAL.Repositories
                     "([startdate], " +
                     "[enddate], " +
                     "[customerId], " +
-                    "[practionerId]) VALUES " +
+                    "[practitionerId]) VALUES " +
                     "(@startdate, " +
                     "@enddate, " +
                     "@customerId, " +

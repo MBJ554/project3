@@ -13,13 +13,13 @@ namespace API.Models
 		public string Customer { get; set; }
 		public string Practitioner { get; set; }
 
-		public Appointment(int _Id, DateTime _startDate, DateTime _endDate, string _customer, string _practitioner)
+		public Appointment(int _Id, DateTime _startDate, DateTime _endDate, string _customer, string _practioner)
 		{
 			this.Id = _Id;
 			this.Startdate = _startDate;
 			this.Enddate = _endDate;
 			this.Customer = _customer;
-			this.Practitioner = _practitioner;
+			this.Practitioner = _practioner;
 		}
 		public Appointment()
         {
