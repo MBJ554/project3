@@ -10,6 +10,7 @@ GO
 
 CREATE TABLE [dbo].[RehabProgram](
 	[id] [int] IDENTITY(1,1) NOT NULL,
+	[customerId] [int] NOT NULL,
 	[description] [varchar](1000) NULL,
 	[startDate] [datetime] NULL,
 	[endDate] [datetime] NULL,
@@ -19,5 +20,9 @@ CREATE TABLE [dbo].[RehabProgram](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
+
+--ALTER TABLE [dbo].[RehabProgram]  WITH CHECK ADD  CONSTRAINT [FK_RehabProgram_Customer] FOREIGN KEY([customerId])
+--REFERENCES [dbo].[Person] ([id]) ON DELETE CASCADE ON UPDATE CASCADE
+--GO
 
 

@@ -22,11 +22,11 @@ CREATE TABLE [dbo].[Clinic](
 ) ON [PRIMARY]
 GO
 
-ALTER TABLE [dbo].[Clinic]  WITH CHECK ADD  CONSTRAINT [FK_Clinic_City] FOREIGN KEY([zipCode])
-REFERENCES [dbo].[City] ([zipCode])
-GO
+--ALTER TABLE [dbo].[Clinic]  WITH CHECK ADD  CONSTRAINT [FK_Clinic_City] FOREIGN KEY([zipCode])
+--REFERENCES [dbo].[City] ([zipCode])
+--GO
 
-ALTER TABLE [dbo].[Clinic] CHECK CONSTRAINT [FK_Clinic_City]
-GO
+--ALTER TABLE [dbo].[Clinic] CHECK CONSTRAINT [FK_Clinic_City]
+--GO
 
 

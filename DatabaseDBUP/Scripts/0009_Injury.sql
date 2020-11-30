@@ -21,18 +21,18 @@ CREATE TABLE [dbo].[Injury](
 ) ON [PRIMARY]
 GO
 
-ALTER TABLE [dbo].[Injury]  WITH CHECK ADD  CONSTRAINT [FK_Injury_Customer] FOREIGN KEY([customerId])
-REFERENCES [dbo].[Person] ([id])
-GO
+--ALTER TABLE [dbo].[Injury]  WITH CHECK ADD  CONSTRAINT [FK_Injury_Customer] FOREIGN KEY([customerId])
+--REFERENCES [dbo].[Person] ([id])
+--GO
 
-ALTER TABLE [dbo].[Injury] CHECK CONSTRAINT [FK_Injury_Customer]
-GO
+--ALTER TABLE [dbo].[Injury] CHECK CONSTRAINT [FK_Injury_Customer]
+--GO
 
-ALTER TABLE [dbo].[Injury]  WITH CHECK ADD  CONSTRAINT [FK_Injury_InjuryType] FOREIGN KEY([injuryTypeId])
-REFERENCES [dbo].[InjuryType] ([id])
-GO
+--ALTER TABLE [dbo].[Injury]  WITH CHECK ADD  CONSTRAINT [FK_Injury_InjuryType] FOREIGN KEY([injuryTypeId])
+--REFERENCES [dbo].[InjuryType] ([id])
+--GO
 
-ALTER TABLE [dbo].[Injury] CHECK CONSTRAINT [FK_Injury_InjuryType]
-GO
+--ALTER TABLE [dbo].[Injury] CHECK CONSTRAINT [FK_Injury_InjuryType]
+--GO
 
 
