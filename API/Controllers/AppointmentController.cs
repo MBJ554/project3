@@ -85,7 +85,7 @@ namespace API.Controllers
                 Id = appointment.Id,
                 Startdate = appointment.Startdate,
                 Enddate = appointment.Enddate,
-                Practioner = ApiHelper.BuildPractitionerURL(appointment.PractionerId),
+                Practitioner = ApiHelper.BuildPractitionerURL(appointment.PractitionerId),
                 Customer = ApiHelper.BuildCustomerURL(appointment.CustomerId)
             };
         }
@@ -99,7 +99,7 @@ namespace API.Controllers
                 Startdate = appointment.Startdate.ToLocalTime(),
                 Enddate = appointment.Enddate.ToLocalTime(),
                 CustomerId = int.Parse(appointment.Customer),
-                PractionerId = int.Parse(appointment.Practioner)
+                PractitionerId = int.Parse(appointment.Practitioner)
         };
 
 
