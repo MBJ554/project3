@@ -170,6 +170,7 @@
     <Content Include="Views\BookAppointment\Index.cshtml" />
     <Content Include="Views\BookAppointment\ChooseAppointmentTime.cshtml" />
     <Content Include="Views\BookAppointment\BookTime.cshtml" />
+    <Content Include="Views\BookAppointment\BookErrorView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -186,6 +187,12 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\API\API.csproj">
+      <Project>{77D17F74-912A-40D4-9A21-6257714B1E99}</Project>
+      <Name>API</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

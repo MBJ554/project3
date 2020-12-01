@@ -1,5 +1,7 @@
-﻿using System;
+﻿using API.DAL.Exceptions;
+using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -16,7 +18,6 @@ namespace Web.Controllers
         {
             return View();
         }
-
 
         public async Task<ActionResult> ChooseAppointmentTime(DateTime date)
         {
@@ -46,19 +47,13 @@ namespace Web.Controllers
                             allowedAppointments.Remove(ap);
                         }
                     }
-
-
                 }
-
             }
-               
-
-        
-            
-
             return View(allowedAppointments);
         }
 
+
+        [HandleError(ExceptionType = typeof(Exception), View = "BookErrorView")]
         public ActionResult BookTime(DateTime startDate, DateTime endDate) {
             Appointment a = new Appointment();
             a.Enddate = endDate;
@@ -67,8 +62,8 @@ namespace Web.Controllers
             a.Customer = "2";
             a.Practitioner = "1";
 
-
             AppointmentCaller ac = new AppointmentCaller();
+
             ac.BookTime(a);
 
 

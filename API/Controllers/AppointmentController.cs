@@ -2,14 +2,10 @@
 using API.DAL.Exceptions;
 using API.DAL.Interfaces;
 using API.Models;
-using Dapper;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace API.Controllers
@@ -47,7 +43,7 @@ namespace API.Controllers
             }
             return NotFound();
         }
-        
+
         // GET: api/Appointment/id
         public IHttpActionResult Get(int id, [FromUri] string date)
         {
@@ -77,6 +73,7 @@ namespace API.Controllers
             catch (DataAccessException e)
             {
                 return Content(HttpStatusCode.Conflict, e.Message);
+                //throw e;
             }
 
             return Ok();
@@ -90,8 +87,8 @@ namespace API.Controllers
 
         private Appointment BuildAppointment(API.DAL.Models.Appointment appointment)
         {
-            return new Appointment 
-            { 
+            return new Appointment
+            {
                 Id = appointment.Id,
                 Startdate = appointment.Startdate,
                 Enddate = appointment.Enddate,
@@ -100,8 +97,9 @@ namespace API.Controllers
             };
         }
 
-        private API.DAL.Models.Appointment BuildDalAppointment(Appointment appointment) {
-            
+        private API.DAL.Models.Appointment BuildDalAppointment(Appointment appointment)
+        {
+
             // TODO : Fix tidkonvertiring til UTC
             return new API.DAL.Models.Appointment
             {
@@ -110,7 +108,7 @@ namespace API.Controllers
                 Enddate = appointment.Enddate.ToLocalTime(),
                 CustomerId = int.Parse(appointment.Customer),
                 PractitionerId = int.Parse(appointment.Practitioner)
-        };
+            };
 
 
         }
