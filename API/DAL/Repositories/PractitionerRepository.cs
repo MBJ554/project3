@@ -1,4 +1,5 @@
-﻿using API.DAL.Interfaces;
+﻿using API.DAL.Exceptions;
+using API.DAL.Interfaces;
 using API.DAL.Models;
 using Dapper;
 using System;
@@ -19,33 +20,41 @@ namespace API.DAL.Repositories
             using (var conn = new SqlConnection(connectionString))
             {
                 conn.Open();
-                using (var transaction = conn.BeginTransaction())
+                try
                 {
-                    string sql = "INSERT INTO[dbo].[Person] " +
-                    "([personTypeId], " +
-                    "[clinicId]," +
-                    "[firstName]," +
-                    "[lastName]," +
-                    "[phoneNo]," +
-                    "[email]," +
-                    "[password])" +
-                    "VALUES ((SELECT id FROM PersonType WHERE type = 'Practitioner')" +
-                    ", @clinicId" +
-                    ", @firstName" +
-                    ", @lastName" +
-                    ", @phoneNo" +
-                    ", @email" +
-                    ", @password)";
-
-                    //TODO Kig på error codes fra api da den ikke returner customer
-                    var rowsAffected = conn.Execute(sql, obj, transaction:transaction);
-                    transaction.Commit();
-                    if (rowsAffected > 0)
+                    using (var transaction = conn.BeginTransaction())
                     {
-                        return obj;
+                        string sql = "INSERT INTO[dbo].[Person] " +
+                        "([personTypeId], " +
+                        "[clinicId]," +
+                        "[firstName]," +
+                        "[lastName]," +
+                        "[phoneNo]," +
+                        "[email]," +
+                        "[password])" +
+                        "VALUES ((SELECT id FROM PersonType WHERE type = 'Practitioner')" +
+                        ", @clinicId" +
+                        ", @firstName" +
+                        ", @lastName" +
+                        ", @phoneNo" +
+                        ", @email" +
+                        ", @password)";
+
+                        //TODO Kig på error codes fra api da den ikke returner customer
+                        var rowsAffected = conn.Execute(sql, obj, transaction: transaction);
+                        transaction.Commit();
+                        if (rowsAffected > 0)
+                        {
+                            return obj;
+                        }
+                        return null;
                     }
-                    return null;
                 }
+                catch (SqlException e)
+                {
+                    throw new DataAccessException("Der gik noget galt, prøv igen.", e);
+                }
+                
             }
         }
 

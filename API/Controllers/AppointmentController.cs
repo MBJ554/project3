@@ -1,4 +1,5 @@
 ﻿using API.ApiHelpers;
+using API.DAL.Exceptions;
 using API.DAL.Interfaces;
 using API.Models;
 using Dapper;
@@ -66,10 +67,19 @@ namespace API.Controllers
         }
 
         // POST: api/Appointment
-        public void Post([FromBody] Appointment appointment)
+        public IHttpActionResult Post([FromBody] Appointment appointment)
         {
             API.DAL.Models.Appointment c = BuildDalAppointment(appointment);
-            _appointmentRepository.Create(c);
+            try
+            {
+                _appointmentRepository.Create(c);
+            }
+            catch (DataAccessException e)
+            {
+                return Content(HttpStatusCode.Conflict, e.Message);
+            }
+
+            return Ok();
         }
 
         // DELETE: api/Appointment/5
