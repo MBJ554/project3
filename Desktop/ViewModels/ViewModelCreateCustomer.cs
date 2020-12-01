@@ -124,7 +124,7 @@ namespace Desktop.ViewModels
         public bool checkFirstName(string firstName)
         {
             bool res = false;
-            if (firstName.Length > 6)
+            if (firstName.Length > 2)
             {
                 res = true;
                 customer.FirstName = firstName;
@@ -135,7 +135,7 @@ namespace Desktop.ViewModels
         public bool checkPassword(string password)
         {
             bool res = false;
-            if (password.Length > 6)
+            if (password.Length > 5)
             {
                 res = true;
             }
@@ -150,7 +150,7 @@ namespace Desktop.ViewModels
         public bool checkLastName(string lastName)
         {
             bool res = false;
-            if (lastName.Length > 6)
+            if (lastName.Length > 2)
             {
                 res = true;
                 customer.LastName = lastName;

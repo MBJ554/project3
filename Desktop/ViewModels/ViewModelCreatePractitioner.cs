@@ -118,7 +118,7 @@ namespace Desktop.ViewModels
         public bool checkPassword(string password)
         {
             bool res = false;
-            if (password.Length > 6) {
+            if (password.Length > 2) {
                 res = true;
             }
             return res;
@@ -127,7 +127,7 @@ namespace Desktop.ViewModels
         public bool checkLastName(string lastName)
         {
             bool res = false;
-            if (lastName.Length > 6)
+            if (lastName.Length > 2)
             {
                 res = true;
                 practitioner.LastName = lastName;

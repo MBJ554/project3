@@ -89,7 +89,7 @@
             <TextBox x:Name="postnr" Grid.Column="2" Grid.Row="8"
                  Width="150" Margin="5,5,0,0" TextChanged="postnr_TextChanged" Text="{Binding Path=Customer.ZipCode, Mode=OneWayToSource}" LostFocus="postnr_LostFocus" HorizontalAlignment="Left"/>
            
-            <TextBox x:Name="city" IsEnabled="False" Text="{Binding Path=Custmer.City, Mode=OneWayToSource}"></TextBox>
+            <TextBox x:Name="city" IsEnabled="False" Text="{Binding Path=Customer.City, Mode=OneWayToSource}"></TextBox>
 
         </StackPanel>
 
