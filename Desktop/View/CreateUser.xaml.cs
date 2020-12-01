@@ -91,7 +91,7 @@ namespace Desktop
                 message += " - For kort kode";
                 res = false;
             }
-            if (dcfcu.setClinic((Clinic)ClinicList.SelectedItem)) 
+            if (!(dcfcu.setClinic((Clinic)ClinicList.SelectedItem))) 
             {
                 message += " - Vælg en klinik";
                 res = false;

@@ -66,7 +66,7 @@ namespace Desktop
         {
             bool res = true;
             string message = "";
-            if (vmpc.checkPhoneNo(mobil.Text))
+            if (!(vmpc.checkPhoneNo(mobil.Text)))
             {
                 message += "- Nummeret skal være 8 cifre langt og må kun indeholde tal";
                 res = false;
