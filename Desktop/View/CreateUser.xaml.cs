@@ -56,7 +56,7 @@ namespace Desktop
                
                     Clinic cl = (Clinic)ClinicList.SelectedItem;
                     dcfcu.Customer.ClinicId = cl.Id;
-                    dcfcu.CUC.Create(dcfcu.Customer);
+                    dcfcu.Create(dcfcu.Customer);
                 
             }
            
@@ -71,7 +71,7 @@ namespace Desktop
                 message += "- Nummeret skal være 8 cifre langt og må kun indeholde tal";
                 res = false;  
             }
-            if (!setCity(postnr.Text))
+            if (dcfcu.setCity(postnr.Text) !=null)
             {
                 message += " - Postnummeret findes ikke";
                 res = false;
@@ -102,19 +102,17 @@ namespace Desktop
             return res;
         }
 
-        private bool setCity(string zipCode)
+        private async void setCity(string zipCode)
         {
-            bool res = false;
-            City c = dcfcu.setCity(zipCode);
+            City c = await dcfcu.setCity(zipCode);
             if (c != null)
             {
                 if (c.CityName != null)
                 {
-                    city.Text = c.CityName;
-                    res = true;
+                    city.Text = c.CityName;         
                 }
             }
-            return res;
+            
         }
 
         private void postnr_TextChanged(object sender, TextChangedEventArgs e)
@@ -127,7 +125,7 @@ namespace Desktop
 
         private void postnr_LostFocus(object sender, RoutedEventArgs e)
         {
-            if (!(dcfcu.checkZipCode(postnr.Text)) && setCity(postnr.Text) == false)
+            if (!(dcfcu.checkZipCode(postnr.Text)) && dcfcu.setCity(postnr.Text) != null)
             {
                 zipCodeErrorBox.Text += " - Postnummeret findes ikke";
                 zipCodeErrorBox.Foreground = Brushes.Red;

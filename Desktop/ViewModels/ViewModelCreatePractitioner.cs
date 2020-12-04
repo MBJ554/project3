@@ -65,7 +65,10 @@ namespace Desktop.ViewModels
             }
         }
 
-
+        internal void Create(Practitioner practitioner)
+        {
+            pc.Create(practitioner);
+        }
 
         public List<Clinic> Clinics
         {
@@ -103,6 +106,8 @@ namespace Desktop.ViewModels
 
 
         }
+
+
 
         public bool checkFirstName(string firstName)
         {

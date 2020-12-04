@@ -57,7 +57,7 @@ namespace Desktop
 
                 Clinic cl = (Clinic)ClinicList.SelectedItem;
                 vmpc.Practitioner.ClinicId = cl.Id;
-                vmpc.PC.Create(vmpc.Practitioner);
+                vmpc.Create(vmpc.Practitioner);
 
             }
         }

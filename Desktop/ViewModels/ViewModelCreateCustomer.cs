@@ -72,6 +72,11 @@ namespace Desktop.ViewModels
             }
         }
 
+        internal void Create(Customer customer)
+        {
+            cuc.Create(customer);
+        }
+
         public Customer Customer
         {
             get
@@ -142,9 +147,14 @@ namespace Desktop.ViewModels
             return res;
         }
 
-        internal City setCity(string zipCode)
+        public async Task<City> setCity(string zipCode)
         {
-            return cc.GetByZipCode(zipCode);
+            City c = await cc.GetByZipCode(zipCode);
+            if (c != null) {
+                Customer.City = c.CityName;
+            }
+           
+            return c;
         }
 
         public bool checkLastName(string lastName)
