@@ -28,5 +28,10 @@ namespace Desktop
         {
             Application.Current.Shutdown();
         }
+
+        private void btnSubmit_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

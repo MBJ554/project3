@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -53,7 +54,10 @@ namespace Desktop.Models
         {
             get;
             set;
+
         }
+        public string Salt { get; set; }
+
         public string Address
         {
             get;
@@ -93,14 +97,31 @@ namespace Desktop.Models
 			this.LastName = lastName_;
 			this.PhoneNo = phoneNo_;
 			this.Email = email_;
-			this.Password = password_;
+            this.Salt = GenerateSalt();
+            this.Password = HashPassword(password_);
 			this.Address = address_;
 			this.ZipCode = zipCode_;
 
 
 		}
 
-		public Customer() { 
+        private string GenerateSalt()
+        {
+            var rngCSP = RNGCryptoServiceProvider.Create();
+
+            // Creates a salt
+            byte[] random = new byte[256];
+            rngCSP.GetNonZeroBytes(random);
+            return Convert.ToBase64String(random);
+        }
+
+        private string HashPassword(string password)
+        {
+            HashAlgorithm hashAlgorithm = SHA512.Create();
+            return Convert.ToBase64String(hashAlgorithm.ComputeHash(Encoding.UTF8.GetBytes(Salt + password)));
+        }
+
+        public Customer() { 
 		
 		}
 

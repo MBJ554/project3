@@ -72,6 +72,7 @@
     </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -93,6 +94,7 @@
     <Compile Include="Callers\ClinicCaller.cs" />
     <Compile Include="Callers\CustomerCaller.cs" />
     <Compile Include="Callers\ICaller.cs" />
+    <Compile Include="Callers\LoginCaller.cs" />
     <Compile Include="Callers\PractitionerCaller.cs" />
     <Compile Include="CreatePractitioner.xaml.cs">
       <DependentUpon>CreatePractitioner.xaml</DependentUpon>
@@ -102,6 +104,7 @@
     </Compile>
     <Compile Include="Models\Practitioner.cs" />
     <Compile Include="ViewModels\ViewModelCreatePractitioner.cs" />
+    <Compile Include="ViewModels\ViewModelLoginScreen.cs" />
     <Compile Include="View\CreateUser.xaml.cs">
       <DependentUpon>CreateUser.xaml</DependentUpon>
     </Compile>
