@@ -20,13 +20,13 @@ namespace Web.Controllers
         public async Task<ActionResult> UserLogin(string userName, string password) {
 
             LoginCaller lc = new LoginCaller();
-            Customer c = await lc.GetByLogin(userName, password);
+            bool res = await lc.GetByLogin(userName, password);
             Session["UserID"] = "as";
             Session["UserName"] = "sad";
-            if (c != null)
+            if (res)
             {
-                Session["UserID"] = c.Email;
-                Session["UserName"] = c.UserName;
+                Session["UserID"] = userName;
+                Session["UserName"] = password;
             }
             else
             {

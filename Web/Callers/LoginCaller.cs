@@ -24,11 +24,11 @@ namespace Web.Callers
 
 
 
-        public async Task<Customer> GetByLogin(string UserName, string Password)
+        public async Task<bool> GetByLogin(string UserName, string Password)
         {
-            Customer c = new Customer(UserName, Password);
             var request = new RestRequest("Login/" + UserName + "/" + Password, Method.POST);    
-            var response = await client.ExecuteAsync<Customer>(request);
+            var response = await client.ExecuteAsync<bool>(request);
+            
             return response.Data;
         }
 
