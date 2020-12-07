@@ -102,24 +102,13 @@ namespace Desktop
             return res;
         }
 
-        private async void setCity(string zipCode)
-        {
-            City c = await dcfcu.setCity(zipCode);
-            if (c != null)
-            {
-                if (c.CityName != null)
-                {
-                    city.Text = c.CityName;         
-                }
-            }
-            
-        }
+      
 
-        private void postnr_TextChanged(object sender, TextChangedEventArgs e)
+        private async void postnr_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (dcfcu.checkZipCode(postnr.Text))
             {
-                    setCity(postnr.Text);
+                    await dcfcu.setCity(postnr.Text);
             }
         }
 
