@@ -69,18 +69,21 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Scripts\0001_Exercise.sql" />
-    <EmbeddedResource Include="Scripts\0002_RehabProgram.sql" />
-    <EmbeddedResource Include="Scripts\0003_ExerciseLine.sql" />
-    <EmbeddedResource Include="Scripts\0004_City.sql" />
-    <EmbeddedResource Include="Scripts\0005_Clinic.sql" />
-    <EmbeddedResource Include="Scripts\0006_Type.sql" />
-    <EmbeddedResource Include="Scripts\0007_Person.sql" />
+    <EmbeddedResource Include="Scripts\0007_RehabProgram.sql" />
+    <EmbeddedResource Include="Scripts\0002_ExerciseLine.sql" />
+    <EmbeddedResource Include="Scripts\0003_City.sql" />
+    <EmbeddedResource Include="Scripts\0004_Clinic.sql" />
+    <EmbeddedResource Include="Scripts\0005_Type.sql" />
+    <EmbeddedResource Include="Scripts\0006_Person.sql" />
     <EmbeddedResource Include="Scripts\0008_InjuryType.sql" />
     <EmbeddedResource Include="Scripts\0009_Injury.sql" />
     <EmbeddedResource Include="Scripts\0010_Appointment.sql" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Scripts\0011_Insert.sql" />
+    <EmbeddedResource Include="Scripts\0012_Insert.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Scripts\0011_Alter.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

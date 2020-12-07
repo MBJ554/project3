@@ -11,15 +11,15 @@ namespace API.DAL.Models
 		public DateTime Startdate { get; set; }
 		public DateTime Enddate { get; set; }
 		public int CustomerId { get; set; }
-		public int PractionerId { get; set; }
+		public int PractitionerId { get; set; }
 
-		public Appointment(int _Id, DateTime _startDate, DateTime _endDate, int _customerId, int _practionerId)
+		public Appointment(int _Id, DateTime _startDate, DateTime _endDate, int _customerId, int _practitionerId)
 		{
 			this.Id = _Id;
 			this.Startdate = _startDate;
 			this.Enddate = _endDate;
 			this.CustomerId = _customerId;
-			this.PractionerId = _practionerId;
+			this.PractitionerId = _practitionerId;
 		}
 		public Appointment()
 		{

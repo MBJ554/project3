@@ -1,4 +1,5 @@
-﻿using API.DAL.Interfaces;
+﻿using API.DAL.Exceptions;
+using API.DAL.Interfaces;
 using API.DAL.Models;
 using Dapper;
 using System;
@@ -17,19 +18,34 @@ namespace API.DAL.Repositories
         //TODO fix return
         public Appointment Create(Appointment obj)
         {
-            using (var conn = new SqlConnection(connectionString))
+            try
             {
-                string sql = "INSERT INTO [dbo].[Appointment] " +
-                    "([startdate], " +
-                    "[enddate], " +
-                    "[customerId], " +
-                    "[practionerId]) VALUES " +
-                    "(@startdate, " +
-                    "@enddate, " +
-                    "@customerId, " +
-                    "@practionerId)";
-                conn.Execute(sql, obj);
-                return null;
+                using (var conn = new SqlConnection(connectionString))
+                {
+                    string sql = "INSERT INTO [dbo].[Appointment] " +
+                        "([startdate], " +
+                        "[enddate], " +
+                        "[customerId], " +
+                        "[practitionerId]) VALUES " +
+                        "(@startdate, " +
+                        "@enddate, " +
+                        "@customerId, " +
+                        "@practitionerId)";
+                    conn.Execute(sql, obj);
+                    return null;
+                }
+            }
+            catch (SqlException e)
+            {
+
+                if (e.Number == 2627)
+                {
+                    throw new DataAccessException("Den valgte tid er ikke længere tilgængelig. Prøv igen", e);
+                }
+                else
+                {
+                    throw new DataAccessException("Der gik noget galt, prøv igen", e);
+                }
             }
         }
         //TODO FIX return
@@ -58,7 +74,7 @@ namespace API.DAL.Repositories
             using (var conn = new SqlConnection(connectionString))
             {
                 // TODO: Fix stavefejl i database med practitioner
-                string sql = "SELECT * FROM Appointment WHERE (SELECT CONVERT (date , startdate)) = @date  AND practionerId = @practitionerId";
+                string sql = "SELECT * FROM Appointment WHERE (SELECT CONVERT (date , startdate)) = @date  AND practitionerId = @practitionerId";
                 return conn.Query<Appointment>(sql, new { date.Date, practitionerId } );
             }
         }

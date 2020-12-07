@@ -1,4 +1,5 @@
-﻿using API.DAL.Interfaces;
+﻿using API.ApiHelpers;
+using API.DAL.Interfaces;
 using API.DAL.Repositories;
 using API.Models;
 using System;
@@ -18,31 +19,51 @@ namespace API.Controllers
             _practitionerRepository = practitionerRepository;
         }
         // GET: api/Practitioner
-        public IEnumerable<string> Get()
+        public IHttpActionResult Get()
         {
-            return new string[] { "value1", "value2" };
+            List<Practitioner> practitioners = new List<Practitioner>();
+            var pratitionersDAL = _practitionerRepository.GetAll();
+            foreach (var practitioner in pratitionersDAL)
+            {
+                if (practitioner != null)
+                {
+                    practitioners.Add(buildPractitioner(practitioner));
+                }
+            }
+            if (practitioners.Count == 0)
+            {
+                return NotFound();
+            }
+            return Ok(practitioners);
         }
 
         // GET: api/Practitioner/5
-        public Practitioner Get(int id)
+        public IHttpActionResult Get(int id)
         {
-            //return _practitionerRepository.GetById(id);
-            return null;
+            var practitioner = _practitionerRepository.GetById(id);
+            if (practitioner != null)
+            {
+                return Ok(buildPractitioner(practitioner));
+            }
+            return NotFound();
         }
 
         // POST: api/Practitioner
-        public void Post([FromBody]string value)
+        public void Post([FromBody] API.DAL.Models.Practitioner practitioner)
         {
+            _practitionerRepository.Create(practitioner);
         }
 
         // PUT: api/Practitioner/5
-        public void Put(int id, [FromBody]string value)
+        public void Put(int id, [FromBody] API.DAL.Models.Practitioner practitioner)
         {
+            _practitionerRepository.Update(practitioner);
         }
 
         // DELETE: api/Practitioner/5
         public void Delete(int id)
         {
+            _practitionerRepository.Delete(id);
         }
 
         private Practitioner buildPractitioner(API.DAL.Models.Practitioner practitioner)
@@ -50,7 +71,11 @@ namespace API.Controllers
             return new Practitioner
             {
                 Id = practitioner.Id,
-                //Clinic = 
+                Clinic = practitioner.ClinicId != 0 ? ApiHelper.BuildClinicURL(practitioner.ClinicId) : null,
+                FirstName = practitioner.FirstName,
+                LastName = practitioner.LastName,
+                PhoneNo = practitioner.PhoneNo,
+                Email = practitioner.Email
             };
         }
     }

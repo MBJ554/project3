@@ -62,7 +62,7 @@ namespace API.DAL.Repositories
                 return conn.Query<Customer>(sql);
             }
         }
-     
+        // TODO City ikke nødvendig som vi gær det nu, dog skal vi mpske stadig populate vores database med zipcode sådan at vi ikke er afhængige af dawas
         public Customer GetById(int id)
         {
             using (var conn = new SqlConnection(connectionString))

@@ -1,14 +1,11 @@
 ﻿using API.ApiHelpers;
+using API.DAL.Exceptions;
 using API.DAL.Interfaces;
 using API.Models;
-using Dapper;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace API.Controllers
@@ -46,7 +43,7 @@ namespace API.Controllers
             }
             return NotFound();
         }
-        
+
         // GET: api/Appointment/id
         public IHttpActionResult Get(int id, [FromUri] string date)
         {
@@ -66,10 +63,20 @@ namespace API.Controllers
         }
 
         // POST: api/Appointment
-        public void Post([FromBody] Appointment appointment)
+        public IHttpActionResult Post([FromBody] Appointment appointment)
         {
             API.DAL.Models.Appointment c = BuildDalAppointment(appointment);
-            _appointmentRepository.Create(c);
+            try
+            {
+                _appointmentRepository.Create(c);
+            }
+            catch (DataAccessException e)
+            {
+                return Content(HttpStatusCode.Conflict, e.Message);
+                //throw e;
+            }
+
+            return Ok();
         }
 
         // DELETE: api/Appointment/5
@@ -80,18 +87,19 @@ namespace API.Controllers
 
         private Appointment BuildAppointment(API.DAL.Models.Appointment appointment)
         {
-            return new Appointment 
-            { 
+            return new Appointment
+            {
                 Id = appointment.Id,
                 Startdate = appointment.Startdate,
                 Enddate = appointment.Enddate,
-                Practioner = ApiHelper.BuildPractitionerURL(appointment.PractionerId),
+                Practitioner = ApiHelper.BuildPractitionerURL(appointment.PractitionerId),
                 Customer = ApiHelper.BuildCustomerURL(appointment.CustomerId)
             };
         }
 
-        private API.DAL.Models.Appointment BuildDalAppointment(Appointment appointment) {
-            
+        private API.DAL.Models.Appointment BuildDalAppointment(Appointment appointment)
+        {
+
             // TODO : Fix tidkonvertiring til UTC
             return new API.DAL.Models.Appointment
             {
@@ -99,8 +107,8 @@ namespace API.Controllers
                 Startdate = appointment.Startdate.ToLocalTime(),
                 Enddate = appointment.Enddate.ToLocalTime(),
                 CustomerId = int.Parse(appointment.Customer),
-                PractionerId = int.Parse(appointment.Practioner)
-        };
+                PractitionerId = int.Parse(appointment.Practitioner)
+            };
 
 
         }

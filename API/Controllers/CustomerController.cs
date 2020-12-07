@@ -54,19 +54,6 @@ namespace API.Controllers
         // POST: api/Customer
         public void Post([FromBody] API.DAL.Models.Customer customer)
         {
-            //var c = new API.DAL.Models.Customer
-            //{
-            //    ClinicId = Convert.ToInt32(customer.Clinic),
-            //    PractitionerId = Convert.ToInt32(customer.Practitioner),
-            //    RehabProgramId = Convert.ToInt32(customer.RehabProgram),
-            //    FirstName = customer.FirstName,
-            //    LastName = customer.LastName,
-            //    PhoneNo = customer.PhoneNo,
-            //    Email = customer.Email,
-            //    Password = customer.Password,
-            //    Address = customer.Address,
-            //    ZipCode = customer.ZipCode,
-            //};
             _customerRepository.Create(customer);
         }
 
@@ -101,74 +88,5 @@ namespace API.Controllers
                 ZipCode = customer.ZipCode
             };
         }
-
-        //private RehabProgram buildRehabProgram(int id)
-        //{
-        //    var rehabProgram = _rehabProgramRepository.GetById(id);
-        //    return new RehabProgram
-        //    {
-        //        Id = rehabProgram.Id,
-        //        Description = rehabProgram.Description,
-        //        StartDate = rehabProgram.StartDate,
-        //        EndDate = rehabProgram.EndDate,
-        //        ExerciseLines = buildExerciseLines(rehabProgram.Id)
-        //    };
-        //}
-
-        //private List<ExerciseLine> buildExerciseLines(int id)
-        //{
-        //    List<ExerciseLine> res = new List<ExerciseLine>();
-        //    var exerciseLines = _exerciseLineRepository.GetAllByRehabProgramId(id);
-        //    foreach (var exerciseLine in exerciseLines)
-        //    {
-        //        res.Add(new ExerciseLine
-        //        {
-        //            Exercise = buildExercise(exerciseLine.ExcerciseId),
-        //            Sets = exerciseLine.Sets,
-        //            Reps = exerciseLine.Reps
-        //        });
-        //    }
-        //    return res;
-        //}
-
-        //private Exercise buildExercise(int Id)
-        //{
-        //    var exercise = _exerciseRepository.GetById(Id);
-        //    return new Exercise
-        //    {
-        //        Id = exercise.Id,
-        //        Name = exercise.Name,
-        //        Description = exercise.Description
-        //    };
-        //}
-
-        //private Clinic buildClinic(int id)
-        //{
-        //    var clinic = _clinicRepository.GetById(id);
-        //    return new Clinic
-        //    {
-        //        Id = clinic.Id,
-        //        Name = clinic.Name,
-        //        Address = clinic.Address,
-        //        ZipCode = clinic.ZipCode,
-        //        City = _cityRepository.GetCityByZipCode(clinic.ZipCode).city,
-        //        PhoneNo = clinic.PhoneNo,
-        //        Description = clinic.Description
-        //    };
-        //}
-
-        //private Practitioner buildPractitioner(int id)
-        //{
-        //    var practitioner = _practitionerRepository.GetById(id);
-        //    return new Practitioner
-        //    {
-        //        Id = practitioner.Id,
-        //        Clinic = buildClinic(practitioner.ClinicId),
-        //        FirstName = practitioner.FirstName,
-        //        LastName = practitioner.LastName,
-        //        Email = practitioner.Email,
-        //        Password = practitioner.Password
-        //    };
-        //}
     }
 }

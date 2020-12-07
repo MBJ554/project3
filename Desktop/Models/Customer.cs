@@ -8,11 +8,15 @@ using System.Threading.Tasks;
 
 namespace Desktop.Models
 {
-	public class Customer
+	public class Customer : INotifyPropertyChanged
 	{
 
+        protected void OnPropertyChanged([CallerMemberName] string name = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
 
-		public int Id { 
+        public int Id { 
             get; 
             set; }
 		public int PersonTypeId {
@@ -59,6 +63,22 @@ namespace Desktop.Models
         {
             get;
             set;
+        }
+        private string city;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public string City {
+            get
+            { 
+                return city; 
+            }
+            set 
+            { 
+                city = value;
+                OnPropertyChanged();
+            }
+        
         }
 
 

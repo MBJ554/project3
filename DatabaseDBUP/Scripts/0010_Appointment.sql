@@ -13,7 +13,7 @@ CREATE TABLE [dbo].[Appointment](
 	[startdate] [datetime] NOT NULL,
 	[enddate] [datetime] NOT NULL,
 	[customerId] [int] NOT NULL,
-	[practionerId] [int] NOT NULL,
+	[practitionerId] [int] NOT NULL,
  CONSTRAINT [PK_Appointment] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
@@ -21,18 +21,21 @@ CREATE TABLE [dbo].[Appointment](
 ) ON [PRIMARY]
 GO
 
-ALTER TABLE [dbo].[Appointment]  WITH CHECK ADD  CONSTRAINT [FK_Appointment_Customer] FOREIGN KEY([customerId])
-REFERENCES [dbo].[Person] ([id])
-GO
+--ALTER TABLE [dbo].[Appointment]  WITH CHECK ADD  CONSTRAINT [FK_Appointment_Customer] FOREIGN KEY([customerId])
+--REFERENCES [dbo].[Person] ([id]) ON DELETE SET NULL
+--GO
 
-ALTER TABLE [dbo].[Appointment] CHECK CONSTRAINT [FK_Appointment_Customer]
-GO
+--ALTER TABLE [dbo].[Appointment] CHECK CONSTRAINT [FK_Appointment_Customer]
+--GO
 
-ALTER TABLE [dbo].[Appointment]  WITH CHECK ADD  CONSTRAINT [FK_Appointment_Practitioner] FOREIGN KEY([practionerId])
-REFERENCES [dbo].[Person] ([id])
-GO
+--ALTER TABLE [dbo].[Appointment]  WITH CHECK ADD  CONSTRAINT [FK_Appointment_Practitioner] FOREIGN KEY([practitionerId])
+--REFERENCES [dbo].[Person] ([id]) ON DELETE SET NULL
+--GO
 
-ALTER TABLE [dbo].[Appointment] CHECK CONSTRAINT [FK_Appointment_Practitioner]
-GO
+--ALTER TABLE [dbo].[Appointment] CHECK CONSTRAINT [FK_Appointment_Practitioner]
+--GO
+
+--ALTER TABLE [dbo].[Appointment] ADD CONSTRAINT [Unique_Appointment] UNIQUE(practitionerId, startdate)
+--GO
 
 

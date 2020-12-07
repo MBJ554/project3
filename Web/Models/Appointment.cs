@@ -10,7 +10,7 @@ namespace Web.Models
 		public DateTime Startdate { get; set; }
 		public DateTime Enddate { get; set; }
 		public string Customer { get; set; }
-		public string Practioner { get; set; }
+		public string Practitioner { get; set; }
 
 		public string StartEndDate { get { return Startdate.ToString() + " - " + Enddate.ToString(); }  }
 

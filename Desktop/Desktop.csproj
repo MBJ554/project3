@@ -93,6 +93,12 @@
     <Compile Include="Callers\ClinicCaller.cs" />
     <Compile Include="Callers\CustomerCaller.cs" />
     <Compile Include="Callers\ICaller.cs" />
+    <Compile Include="Callers\PractitionerCaller.cs" />
+    <Compile Include="CreatePractitioner.xaml.cs">
+      <DependentUpon>CreatePractitioner.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Practitioner.cs" />
+    <Compile Include="ViewModels\ViewModelCreatePractitioner.cs" />
     <Compile Include="View\CreateUser.xaml.cs">
       <DependentUpon>CreateUser.xaml</DependentUpon>
     </Compile>
@@ -106,7 +112,7 @@
     <Compile Include="Models\City.cs" />
     <Compile Include="Models\Clinic.cs" />
     <Compile Include="Models\Customer.cs" />
-    <Compile Include="ViewModels\ViewModelCreateUser.cs" />
+    <Compile Include="ViewModels\ViewModelCreateCustomer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -139,6 +145,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="CreatePractitioner.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\CreateUser.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

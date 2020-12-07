@@ -128,6 +128,7 @@
     <Compile Include="Controllers\InjuryTypeController.cs" />
     <Compile Include="Controllers\PractitionerController.cs" />
     <Compile Include="Controllers\RehabProgramController.cs" />
+    <Compile Include="DAL\Exceptions\DataAccessException.cs" />
     <Compile Include="DAL\Interfaces\IAppointmentRepository.cs" />
     <Compile Include="DAL\Interfaces\ICityRepository.cs" />
     <Compile Include="DAL\Interfaces\IClinicRepository.cs" />
