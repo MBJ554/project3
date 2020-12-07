@@ -72,6 +72,11 @@ namespace API.DAL.Repositories
             }
         }
 
+        public bool IsAuthorized(string email, string passwordHashed)
+        {
+            throw new NotImplementedException();
+        }
+
         public Customer Update(Customer customer)
         {
             using (var conn = new SqlConnection(connectionString))

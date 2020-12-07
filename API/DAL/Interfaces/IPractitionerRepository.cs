@@ -9,5 +9,6 @@ namespace API.DAL.Interfaces
 {
     public interface IPractitionerRepository : IGenericRepository<Practitioner>
     {
+        bool IsAuthorized(string email, string passwordHashed);
     }
 }

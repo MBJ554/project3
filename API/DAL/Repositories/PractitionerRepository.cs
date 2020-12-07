@@ -86,6 +86,11 @@ namespace API.DAL.Repositories
             }
         }
 
+        public bool IsAuthorized(string email, string passwordHashed)
+        {
+            throw new NotImplementedException();
+        }
+
         public Practitioner Update(Practitioner obj)
         {
             using (var conn = new SqlConnection(connectionString))
