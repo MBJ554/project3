@@ -16,7 +16,11 @@ namespace Web.Controllers
         // GET: BookAppointment
         public ActionResult Index()
         {
-            return View();
+            var ID = Session["UserName"] as string;
+            if (ID != null) {
+                return View();
+            }
+            return RedirectToAction("Index", "Login");
         }
 
         public async Task<ActionResult> ChooseAppointmentTime(DateTime date)
@@ -55,6 +59,8 @@ namespace Web.Controllers
 
         [HandleError(ExceptionType = typeof(Exception), View = "BookErrorView")]
         public ActionResult BookTime(DateTime startDate, DateTime endDate) {
+
+          
             Appointment a = new Appointment();
             a.Enddate = endDate;
             a.Startdate = startDate;

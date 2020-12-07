@@ -22,10 +22,19 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("Konsultationer", "Index", "BookAppointment")</li>
+                    <li>@Html.ActionLink("Login", "Index", "Login")</li>
                 </ul>
             </div>
         </div>
     </div>
+    @{
+        if (ViewBag.ErrorMessage != null)
+        {
+            <div class="alert-danger center-block">
+                <p> ERROR: @ViewBag.ErrorMessage </p>
+            </div>
+        }
+    }
     <div class="container body-content">
         @RenderBody()
         <hr />
@@ -38,4 +47,4 @@
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>
-</html>
+
