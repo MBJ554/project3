@@ -52,10 +52,11 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        // POST: api/Customer/email/password
-        public bool Post(string email, string password)
+        // POST: api/Customer
+        [Route("api/Customer/{id}/Login")]
+        public bool Post([FromBody] Customer c)
         {
-            return _customerRepository.IsAuthorized(email, password); 
+            return _customerRepository.IsAuthorized(c.Email, c.Password); 
         }
 
         // POST: api/Customer
