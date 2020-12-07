@@ -50,7 +50,7 @@ namespace Desktop
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            dcfcu.Customer.Password = password.Password;
+            dcfcu.Customer.PasswordHash = password.Password;
 
             if (checkValues()) {
                
@@ -71,7 +71,7 @@ namespace Desktop
                 message += "- Nummeret skal være 8 cifre langt og må kun indeholde tal";
                 res = false;  
             }
-            if (dcfcu.setCity(postnr.Text) !=null)
+            if (dcfcu.setCity(postnr.Text).Equals(null))
             {
                 message += " - Postnummeret findes ikke";
                 res = false;
