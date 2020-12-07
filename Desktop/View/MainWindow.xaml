@@ -43,7 +43,7 @@
                         <Button Content="Indstillinger"/>
                         <Button Content="Hjælp"/>
                         <Separator/>
-                        <Button x:Name="btnLogOut" Content="Log ud" Click="btnLogOut_Click"/>
+                        <Button x:Name="btnLogOut" Content="Exit" Click="btnLogOut_Click"/>
                     </StackPanel>
                 </materialDesign:PopupBox>
             </StackPanel>
