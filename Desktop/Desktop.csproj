@@ -97,6 +97,9 @@
     <Compile Include="CreatePractitioner.xaml.cs">
       <DependentUpon>CreatePractitioner.xaml</DependentUpon>
     </Compile>
+    <Compile Include="LoginScreen.xaml.cs">
+      <DependentUpon>LoginScreen.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Models\Practitioner.cs" />
     <Compile Include="ViewModels\ViewModelCreatePractitioner.cs" />
     <Compile Include="View\CreateUser.xaml.cs">
@@ -146,6 +149,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="CreatePractitioner.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LoginScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
