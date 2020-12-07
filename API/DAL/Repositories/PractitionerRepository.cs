@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web;
 
 namespace API.DAL.Repositories
@@ -31,14 +33,16 @@ namespace API.DAL.Repositories
                         "[lastName]," +
                         "[phoneNo]," +
                         "[email]," +
-                        "[password])" +
+                        "[passwordHash]," +
+                        "[salt])" +
                         "VALUES ((SELECT id FROM PersonType WHERE type = 'Practitioner')" +
                         ", @clinicId" +
                         ", @firstName" +
                         ", @lastName" +
                         ", @phoneNo" +
                         ", @email" +
-                        ", @password)";
+                        ", @passwordHash" +
+                        ", @salt)";
 
                         //TODO Kig på error codes fra api da den ikke returner customer
                         var rowsAffected = conn.Execute(sql, obj, transaction: transaction);
@@ -86,9 +90,21 @@ namespace API.DAL.Repositories
             }
         }
 
-        public bool IsAuthorized(string email, string passwordHashed)
+        public bool IsAuthorized(string email, string password)
         {
-            throw new NotImplementedException();
+            using (var conn = new SqlConnection(connectionString))
+            {
+                string sql = "SELECT * FROM Person p WHERE personTypeId = (SELECT id FROM PersonType WHERE type = 'Practitioner') AND email = @email";
+                var practitioner = conn.QuerySingleOrDefault<Customer>(sql, new { email });
+                if (practitioner != null)
+                {
+                    HashAlgorithm hashAlgorithm = SHA512.Create();
+                    var passwordHash = Convert.ToBase64String(hashAlgorithm.ComputeHash(Encoding.UTF8.GetBytes(practitioner.Salt + password)));
+
+                    return passwordHash == practitioner.PasswordHash;
+                }
+            }
+            return false;
         }
 
         public Practitioner Update(Practitioner obj)

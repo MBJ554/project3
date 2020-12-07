@@ -51,6 +51,13 @@ namespace API.Controllers
             return NotFound();
         }
 
+        [HttpPost]
+        // POST: api/Customer/email/password
+        public bool Post(string email, string password)
+        {
+            return _customerRepository.IsAuthorized(email, password); 
+        }
+
         // POST: api/Customer
         public void Post([FromBody] API.DAL.Models.Customer customer)
         {
@@ -83,7 +90,7 @@ namespace API.Controllers
                 LastName = customer.LastName,
                 PhoneNo = customer.PhoneNo,
                 Email = customer.Email,
-                Password = customer.Password,
+                Password = customer.PasswordHash,
                 Address = customer.Address,
                 ZipCode = customer.ZipCode
             };

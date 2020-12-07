@@ -60,6 +60,13 @@ namespace API.Controllers
             _practitionerRepository.Update(practitioner);
         }
 
+        [HttpPost]
+        // POST: api/practitioner/email/password
+        public bool Post(string email, string password)
+        {
+            return _practitionerRepository.IsAuthorized(email, password);
+        }
+
         // DELETE: api/Practitioner/5
         public void Delete(int id)
         {
