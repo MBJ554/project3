@@ -24,9 +24,9 @@ namespace Web.Callers
 
 
 
-        public async Task<bool> GetByLogin(string UserName, string Password)
+        public async Task<bool> GetByLogin(string email, string password)
         {
-            var request = new RestRequest("Login/" + UserName + "/" + Password, Method.POST);    
+            var request = new RestRequest("customer/" + email + "/" + password, Method.POST);    
             var response = await client.ExecuteAsync<bool>(request);
             
             return response.Data;
