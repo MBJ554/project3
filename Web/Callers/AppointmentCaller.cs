@@ -60,6 +60,9 @@ namespace Web.Callers
 
         public void BookTime(Appointment a)
         {
+
+           
+
             var request = new RestRequest("appointment", Method.POST);
             request.AddJsonBody(a);
             var response = client.Execute(request);
