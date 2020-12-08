@@ -90,7 +90,7 @@ namespace API.DAL.Repositories
             }
         }
 
-        public bool IsAuthorized(string email, string password)
+        public Practitioner IsAuthorized(string email, string password)
         {
             using (var conn = new SqlConnection(connectionString))
             {
@@ -101,10 +101,13 @@ namespace API.DAL.Repositories
                     HashAlgorithm hashAlgorithm = SHA512.Create();
                     var passwordHash = Convert.ToBase64String(hashAlgorithm.ComputeHash(Encoding.UTF8.GetBytes(practitioner.Salt + password)));
 
-                    return passwordHash == practitioner.PasswordHash;
+                    if (passwordHash == practitioner.PasswordHash)
+                    {
+                        return practitioner;
+                    }
                 }
             }
-            return false;
+            return null;
         }
 
         public Practitioner Update(Practitioner obj)
