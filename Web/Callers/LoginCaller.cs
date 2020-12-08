@@ -21,23 +21,19 @@ namespace Web.Callers
             client = new RestClient(ConfigurationManager.AppSettings["ProjectApi"]);
         }
 
-
-
-
-        public async Task<bool> GetByLogin(string UserName, string Password)
+        public async Task<bool> GetByLogin(string userName, string password)
         {
-
-            //var request1 = new RestRequest("/customer", Method.GET);
-            //var response1 = await client.ExecuteAsync <List<Customer>>(request1);
-            Customer c = new Customer();
-            c.Password = Password;
-            c.Email = UserName;
-            var request = new RestRequest("/customer/" + 1 + "/" + "Login", Method.POST);
-            request.AddJsonBody(c);
+            var request = new RestRequest("customer/" + userName + "/" + password, Method.POST);
             var response = await client.ExecuteAsync<bool>(request);
             return response.Data;
         }
 
-       
+        //var request1 = new RestRequest("/customer", Method.GET);
+        //var response1 = await client.ExecuteAsync <List<Customer>>(request1);
+        //Customer c = new Customer();
+        //c.Password = Password;
+        //c.Email = UserName;
+        //request.AddJsonBody(c);
+
     }
 }

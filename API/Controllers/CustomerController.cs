@@ -51,12 +51,19 @@ namespace API.Controllers
             return NotFound();
         }
 
+        //[HttpPost]
+        //// POST: api/Customer
+        //[Route("api/Customer/{id}/Login")]
+        //public bool Post([FromBody] Customer c)
+        //{
+        //    return _customerRepository.IsAuthorized(c.Email, c.Password); 
+        //}
+
         [HttpPost]
-        // POST: api/Customer
-        [Route("api/Customer/{id}/Login")]
-        public bool Post([FromBody] Customer c)
+        [Route("api/customer/{email}/{password}")]
+        public bool Post(string email, string password)
         {
-            return _customerRepository.IsAuthorized(c.Email, c.Password); 
+            return _customerRepository.IsAuthorized(email, password);
         }
 
         // POST: api/Customer
