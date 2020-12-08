@@ -26,7 +26,7 @@ namespace Web.Controllers
         public async Task<ActionResult> ChooseAppointmentTime(DateTime date)
         {
             AppointmentCaller appointmentCaller = new AppointmentCaller();
-            var bookedAppointments = await appointmentCaller.GetByDate(date);
+            var bookedAppointments = await appointmentCaller.GetByDate(date, Session["PractitionerId"] as string);
 
             // List<Appointment> bookedAppointments = new List<Appointment>();
             // Appointment bookedAppointment = new Appointment();

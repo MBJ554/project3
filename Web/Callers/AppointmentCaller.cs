@@ -50,9 +50,9 @@ namespace Web.Callers
         }
 
         //TODO change to IEnumerable
-        public async Task<List<Appointment>> GetByDate(DateTime appointmentDate)
+        public async Task<List<Appointment>> GetByDate(DateTime appointmentDate, string id)
         {
-            var request = new RestRequest("api/appointment/"+ 1, Method.GET);
+            var request = new RestRequest("api/appointment/"+ id, Method.GET);
             request.AddParameter("date", appointmentDate.ToString());
             var response = await client.ExecuteAsync<List<Appointment>>(request);
             return response.Data;
