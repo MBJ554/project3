@@ -50,7 +50,7 @@ namespace Desktop
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            vmpc.Practitioner.Password = password.Password;
+            vmpc.Practitioner.PasswordHash = password.Password;
 
             if (checkValues())
             {

@@ -21,12 +21,13 @@ namespace Web.Controllers
         {
 
             LoginCaller lc = new LoginCaller();
-            bool res = await lc.GetByLogin(email, password);
-            if (res)
+            var customer = await lc.GetByLogin(email, password);
+            if (customer != null)
             {
-                Customer c = await lc.FindCustomerByEmail(email);
-                Session["UserId"] = c.Id;
-                Session["Practitioner"] = c.Practitioner;
+                PractitionerCaller pc = new PractitionerCaller();
+                Session["UserId"] = customer.Id.ToString();
+                Practitioner p = await pc.GetPractitionerId(customer.Practitioner);
+                Session["PractitionerId"] = p.Id.ToString();
             }
             else
             {

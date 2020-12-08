@@ -63,8 +63,9 @@ namespace Web.Controllers
             a.Enddate = endDate;
             a.Startdate = startDate;
             // TODO tilføj kunde og udøver
-            a.Customer = Session["UserId"] as string;
-            a.Practitioner = Session["Practitioner"] as string;
+           
+            a.CustomerId = Session["UserId"] as string;
+            a.PractitionerId = Session["PractitionerId"] as string;
             AppointmentCaller ac = new AppointmentCaller();
             ac.BookTime(a);
             return View(a); ;

@@ -18,20 +18,16 @@ namespace Web.Callers
         public LoginCaller()
         {
 
-            client = new RestClient(ConfigurationManager.AppSettings["ProjectApi"]);
+            client = new RestClient(ConfigurationManager.AppSettings["ProjectApi2"]);
         }
 
-        public async Task<bool> GetByLogin(string userName, string password)
+        public async Task<Customer> GetByLogin(string email, string password)
         {
-            var request = new RestRequest("customer/" + userName + "/" + password, Method.POST);
-            var response = await client.ExecuteAsync<bool>(request);
+            var request = new RestRequest("api/customer/" + email + "/" + password, Method.GET);
+            var response = await client.ExecuteAsync<Customer>(request);
             return response.Data;
         }
 
-        internal Task<Customer> FindCustomerByEmail(string email)
-        {
-            throw new NotImplementedException();
-        }
 
         //var request1 = new RestRequest("/customer", Method.GET);
         //var response1 = await client.ExecuteAsync <List<Customer>>(request1);
