@@ -17,14 +17,16 @@ namespace Web.Controllers
             return View();
         }
 
-        public async Task<ActionResult> UserLogin(string userName, string password) {
+        public async Task<ActionResult> UserLogin(string email, string password)
+        {
 
             LoginCaller lc = new LoginCaller();
-            bool res = await lc.GetByLogin(userName, password);
+            bool res = await lc.GetByLogin(email, password);
             if (res)
             {
-                Session["UserID"] = userName;
-                Session["UserName"] = password;
+                Customer c = await lc.FindCustomerByEmail(email);
+                Session["UserId"] = c.Id;
+                Session["Practitioner"] = c.Practitioner;
             }
             else
             {

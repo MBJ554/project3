@@ -28,6 +28,11 @@ namespace Web.Callers
             return response.Data;
         }
 
+        internal Task<Customer> FindCustomerByEmail(string email)
+        {
+            throw new NotImplementedException();
+        }
+
         //var request1 = new RestRequest("/customer", Method.GET);
         //var response1 = await client.ExecuteAsync <List<Customer>>(request1);
         //Customer c = new Customer();
