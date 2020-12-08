@@ -95,7 +95,7 @@ namespace API.DAL.Repositories
             using (var conn = new SqlConnection(connectionString))
             {
                 string sql = "SELECT * FROM Person p WHERE personTypeId = (SELECT id FROM PersonType WHERE type = 'Practitioner') AND email = @email";
-                var practitioner = conn.QuerySingleOrDefault<Customer>(sql, new { email });
+                var practitioner = conn.QuerySingleOrDefault<Practitioner>(sql, new { email });
                 if (practitioner != null)
                 {
                     HashAlgorithm hashAlgorithm = SHA512.Create();
