@@ -17,7 +17,6 @@ namespace Web.Callers
 
         public LoginCaller()
         {
-
             client = new RestClient(ConfigurationManager.AppSettings["ProjectApi2"]);
         }
 
@@ -27,14 +26,5 @@ namespace Web.Callers
             var response = await client.ExecuteAsync<Customer>(request);
             return response.Data;
         }
-
-
-        //var request1 = new RestRequest("/customer", Method.GET);
-        //var response1 = await client.ExecuteAsync <List<Customer>>(request1);
-        //Customer c = new Customer();
-        //c.Password = Password;
-        //c.Email = UserName;
-        //request.AddJsonBody(c);
-
     }
 }
