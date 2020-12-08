@@ -16,7 +16,6 @@ namespace Desktop.Models
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
-
         public int Id { get; set; }
         public int PersonTypeId { get; set; }
         public int ClinicId { get; set; }
@@ -28,20 +27,21 @@ namespace Desktop.Models
         public string Email { get; set; }
 
         private string passwordHash;
-        public string PasswordHash { get { return passwordHash; } set { passwordHash = HashPassword(value); } }
+        public string PasswordHash
+        {
+            get { return passwordHash; }
+            set { passwordHash = HashPassword(value); }
+        }
         public string Salt { get; set; }
         public string Address { get; set; }
         public string ZipCode { get; set; }
 
-        private string city;  
+        private string city;
         public string City
         {
-            get
-            { return city; }
-            set
-            { city = value; OnPropertyChanged(); }
+            get { return city; }
+            set { city = value; OnPropertyChanged(); }
         }
-
 
         public Customer(int id_, int personTypeId_, int clinicId_, int practitionerId_, int rehabProgramId_, string firstName_, string lastName_, string phoneNo_, string email_, string password_, string address_, string zipCode_)
         {
@@ -58,8 +58,6 @@ namespace Desktop.Models
             this.PasswordHash = HashPassword(password_);
             this.Address = address_;
             this.ZipCode = zipCode_;
-
-
         }
 
         private void GenerateSalt()

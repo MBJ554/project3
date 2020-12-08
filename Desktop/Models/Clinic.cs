@@ -8,16 +8,15 @@ namespace Desktop.Models
 {
     public class Clinic
     {
-
         private string name;
         private int id;
 
         public string Name { get; set; }
         public int Id { get; set; }
 
-        public Clinic() { 
-        
-        }
+        public Clinic()
+        {
 
+        }
     }
 }

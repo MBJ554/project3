@@ -12,9 +12,7 @@ namespace Desktop.Callers
 {
     public class CustomerCaller : ICaller<Customer>
     {
-
         private RestClient client;
-
 
         public CustomerCaller()
         {
@@ -24,9 +22,9 @@ namespace Desktop.Callers
 
         public void Create(Customer obj)
         {
-            var request = new RestRequest("/Customer", Method.POST);      
+            var request = new RestRequest("/Customer", Method.POST);
             request.AddJsonBody(obj);
-            var response = client.Execute(request);          
+            var response = client.Execute(request);
         }
 
         public void Delete(int id)

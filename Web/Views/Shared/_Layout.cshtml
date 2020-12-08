@@ -30,9 +30,10 @@
     @{
         if (ViewBag.ErrorMessage != null)
         {
-            <div class="alert-danger center-block">
-                <p> ERROR: @ViewBag.ErrorMessage </p>
-            </div>
+        <div id="alert" class="alert alert-success alert-dismissible fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <p> ERROR: @ViewBag.ErrorMessage </p>
+        </div>
         }
     }
     <div class="container body-content">
