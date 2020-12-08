@@ -8,7 +8,6 @@ namespace Desktop.Models
 {
     class CitiesList
     {
-
         public List<City> results { get; set; }
     }
 }

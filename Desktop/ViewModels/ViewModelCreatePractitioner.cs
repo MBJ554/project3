@@ -29,41 +29,11 @@ namespace Desktop.ViewModels
         }
 
 
-        public PractitionerCaller PC
-        {
-            get
-            {
-                return pc;
-            }
-            set
-            {
-                pc = value;
-            }
-        }
+        public PractitionerCaller PC { get; set; }
 
-        public ClinicCaller CLC
-        {
-            get
-            {
-                return clc;
-            }
-            set
-            {
-                clc = value;
-            }
-        }
+        public ClinicCaller CLC { get; set; }
 
-        public Practitioner Practitioner
-        {
-            get
-            {
-                return practitioner;
-            }
-            set
-            {
-                practitioner = value;
-            }
-        }
+        public Practitioner Practitioner { get; set; }
 
         internal void Create(Practitioner practitioner)
         {
@@ -85,10 +55,7 @@ namespace Desktop.ViewModels
 
         public ViewModelCreatePractitioner()
         {
-
-            
             RetrieveData();
-
         }
 
         public async void RetrieveData()
@@ -100,14 +67,8 @@ namespace Desktop.ViewModels
 
             var clinics =  await clc.GetAll();
 
-
-         
             Clinics = (List<Clinic>)clinics;
-
-
         }
-
-
 
         public bool checkFirstName(string firstName)
         {
@@ -153,9 +114,7 @@ namespace Desktop.ViewModels
 
         public bool numbersOnly(String checkString)
         {
-
             Regex reg = new Regex("^[0-9]+$");
-
             return reg.IsMatch(checkString);
         }
 

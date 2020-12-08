@@ -11,13 +11,10 @@ namespace Desktop.Callers
 {
     public class ClinicCaller : ICaller<Clinic>
     {
-
         private RestClient client;
-
 
         public ClinicCaller()
         {
-
             client = new RestClient(ConfigurationManager.AppSettings["ProjectApi"]);
         }
 
