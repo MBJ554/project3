@@ -9,6 +9,6 @@ namespace API.DAL.Interfaces
 {
     public interface ICustomerRepository : IGenericRepository<Customer>
     {
-        bool IsAuthorized(string email, string password);
+        Customer IsAuthorized(string email, string password);
     }
 }

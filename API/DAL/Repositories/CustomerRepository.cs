@@ -76,7 +76,7 @@ namespace API.DAL.Repositories
             }
         }
 
-        public bool IsAuthorized(string email, string password)
+        public Customer IsAuthorized(string email, string password)
         {
             using (var conn  = new SqlConnection(connectionString))
             {
@@ -87,10 +87,13 @@ namespace API.DAL.Repositories
                     HashAlgorithm hashAlgorithm = SHA512.Create();
                     var passwordHash = Convert.ToBase64String(hashAlgorithm.ComputeHash(Encoding.UTF8.GetBytes(customer.Salt + password)));
 
-                    return passwordHash == customer.PasswordHash;
+                    if (passwordHash == customer.PasswordHash)
+                    {
+                        return customer;
+                    }
                 }
             }
-            return false;
+            return null;
         }
 
         public Customer Update(Customer customer)

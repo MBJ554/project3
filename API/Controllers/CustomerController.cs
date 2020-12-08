@@ -59,11 +59,16 @@ namespace API.Controllers
         //    return _customerRepository.IsAuthorized(c.Email, c.Password); 
         //}
 
-        [HttpPost]
+        [HttpGet]
         [Route("api/customer/{email}/{password}")]
-        public bool Post(string email, string password)
+        public IHttpActionResult Login(string email, string password)
         {
-            return _customerRepository.IsAuthorized(email, password);
+            var customer = _customerRepository.IsAuthorized(email, password);
+            if (customer != null)
+            {
+                return Ok(BuildCustomer(customer));
+            }
+            return NotFound();
         }
 
         // POST: api/Customer
@@ -98,7 +103,6 @@ namespace API.Controllers
                 LastName = customer.LastName,
                 PhoneNo = customer.PhoneNo,
                 Email = customer.Email,
-                Password = customer.PasswordHash,
                 Address = customer.Address,
                 ZipCode = customer.ZipCode
             };
