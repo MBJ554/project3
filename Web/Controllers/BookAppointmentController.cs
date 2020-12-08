@@ -17,7 +17,8 @@ namespace Web.Controllers
         public ActionResult Index()
         {
             var ID = Session["UserId"];
-            if (ID != null) {
+            if (ID != null)
+            {
                 return View();
             }
             return RedirectToAction("Index", "Login");
@@ -25,6 +26,7 @@ namespace Web.Controllers
 
         public async Task<ActionResult> ChooseAppointmentTime(DateTime date)
         {
+            // TODO Validate the date so the server wont accept dates out of range but instead redirect to 'Index,View' with a ViewBag.ErrorMessage = "Date not valid"
             AppointmentCaller appointmentCaller = new AppointmentCaller();
             var bookedAppointments = await appointmentCaller.GetByDate(date, Session["PractitionerId"] as string);
 
@@ -62,7 +64,7 @@ namespace Web.Controllers
             Appointment a = new Appointment();
             a.Enddate = endDate;
             a.Startdate = startDate;
-            // TODO tilføj kunde og udøver
+            // TODO tilføj kunde og udøver // No dansker snak in da code ;)
            
             a.Customer = Session["UserId"] as string;
             a.Practitioner = Session["PractitionerId"] as string;

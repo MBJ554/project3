@@ -3,9 +3,19 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - TrackSpace</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+
+    <!-- Favicon config -->
+    <link rel="apple-touch-icon" sizes="180x180" href="~/Content/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="~/Content/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="~/Content/favicon/favicon-16x16.png">
+    <link rel="manifest" href="~/Content/favicon/site.webmanifest">
+    <link rel="mask-icon" href="~/Content/favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+       
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -16,7 +26,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("TrackSpace", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -30,7 +40,7 @@
     @{
         if (ViewBag.ErrorMessage != null)
         {
-        <div id="alert" class="alert alert-success alert-dismissible fade in">
+        <div id="alert" class="alert alert-danger alert-dismissible fade in show">
             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
             <p> ERROR: @ViewBag.ErrorMessage </p>
         </div>
@@ -40,7 +50,8 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <a class="pull-left" href="https://trackspace.dk" target="_blank">TrackSpace.dk </a>
+            <p class="pull-right">&copy; @DateTime.Now.Year - TrackSpace Corporation</p>
         </footer>
     </div>
 
