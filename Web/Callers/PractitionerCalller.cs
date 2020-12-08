@@ -7,24 +7,27 @@ using System.Threading.Tasks;
 using System.Web;
 using Web.Models;
 
-namespace Web.Callers
+namespace Web.Controllers
 {
-    public class LoginCaller
+    public class PractitionerCaller
     {
 
         private RestClient client;
 
 
-        public LoginCaller()
+        public PractitionerCaller()
         {
+
             client = new RestClient(ConfigurationManager.AppSettings["ProjectApi2"]);
         }
 
-        public async Task<Customer> GetByLogin(string email, string password)
+        public async Task<Practitioner> GetPractitionerId(string practitionerUrl)
         {
-            var request = new RestRequest("api/customer/" + email + "/" + password, Method.GET);
-            var response = await client.ExecuteAsync<Customer>(request);
+            var request = new RestRequest(practitionerUrl, Method.GET);
+            var response = await client.ExecuteAsync<Practitioner>(request);
             return response.Data;
         }
+
+
     }
 }

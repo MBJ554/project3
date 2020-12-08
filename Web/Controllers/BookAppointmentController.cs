@@ -16,7 +16,7 @@ namespace Web.Controllers
         // GET: BookAppointment
         public ActionResult Index()
         {
-            var ID = Session["UserName"] as string;
+            var ID = Session["UserId"];
             if (ID != null) {
                 return View();
             }
@@ -59,20 +59,15 @@ namespace Web.Controllers
 
         [HandleError(ExceptionType = typeof(Exception), View = "BookErrorView")]
         public ActionResult BookTime(DateTime startDate, DateTime endDate) {
-
-          
             Appointment a = new Appointment();
             a.Enddate = endDate;
             a.Startdate = startDate;
             // TODO tilføj kunde og udøver
-            a.Customer = "2";
-            a.Practitioner = "1";
-
+           
+            a.Customer = Session["UserId"] as string;
+            a.Practitioner = Session["PractitionerId"] as string;
             AppointmentCaller ac = new AppointmentCaller();
-
             ac.BookTime(a);
-
-
             return View(a); ;
         }
         
