@@ -38,7 +38,7 @@ namespace Desktop.Models
             this.PasswordHash = password_;
         }
 
-        private void GenerateSalt()
+        public void GenerateSalt()
         {
             var rngCSP = RNGCryptoServiceProvider.Create();
 
@@ -56,7 +56,7 @@ namespace Desktop.Models
 
         public Practitioner()
         {
-            GenerateSalt();
+            //GenerateSalt();
         }
     }
 }

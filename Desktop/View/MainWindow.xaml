@@ -36,7 +36,7 @@
         <Grid Height="70" VerticalAlignment="Top" Background="#FF0084DF">
             <Image Source="/images/trackspacesort.png" Margin="10,0,10,0"/>
             <StackPanel VerticalAlignment="Center" Orientation="Horizontal" HorizontalAlignment="Right">
-                <TextBlock Text="Indstillinger" VerticalAlignment="Center" FontSize="18"/>
+                <TextBlock Name="UserName" Text="Indstillinger" VerticalAlignment="Center" FontSize="18"/>
                 <materialDesign:PopupBox Margin="10" PlacementMode="BottomAndAlignRightEdges" StaysOpen="False">
                     <StackPanel Width="150">
                         <Button Content="Profil"/>
