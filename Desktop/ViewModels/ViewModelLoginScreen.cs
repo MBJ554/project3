@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
-namespace Desktop.Models
+namespace Desktop.ViewModels
 {
-    class CitiesList
+    public class ViewModelLoginScreen
     {
-        public List<City> results { get; set; }
+
     }
 }

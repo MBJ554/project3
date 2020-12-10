@@ -16,13 +16,19 @@ namespace Web.Controllers
         // GET: BookAppointment
         public ActionResult Index()
         {
-            return View();
+            var ID = Session["UserId"];
+            if (ID != null)
+            {
+                return View();
+            }
+            return RedirectToAction("Index", "Login");
         }
 
         public async Task<ActionResult> ChooseAppointmentTime(DateTime date)
         {
+            // TODO Validate the date so the server wont accept dates out of range but instead redirect to 'Index,View' with a ViewBag.ErrorMessage = "Date not valid"
             AppointmentCaller appointmentCaller = new AppointmentCaller();
-            var bookedAppointments = await appointmentCaller.GetByDate(date);
+            var bookedAppointments = await appointmentCaller.GetByDate(date, Session["PractitionerId"] as string);
 
             // List<Appointment> bookedAppointments = new List<Appointment>();
             // Appointment bookedAppointment = new Appointment();
@@ -58,15 +64,12 @@ namespace Web.Controllers
             Appointment a = new Appointment();
             a.Enddate = endDate;
             a.Startdate = startDate;
-            // TODO tilføj kunde og udøver
-            a.Customer = "2";
-            a.Practitioner = "1";
-
+            // TODO tilføj kunde og udøver // No dansker snak in da code ;)
+           
+            a.Customer = Session["UserId"] as string;
+            a.Practitioner = Session["PractitionerId"] as string;
             AppointmentCaller ac = new AppointmentCaller();
-
             ac.BookTime(a);
-
-
             return View(a); ;
         }
         

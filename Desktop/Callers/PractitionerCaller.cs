@@ -11,14 +11,13 @@ namespace Desktop.Callers
 {
     public class PractitionerCaller : ICaller<Practitioner>
     {
-
         private RestClient client;
 
-        public PractitionerCaller() 
+        public PractitionerCaller()
         {
             client = new RestClient(ConfigurationManager.AppSettings["ProjectApi"]);
         }
-        
+
         public void Create(Practitioner obj)
         {
             var request = new RestRequest("/Practitioner", Method.POST);

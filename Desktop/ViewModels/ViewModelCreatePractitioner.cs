@@ -29,41 +29,11 @@ namespace Desktop.ViewModels
         }
 
 
-        public PractitionerCaller PC
-        {
-            get
-            {
-                return pc;
-            }
-            set
-            {
-                pc = value;
-            }
-        }
+        public PractitionerCaller PC { get; set; }
 
-        public ClinicCaller CLC
-        {
-            get
-            {
-                return clc;
-            }
-            set
-            {
-                clc = value;
-            }
-        }
+        public ClinicCaller CLC { get; set; }
 
-        public Practitioner Practitioner
-        {
-            get
-            {
-                return practitioner;
-            }
-            set
-            {
-                practitioner = value;
-            }
-        }
+        public Practitioner Practitioner { get; set; }
 
         internal void Create(Practitioner practitioner)
         {
@@ -85,10 +55,7 @@ namespace Desktop.ViewModels
 
         public ViewModelCreatePractitioner()
         {
-
-            
             RetrieveData();
-
         }
 
         public async void RetrieveData()
@@ -100,19 +67,13 @@ namespace Desktop.ViewModels
 
             var clinics =  await clc.GetAll();
 
-
-         
             Clinics = (List<Clinic>)clinics;
-
-
         }
-
-
 
         public bool checkFirstName(string firstName)
         {
             bool res = false;
-            if (firstName.Length > 6)
+            if (firstName.Length > 1)
             {
                 res = true;
                 practitioner.FirstName = firstName;
@@ -123,7 +84,7 @@ namespace Desktop.ViewModels
         public bool checkPassword(string password)
         {
             bool res = false;
-            if (password.Length > 2) {
+            if (password.Length > 5) {
                 res = true;
             }
             return res;
@@ -132,7 +93,7 @@ namespace Desktop.ViewModels
         public bool checkLastName(string lastName)
         {
             bool res = false;
-            if (lastName.Length > 2)
+            if (lastName.Length > 1)
             {
                 res = true;
                 practitioner.LastName = lastName;
@@ -153,9 +114,7 @@ namespace Desktop.ViewModels
 
         public bool numbersOnly(String checkString)
         {
-
             Regex reg = new Regex("^[0-9]+$");
-
             return reg.IsMatch(checkString);
         }
 

@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web;
 
 namespace API.DAL.Repositories
@@ -31,14 +33,16 @@ namespace API.DAL.Repositories
                         "[lastName]," +
                         "[phoneNo]," +
                         "[email]," +
-                        "[password])" +
+                        "[passwordHash]," +
+                        "[salt])" +
                         "VALUES ((SELECT id FROM PersonType WHERE type = 'Practitioner')" +
                         ", @clinicId" +
                         ", @firstName" +
                         ", @lastName" +
                         ", @phoneNo" +
                         ", @email" +
-                        ", @password)";
+                        ", @passwordHash" +
+                        ", @salt)";
 
                         //TODO Kig på error codes fra api da den ikke returner customer
                         var rowsAffected = conn.Execute(sql, obj, transaction: transaction);
@@ -84,6 +88,26 @@ namespace API.DAL.Repositories
                 string sql = "SELECT * FROM Person WHERE personTypeId = (SELECT id FROM PersonType WHERE type = 'Practitioner') AND id = @id";
                 return conn.QuerySingleOrDefault<Practitioner>(sql, new { id });
             }
+        }
+
+        public Practitioner IsAuthorized(string email, string password)
+        {
+            using (var conn = new SqlConnection(connectionString))
+            {
+                string sql = "SELECT * FROM Person p WHERE personTypeId = (SELECT id FROM PersonType WHERE type = 'Practitioner') AND email = @email";
+                var practitioner = conn.QuerySingleOrDefault<Practitioner>(sql, new { email });
+                if (practitioner != null)
+                {
+                    HashAlgorithm hashAlgorithm = SHA512.Create();
+                    var passwordHash = Convert.ToBase64String(hashAlgorithm.ComputeHash(Encoding.UTF8.GetBytes(practitioner.Salt + password)));
+
+                    if (passwordHash == practitioner.PasswordHash)
+                    {
+                        return practitioner;
+                    }
+                }
+            }
+            return null;
         }
 
         public Practitioner Update(Practitioner obj)

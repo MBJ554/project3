@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web;
 
 namespace API.DAL.Repositories
@@ -24,7 +26,8 @@ namespace API.DAL.Repositories
                     "[lastName]," +
                     "[phoneNo]," +
                     "[email]," +
-                    "[password]," +
+                    "[passwordHash]," +
+                    "[salt]," +
                     "[address]," +
                     "[zipCode])" +
                     "VALUES ((SELECT id FROM PersonType WHERE type = 'Customer')" +
@@ -33,7 +36,8 @@ namespace API.DAL.Repositories
                     ", @lastName" +
                     ", @phoneNo" +
                     ", @email" +
-                    ", @password" +
+                    ", @passwordHash" +
+                    ", @salt" +
                     ", @address" +
                     ", @zipCode)";
                 if (conn.Execute(sql, customer) > 0)
@@ -70,6 +74,26 @@ namespace API.DAL.Repositories
                 string sql = "SELECT * FROM Person p INNER JOIN City c ON c.zipCode = p.zipCode WHERE personTypeId = (SELECT id FROM PersonType WHERE type = 'Customer') AND id = @id ";
                 return conn.QuerySingleOrDefault<Customer>(sql, new { id });
             }
+        }
+
+        public Customer IsAuthorized(string email, string password)
+        {
+            using (var conn  = new SqlConnection(connectionString))
+            {
+                string sql = "SELECT * FROM Person p WHERE personTypeId = (SELECT id FROM PersonType WHERE type = 'Customer') AND email = @email";
+                var customer = conn.QuerySingleOrDefault<Customer>(sql, new { email });
+                if (customer != null)
+                {
+                    HashAlgorithm hashAlgorithm = SHA512.Create();
+                    var passwordHash = Convert.ToBase64String(hashAlgorithm.ComputeHash(Encoding.UTF8.GetBytes(customer.Salt + password)));
+
+                    if (passwordHash == customer.PasswordHash)
+                    {
+                        return customer;
+                    }
+                }
+            }
+            return null;
         }
 
         public Customer Update(Customer customer)

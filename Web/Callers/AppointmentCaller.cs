@@ -19,7 +19,7 @@ namespace Web.Callers
         public AppointmentCaller()
         {
 
-            client = new RestClient(ConfigurationManager.AppSettings["ProjectApi"]);
+            client = new RestClient(ConfigurationManager.AppSettings["ProjectApi2"]);
         }
 
         public void Create(Appointment obj)
@@ -34,7 +34,7 @@ namespace Web.Callers
 
         public async Task<IEnumerable<Appointment>> GetAll()
         {
-            var request = new RestRequest("Appointment", Method.GET);
+            var request = new RestRequest("api/appointment", Method.GET);
             var response = await client.ExecuteAsync<List<Appointment>>(request);
             return response.Data;
         }
@@ -50,9 +50,9 @@ namespace Web.Callers
         }
 
         //TODO change to IEnumerable
-        public async Task<List<Appointment>> GetByDate(DateTime appointmentDate)
+        public async Task<List<Appointment>> GetByDate(DateTime appointmentDate, string id)
         {
-            var request = new RestRequest("Appointment/"+ 1, Method.GET);
+            var request = new RestRequest("api/appointment/"+ id, Method.GET);
             request.AddParameter("date", appointmentDate.ToString());
             var response = await client.ExecuteAsync<List<Appointment>>(request);
             return response.Data;
@@ -60,7 +60,7 @@ namespace Web.Callers
 
         public void BookTime(Appointment a)
         {
-            var request = new RestRequest("appointment", Method.POST);
+            var request = new RestRequest("api/appointment", Method.POST);
             request.AddJsonBody(a);
             var response = client.Execute(request);
             if (response.StatusCode == System.Net.HttpStatusCode.Conflict)

@@ -2,18 +2,31 @@
     ViewBag.Title = "Index";
 }
 
-
-
-
 @using (Html.BeginForm("ChooseAppointmentTime", "BookAppointment"))
 {
-<div class="form-group">
-    <input type="date" id="AppointmentDate" name="date">
-    <input type="submit" class="btn btn-default" value="Find tid" />
-</div>
+    <div class="form-group">
+        <input type="date" id="AppointmentDate" name="date" min="" required />
+        <input type="submit" class="btn btn-default" value="Find tid" />
+    </div>
 }
+ 
+<script type="text/javascript">
+    // Create current date in YYYY/MM/DD format as string.
+    var formatDate = date => date.toISOString().slice(0, 10);
+    var currentDate = formatDate(new Date());
 
+    // Update the min attribute for datepicket.
+    document.getElementById('AppointmentDate').setAttribute('min', currentDate);
 
+    document.getElementById('AppointmentDate').addEventListener('input', function (e) {
+        var day = new Date(this.value).getUTCDay();
+        if ([6, 0].includes(day)) {
+            e.preventDefault();
+            this.value = '';
+            alert('Vi har ikke åben hverken lørdag eller søndag!');
+        }
+    });
+</script>
 
 
 

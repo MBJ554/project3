@@ -51,6 +51,26 @@ namespace API.Controllers
             return NotFound();
         }
 
+        //[HttpPost]
+        //// POST: api/Customer
+        //[Route("api/Customer/{id}/Login")]
+        //public bool Post([FromBody] Customer c)
+        //{
+        //    return _customerRepository.IsAuthorized(c.Email, c.Password); 
+        //}
+
+        [HttpGet]
+        [Route("api/customer/{email}/{password}")]
+        public IHttpActionResult Login(string email, string password)
+        {
+            var customer = _customerRepository.IsAuthorized(email, password);
+            if (customer != null)
+            {
+                return Ok(BuildCustomer(customer));
+            }
+            return NotFound();
+        }
+
         // POST: api/Customer
         public void Post([FromBody] API.DAL.Models.Customer customer)
         {
@@ -83,7 +103,6 @@ namespace API.Controllers
                 LastName = customer.LastName,
                 PhoneNo = customer.PhoneNo,
                 Email = customer.Email,
-                Password = customer.Password,
                 Address = customer.Address,
                 ZipCode = customer.ZipCode
             };

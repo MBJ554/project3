@@ -17,7 +17,8 @@ CREATE TABLE [dbo].[Person](
 	[lastName] [varchar](50) NOT NULL,
 	[phoneNo] [varchar](11) NOT NULL UNIQUE,
 	[email] [varchar](50) NOT NULL UNIQUE,
-	[password] [varchar](50) NOT NULL,
+	[passwordHash] [varchar](MAX) NOT NULL,
+	[salt] [varchar](MAX) NOT NULL,
 	[address] [varchar](70) NULL,
 	[zipCode] [varchar](4) NULL,
  CONSTRAINT [PK_Person] PRIMARY KEY CLUSTERED 

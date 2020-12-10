@@ -60,6 +60,19 @@ namespace API.Controllers
             _practitionerRepository.Update(practitioner);
         }
 
+        [HttpGet]
+        [Route("api/practitioner/{email}/{password}")]
+        // POST: api/practitioner/email/password
+        public IHttpActionResult Login(string email, string password)
+        {
+            var practitioner = _practitionerRepository.IsAuthorized(email, password);
+            if (practitioner != null)
+            {
+                return Ok(buildPractitioner(practitioner));
+            }
+            return NotFound();
+        }
+
         // DELETE: api/Practitioner/5
         public void Delete(int id)
         {

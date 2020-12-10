@@ -17,7 +17,6 @@ namespace Desktop.ViewModels
     public class ViewModelCreateCustomer : INotifyPropertyChanged
     {
 
-
         private List<Clinic> clinics;
 
         private Customer customer;
@@ -27,7 +26,6 @@ namespace Desktop.ViewModels
         private CustomerCaller cuc;
 
         private ClinicCaller clc;
-        
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -36,60 +34,18 @@ namespace Desktop.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
-        public CityCaller CC
-        {
-            get
-            {
-                return cc;
-            }
-            set
-            {
-                cc = value;
-            }
-        }
+        public CityCaller CC { get; set; }
 
-        public CustomerCaller CUC
-        {
-            get
-            {
-                return cuc;
-            }
-            set
-            {
-                cuc = value;
-            }
-        }
+        public CustomerCaller CUC { get; set; }
 
-        public ClinicCaller CLC
-        {
-            get
-            {
-                return clc;
-            }
-            set
-            {
-                clc = value;
-            }
-        }
+        public ClinicCaller CLC { get; set; }
 
         internal void Create(Customer customer)
         {
             cuc.Create(customer);
         }
 
-        public Customer Customer
-        {
-            get
-            {
-                return customer;
-            }
-            set
-            {
-                customer = value;
-            }
-        }
-
-      
+        public Customer Customer { get; set; }
 
         public List<Clinic> Clinics
         {
@@ -106,10 +62,7 @@ namespace Desktop.ViewModels
 
         public ViewModelCreateCustomer()
         {
-
-         
             RetrieveData();
-            
         }
 
         public async void RetrieveData()
@@ -118,12 +71,10 @@ namespace Desktop.ViewModels
             cc = new CityCaller();
             cuc = new CustomerCaller();
             clc = new ClinicCaller();
-            
-            var clinics = await clc.GetAll();        
+
+            var clinics = await clc.GetAll();
 
             Clinics = (List<Clinic>)clinics;
-          
-
         }
 
         public bool checkFirstName(string firstName)
@@ -150,10 +101,10 @@ namespace Desktop.ViewModels
         public async Task<City> setCity(string zipCode)
         {
             City c = await cc.GetByZipCode(zipCode);
-            if (c != null) {
+            if (c != null)
+            {
                 Customer.City = c.CityName;
             }
-           
             return c;
         }
 
@@ -182,7 +133,8 @@ namespace Desktop.ViewModels
         internal bool checkZipCode(string zipCode)
         {
             bool res = false;
-            if (zipCode.Length == 4 & numbersOnly(zipCode)) {
+            if (zipCode.Length == 4 & numbersOnly(zipCode))
+            {
                 res = true;
                 customer.ZipCode = zipCode;
             }
@@ -191,9 +143,7 @@ namespace Desktop.ViewModels
 
         public bool numbersOnly(String checkString)
         {
-
             Regex reg = new Regex("^[0-9]+$");
-
             return reg.IsMatch(checkString);
         }
 

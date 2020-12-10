@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Desktop.Models
+namespace Desktop.Callers
 {
-    class CitiesList
+    class LoginCaller
     {
-        public List<City> results { get; set; }
+
     }
 }
