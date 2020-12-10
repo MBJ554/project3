@@ -18,7 +18,7 @@ namespace Web.Controllers
         public PractitionerCaller()
         {
 
-            client = new RestClient(ConfigurationManager.AppSettings["ProjectApi2"]);
+            client = new RestClient(ConfigurationManager.AppSettings["ProjectApi"]);
         }
 
         public async Task<Practitioner> GetPractitionerId(string practitionerUrl)

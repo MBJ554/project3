@@ -23,7 +23,7 @@ namespace Web.Callers
         public AppointmentCaller()
         {
 
-            client = new RestClient(ConfigurationManager.AppSettings["ProjectApi2"]);
+            client = new RestClient(ConfigurationManager.AppSettings["ProjectApi"]);
         }
 
         public void Create(Appointment obj)

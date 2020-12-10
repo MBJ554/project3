@@ -17,7 +17,7 @@ namespace Web.Callers
 
         public LoginCaller()
         {
-            client = new RestClient(ConfigurationManager.AppSettings["ProjectApi2"]);
+            client = new RestClient(ConfigurationManager.AppSettings["ProjectApi"]);
         }
 
         public async Task<Customer> GetByLogin(string email, string password)

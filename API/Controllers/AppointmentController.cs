@@ -47,18 +47,25 @@ namespace API.Controllers
         // GET: api/Appointment/id
         public IHttpActionResult Get(int id, [FromUri] string date)
         {
-            List<Appointment> appointsments = new List<Appointment>();
-            DateTime res = DateTime.Parse(date);
-            var appointmentsDAL = _appointmentRepository.GetAllByPractitionerAndDate(res, id);
-            if (appointmentsDAL.Count() == 0)
+            DateTime appointmentDate = DateTime.Parse(date);
+            var appointmentsDAL = _appointmentRepository.GetAllByPractitionerAndDate(appointmentDate, id);
+
+            List<Appointment> appointments = new List<Appointment>();
+            for (int i = 0; i < 14; i++)
             {
-                return NotFound();
+                Appointment a = new Appointment();
+                a.Startdate = appointmentDate.AddHours(8 + (i * 0.50));
+                a.Enddate = appointmentDate.AddHours(8 + (i * 0.5 + 0.5));
+                appointments.Add(a);
             }
-            foreach (var appointment in appointmentsDAL)
+
+            var allowedAppointments = appointments.Where(x => !appointmentsDAL.Any(y => x.Startdate == y.Startdate));
+            if (allowedAppointments != null || allowedAppointments.Count() != 0)
             {
-                appointsments.Add(BuildAppointment(appointment));
+                return Ok(allowedAppointments);
             }
-            return Ok(appointsments);
+
+            return NotFound();
 
         }
 

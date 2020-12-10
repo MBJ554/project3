@@ -25,37 +25,15 @@ namespace Web.Controllers
         public async Task<ActionResult> ChooseAppointmentTime(DateTime date)
         {
             // TODO Validate the date so the server wont accept dates out of range but instead redirect to 'Index,View' with a ViewBag.ErrorMessage = "Date not valid"
-            
-            AppointmentCaller appointmentCaller = new AppointmentCaller();
-
-            var bookedAppointments = await appointmentCaller.GetByDate(date, Session["PractitionerId"] as string);
-
-            // List<Appointment> bookedAppointments = new List<Appointment>();
-            // Appointment bookedAppointment = new Appointment();
-            // bookedAppointment.Startdate = DateTime.Today.AddHours(10);
-           
-            List<Appointment> allowedAppointments = new List<Appointment>();
-            for (int i = 0; i < 14; i++)
+            DateTime currentDate = new DateTime();
+            if (date < currentDate || date.DayOfWeek == DayOfWeek.Saturday || date.DayOfWeek == DayOfWeek.Sunday)
             {
-                Appointment a = new Appointment();
-                a.Startdate = date.AddHours(8 + (i * 0.50));
-                a.Enddate = date.AddHours(8 + (i * 0.5 + 0.5));
-                allowedAppointments.Add(a);
+                ViewBag.ErrorMessage = "Det ville være pænt nice hvis du valgte en valid dag";
+                return View();
             }
-            List<Appointment> checkList = new List<Appointment>(allowedAppointments);
-            if (bookedAppointments != null) {
-                foreach (Appointment a in bookedAppointments)
-                {
-                    foreach (Appointment ap in checkList) 
-                    {
-                        if (a.Startdate == ap.Startdate) 
-                        {
-                            allowedAppointments.Remove(ap);
-                        }
-                    }
-                }
-            }
-            return View(allowedAppointments);
+            AppointmentCaller appointmentCaller = new AppointmentCaller();
+            var appointments = await appointmentCaller.GetByDate(date, Session["PractitionerId"] as string);
+            return View(appointments);
         }
 
 
