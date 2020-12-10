@@ -24,6 +24,7 @@ namespace Desktop
         public MainWindow()
         {
             InitializeComponent();
+            UserName.Text = GlobalLoginInfo.FullName;
         }
 
         /*   private void btnCreateUser(object sender, RoutedEventArgs e)

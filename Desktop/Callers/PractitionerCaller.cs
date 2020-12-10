@@ -20,7 +20,7 @@ namespace Desktop.Callers
 
         public void Create(Practitioner obj)
         {
-            var request = new RestRequest("/Practitioner", Method.POST);
+            var request = new RestRequest("api/practitioner", Method.POST);
             request.AddJsonBody(obj);
             var response = client.Execute(request);
         }

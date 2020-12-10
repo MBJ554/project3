@@ -149,6 +149,7 @@
     <Content Include="Content\favicon\favicon-16x16.png" />
     <Content Include="Content\favicon\favicon-32x32.png" />
     <Content Include="Content\favicon\favicon.ico" />
+    <Content Include="Content\favicon\full_logo.png" />
     <Content Include="Content\favicon\mstile-150x150.png" />
     <Content Include="Content\favicon\safari-pinned-tab.svg" />
     <Content Include="favicon.ico" />

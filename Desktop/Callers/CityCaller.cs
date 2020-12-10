@@ -34,7 +34,7 @@ namespace Desktop.Callers
             if (response.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 RestClient LocalApi = new RestClient(ConfigurationManager.AppSettings["ProjectApi"]);
-                var request2 = new RestRequest("/zipCode", Method.GET);
+                var request2 = new RestRequest("api/zipCode", Method.GET);
                 var response2 = await LocalApi.ExecuteAsync<List<City>>(request);
                 return response2.Data;
             }
@@ -55,7 +55,7 @@ namespace Desktop.Callers
             if (response.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 RestClient LocalApi = new RestClient(ConfigurationManager.AppSettings["ProjectApi"]);
-                var request2 = new RestRequest("/zipCode/" + id, Method.GET);
+                var request2 = new RestRequest("api/zipCode/" + id, Method.GET);
                 var response2 = await LocalApi.ExecuteAsync<City>(request2);
                 c = response2.Data;
             }

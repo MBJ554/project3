@@ -50,15 +50,14 @@ namespace Desktop
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            vmpc.Practitioner.PasswordHash = password.Password;
 
             if (checkValues())
             {
-
                 Clinic cl = (Clinic)ClinicList.SelectedItem;
                 vmpc.Practitioner.ClinicId = cl.Id;
+                vmpc.Practitioner.GenerateSalt();
+                vmpc.Practitioner.PasswordHash = password.Password;
                 vmpc.Create(vmpc.Practitioner);
-
             }
         }
 
