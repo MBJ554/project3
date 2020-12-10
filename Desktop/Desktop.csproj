@@ -102,6 +102,7 @@
     <Compile Include="LoginScreen.xaml.cs">
       <DependentUpon>LoginScreen.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\GlobalLoginInfo.cs" />
     <Compile Include="Models\Practitioner.cs" />
     <Compile Include="ViewModels\ViewModelCreatePractitioner.cs" />
     <Compile Include="ViewModels\ViewModelLoginScreen.cs" />

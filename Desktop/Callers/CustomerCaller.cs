@@ -22,7 +22,7 @@ namespace Desktop.Callers
 
         public void Create(Customer obj)
         {
-            var request = new RestRequest("/Customer", Method.POST);
+            var request = new RestRequest("api/customer", Method.POST);
             request.AddJsonBody(obj);
             var response = client.Execute(request);
         }

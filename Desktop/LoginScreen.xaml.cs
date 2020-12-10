@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Desktop.Callers;
+using Desktop.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -31,7 +33,19 @@ namespace Desktop
 
         private void btnSubmit_Click(object sender, RoutedEventArgs e)
         {
-
+            if (!String.IsNullOrEmpty(txtEmail.Text) && !String.IsNullOrEmpty(txtPassword.Password))
+            {
+                LoginCaller loginCaller = new LoginCaller();
+                var practitioner = loginCaller.GetByLogin(txtEmail.Text, txtPassword.Password);
+                if (practitioner != null)
+                {
+                    GlobalLoginInfo.UserId = practitioner.Id;
+                    GlobalLoginInfo.FullName = practitioner.FirstName + " " + practitioner.LastName;
+                    MainWindow main = new MainWindow();
+                    main.Show();
+                    this.Close();
+                }
+            }
         }
     }
 }

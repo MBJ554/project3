@@ -35,6 +35,7 @@ namespace Desktop.ViewModels
 
         public Practitioner Practitioner { get; set; }
 
+        //TODO: hvorfor internal
         internal void Create(Practitioner practitioner)
         {
             pc.Create(practitioner);
