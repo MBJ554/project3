@@ -7,27 +7,27 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Web.Callers;
+using Web.CustomAuthorize;
 using Web.Models;
 
 namespace Web.Controllers
 {
+    [LoginRequired]
     public class BookAppointmentController : Controller
     {
+       
         // GET: BookAppointment
         public ActionResult Index()
-        {
-            var ID = Session["UserId"];
-            if (ID != null)
-            {
-                return View();
-            }
-            return RedirectToAction("Index", "Login");
+        {       
+            return View();           
         }
 
         public async Task<ActionResult> ChooseAppointmentTime(DateTime date)
         {
             // TODO Validate the date so the server wont accept dates out of range but instead redirect to 'Index,View' with a ViewBag.ErrorMessage = "Date not valid"
+            
             AppointmentCaller appointmentCaller = new AppointmentCaller();
+
             var bookedAppointments = await appointmentCaller.GetByDate(date, Session["PractitionerId"] as string);
 
             // List<Appointment> bookedAppointments = new List<Appointment>();
