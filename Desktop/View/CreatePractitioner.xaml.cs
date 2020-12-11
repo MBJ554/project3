@@ -24,28 +24,28 @@ namespace Desktop
     public partial class CreatePractitioner : Page
     {
 
-        private ViewModelCreatePractitioner vmpc;
+        private ViewModelCreatePractitioner viewModelCreatePractitioner;
 
 
 
-        public ViewModelCreatePractitioner VMPC
+        public ViewModelCreatePractitioner ViewModelCreatePratitioner
         {
             get
             {
-                return vmpc;
+                return viewModelCreatePractitioner;
             }
             set
             {
-                vmpc = value;
+                viewModelCreatePractitioner = value;
             }
         }
 
         public CreatePractitioner()
         {
 
-            vmpc = new ViewModelCreatePractitioner();
+            viewModelCreatePractitioner = new ViewModelCreatePractitioner();
             InitializeComponent();
-            DataContext = vmpc;
+            DataContext = viewModelCreatePractitioner;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -53,11 +53,11 @@ namespace Desktop
 
             if (checkValues())
             {
-                Clinic cl = (Clinic)ClinicList.SelectedItem;
-                vmpc.Practitioner.ClinicId = cl.Id;
-                vmpc.Practitioner.GenerateSalt();
-                vmpc.Practitioner.PasswordHash = password.Password;
-                vmpc.Create(vmpc.Practitioner);
+               
+                viewModelCreatePractitioner.Practitioner.ClinicId = GlobalLoginInfo.ClinicId;
+                viewModelCreatePractitioner.Practitioner.GenerateSalt();
+                viewModelCreatePractitioner.Practitioner.PasswordHash = password.Password;
+                viewModelCreatePractitioner.Create();
             }
         }
 
@@ -65,36 +65,35 @@ namespace Desktop
         {
             bool res = true;
             string message = "";
-            if (!(vmpc.checkPhoneNo(mobil.Text)))
+            if (!(viewModelCreatePractitioner.checkPhoneNo(mobil.Text)))
             {
                 message += "- Nummeret skal være 8 cifre langt og må kun indeholde tal";
                 res = false;
             }
-            if (!(vmpc.checkFirstName(fornavn.Text)))
+            if (!(viewModelCreatePractitioner.checkFirstName(fornavn.Text)))
             {
                 message += " - For kort fornavn";
                 res = false;
             }
-            if (!(vmpc.checkLastName(efternavn.Text)))
+            if (!(viewModelCreatePractitioner.checkLastName(efternavn.Text)))
             {
                 message += " - For kort efternavn";
                 res = false;
             }
-            if (!vmpc.checkPassword(password.Password))
+            if (!viewModelCreatePractitioner.checkPassword(password.Password))
             {
                 message += " - For kort kode";
                 res = false;
             }
-            if (!vmpc.checkEmail(email.Text))
+            if (!viewModelCreatePractitioner.checkEmail(email.Text))
             {
                 message += " - For kort Email";
                 res = false;
             }
-            if (!(vmpc.setClinic((Clinic)ClinicList.SelectedItem)))
-            {
-                message += " - Vælg en klinik";
-                res = false;
-            }
+            //if (vmpc.CheckEmailIsTaken(email.Text)) {
+            //    message += " - Mailen er taget af en anden bruger";
+            //    res = false;
+            //}
             if (res == false)
             {
                 MessageBox.Show(message, "Fejl Besked");
@@ -113,56 +112,56 @@ namespace Desktop
 
         private void fornavn_LostFocus(object sender, RoutedEventArgs e)
         {
-            if (!(vmpc.checkFirstName(fornavn.Text)))
+            if (!(viewModelCreatePractitioner.checkFirstName(fornavn.Text)))
             {
-                firstNameErrorBox.Text = " - For kort fornavn";
+                firstNameErrorBox.Content = " - For kort fornavn";
                 firstNameErrorBox.Foreground = Brushes.Red;
             }
             else
             {
-                firstNameErrorBox.Text = "";
+                firstNameErrorBox.Content = "";
                 firstNameErrorBox.Foreground = Brushes.White;
             }
         }
 
         private void efternavn_LostFocus(object sender, RoutedEventArgs e)
         {
-            if (!(vmpc.checkLastName(efternavn.Text)))
+            if (!(viewModelCreatePractitioner.checkLastName(efternavn.Text)))
             {
-                lastNameErrorBox.Text = " - For kort efternavn";
+                lastNameErrorBox.Content = " - For kort efternavn";
                 lastNameErrorBox.Foreground = Brushes.Red;
             }
             else
             {
-                lastNameErrorBox.Text = "";
+                lastNameErrorBox.Content = "";
                 lastNameErrorBox.Foreground = Brushes.White;
             }
         }
 
         private void mobil_LostFocus(object sender, RoutedEventArgs e)
         {
-            if (!(vmpc.checkPhoneNo(mobil.Text)))
+            if (!(viewModelCreatePractitioner.checkPhoneNo(mobil.Text)))
             {
-                mobileErrorBox.Text = " - Nummeret skal være 8 cifre langt og må kun indeholde tal";
+                mobileErrorBox.Content = " - ugyldigt nummer";
                 mobileErrorBox.Foreground = Brushes.Red;
             }
             else
             {
-                mobileErrorBox.Text = "";
+                mobileErrorBox.Content = "";
                 mobileErrorBox.Foreground = Brushes.White;
             }
         }
 
         private void email_LostFocus(object sender, RoutedEventArgs e)
         {
-            if (!vmpc.checkEmail(email.Text))
+            if (!viewModelCreatePractitioner.checkEmail(email.Text))
             {
-                emailErrorBox.Text = " - Email er for kort";
+                emailErrorBox.Content = " - Email er for kort";
                 emailErrorBox.Foreground = Brushes.Red;
             }
             else
             {
-                emailErrorBox.Text = "";
+                emailErrorBox.Content = "";
                 emailErrorBox.Foreground = Brushes.White;
             }
         }
@@ -171,28 +170,17 @@ namespace Desktop
         {
             if (!(password.Password.Length > 6))
             {
-                passwordErrorBox.Text = " - For kort kode";
+                passwordErrorBox.Content = " - For kort kode";
                 passwordErrorBox.Foreground = Brushes.Red;
             }
             else
             {
-                passwordErrorBox.Text = "";
+                passwordErrorBox.Content = "";
                 passwordErrorBox.Foreground = Brushes.White;
             }
         }
 
-        private void ClinicList_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (!(vmpc.setClinic((Clinic)ClinicList.SelectedItem)))
-            {
-                clinicErrorBox.Text = "Vælg en klinik";
-                clinicErrorBox.Foreground = Brushes.Red;
-            }
-            else
-            {
-                clinicErrorBox.Text = "";
-                clinicErrorBox.Foreground = Brushes.White;
-            }
-        }
+       
+        
     }
 }

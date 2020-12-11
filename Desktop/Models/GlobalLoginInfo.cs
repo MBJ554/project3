@@ -10,5 +10,7 @@ namespace Desktop.Models
     {
         public static int UserId { get; set; }
         public static string FullName { get; set; }
+
+        public static int ClinicId { get; set; }
     }
 }

@@ -46,5 +46,12 @@ namespace Desktop.Callers
         {
             throw new NotImplementedException();
         }
+
+       public Customer GetByEmail(string email)
+        {
+            var request = new RestRequest("api/customer" + email, Method.GET);
+            var response = client.Execute<Customer>(request);
+            return response.Data;
+        }
     }
 }

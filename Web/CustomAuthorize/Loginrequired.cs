@@ -24,7 +24,7 @@ namespace Web.CustomAuthorize
 
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
         {
-                filterContext.Result = new ViewResult() { ViewName = "UnAuthorize" };
+            filterContext.Result = new RedirectResult("Login", true);
         }
 
 
