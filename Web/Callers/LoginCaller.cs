@@ -22,7 +22,10 @@ namespace Web.Callers
 
         public async Task<Customer> GetByLogin(string email, string password)
         {
-            var request = new RestRequest("api/customer/" + email + "/" + password, Method.GET);
+            var request = new RestRequest("api/customer/login", Method.POST);
+            request.RequestFormat = DataFormat.Json;
+            request.AddParameter("email", email);
+            request.AddParameter("password", password);
             var response = await client.ExecuteAsync<Customer>(request);
             return response.Data;
         }

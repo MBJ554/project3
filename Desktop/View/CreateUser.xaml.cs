@@ -26,38 +26,35 @@ namespace Desktop
     public partial class CreateUser : Page
     {
 
-        private ViewModelCreateCustomer dcfcu;
+        private ViewModelCreateCustomer viewModelCreateCustomer;
 
       
 
-        public ViewModelCreateCustomer DCFCU { get 
+        public ViewModelCreateCustomer ViewModelCreateCustomer { get 
             {
-                return dcfcu;
+                return viewModelCreateCustomer;
             } 
             set 
             {
-                dcfcu = value;
+                viewModelCreateCustomer = value;
             } 
         }
 
         public CreateUser()
         {
 
-            dcfcu = new ViewModelCreateCustomer();
+            viewModelCreateCustomer = new ViewModelCreateCustomer();
             InitializeComponent();
-            DataContext = dcfcu;
+            DataContext = viewModelCreateCustomer;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            dcfcu.Customer.PasswordHash = password.Password;
+            viewModelCreateCustomer.Customer.PasswordHash = password.Password;
 
             if (checkValues()) {
-               
-                    Clinic cl = (Clinic)ClinicList.SelectedItem;
-                    dcfcu.Customer.ClinicId = cl.Id;
-                    dcfcu.Create(dcfcu.Customer);
-                
+                viewModelCreateCustomer.Customer.ClinicId = GlobalLoginInfo.ClinicId;
+                viewModelCreateCustomer.Create();         
             }
            
            
@@ -67,35 +64,34 @@ namespace Desktop
         private bool checkValues() { 
         bool res = true;
             string message = "";
-            if (!dcfcu.checkPhoneNo(mobil.Text)) {
+            if (!viewModelCreateCustomer.checkPhoneNo(mobil.Text)) {
                 message += "- Nummeret skal være 8 cifre langt og må kun indeholde tal";
                 res = false;  
             }
-            if (dcfcu.setCity(postnr.Text).Equals(null))
+            if (viewModelCreateCustomer.setCity(postnr.Text).Equals(null))
             {
                 message += " - Postnummeret findes ikke";
                 res = false;
             }
-            if(!dcfcu.checkFirstName(fornavn.Text))
+            if(!viewModelCreateCustomer.checkFirstName(fornavn.Text))
             {
                 message += " - For kort fornavn";
                 res = false;
             }
-            if(!dcfcu.checkLastName(efternavn.Text))
+            if(!viewModelCreateCustomer.checkLastName(efternavn.Text))
             {
                 message += " - For kort efternavn";
                 res = false;
             }
-            if (!dcfcu.checkPassword(password.Password)) 
+            if (!viewModelCreateCustomer.checkPassword(password.Password)) 
             {
                 message += " - For kort kode";
                 res = false;
             }
-            if (!(dcfcu.setClinic((Clinic)ClinicList.SelectedItem))) 
-            {
-                message += " - Vælg en klinik";
-                res = false;
-            }
+            //if (dcfcu.CheckEmailIsTaken(email.Text)) {
+            //    message += " - Mailen er taget af en anden bruger";
+            //    res = false;
+            //}
             if (res == false) {
                 MessageBox.Show(message, "Fejl Besked");
             }
@@ -106,78 +102,78 @@ namespace Desktop
 
         private async void postnr_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (dcfcu.checkZipCode(postnr.Text))
+            if (viewModelCreateCustomer.checkZipCode(postnr.Text))
             {
-                    await dcfcu.setCity(postnr.Text);
+                    await viewModelCreateCustomer.setCity(postnr.Text);
             }
         }
 
         private void postnr_LostFocus(object sender, RoutedEventArgs e)
         {
-            if (!(dcfcu.checkZipCode(postnr.Text)) && dcfcu.setCity(postnr.Text) != null)
+            if (!(viewModelCreateCustomer.checkZipCode(postnr.Text)) && viewModelCreateCustomer.setCity(postnr.Text) != null)
             {
-                zipCodeErrorBox.Text += " - Postnummeret findes ikke";
+                zipCodeErrorBox.Content += " - Postnummeret findes ikke";
                 zipCodeErrorBox.Foreground = Brushes.Red;
             }
             else
             {
-                zipCodeErrorBox.Text = "";
+                zipCodeErrorBox.Content = "";
                 zipCodeErrorBox.Foreground = Brushes.White;
             }
         }
 
         private void email_LostFocus(object sender, RoutedEventArgs e)
         {
-            if (!dcfcu.checkEmail(email.Text))
+            if (!viewModelCreateCustomer.CheckEmailIsValid(email.Text))
             {
-                emailErrorBox.Text = " - Email er for kort";
+                emailErrorBox.Content = " - Email er for kort";
                 emailErrorBox.Foreground = Brushes.Red;
             }
             else
             {
-                emailErrorBox.Text = "";
+                emailErrorBox.Content = "";
                 emailErrorBox.Foreground = Brushes.White;
             }
         }
 
         private void mobil_LostFocus(object sender, RoutedEventArgs e)
         {
-            if (!dcfcu.checkPhoneNo(mobil.Text))
+            if (!viewModelCreateCustomer.checkPhoneNo(mobil.Text))
             {
-                mobileErrorBox.Text = " - Nummeret skal være 8 cifre langt og må kun indeholde tal";
+                mobileErrorBox.Content = " - ugyldigt nummer";
                 mobileErrorBox.Foreground = Brushes.Red;
             }
             else
             {
-                mobileErrorBox.Text = "";
+                mobileErrorBox.Content = "";
                 mobileErrorBox.Foreground = Brushes.White;
             }
         }
 
         private void efternavn_LostFocus(object sender, RoutedEventArgs e)
         {
-            if(!dcfcu.checkLastName(efternavn.Text))
+            if(!viewModelCreateCustomer.checkLastName(efternavn.Text))
             {
-                lastNameErrorBox.Text = " - For kort efternavn";
+                lastNameErrorBox.Content = " - For kort efternavn";
                 lastNameErrorBox.Foreground = Brushes.Red;
             }
             else
             {
-                lastNameErrorBox.Text = "";
+                lastNameErrorBox.Content = "";
                 lastNameErrorBox.Foreground = Brushes.White;
             }
         }
 
         private void fornavn_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if(!dcfcu.checkFirstName(fornavn.Text))
             {
-                firstNameErrorBox.Text = " - For kort fornavn";
+            if(!viewModelCreateCustomer.checkFirstName(fornavn.Text))
+            {
+                firstNameErrorBox.Content = " - For kort fornavn";
                 firstNameErrorBox.Foreground = Brushes.Red;
             }
             else
             {
-                firstNameErrorBox.Text = "";
+                firstNameErrorBox.Content = "";
                 firstNameErrorBox.Foreground = Brushes.White;
             }
         }
@@ -186,43 +182,28 @@ namespace Desktop
         {
             if (!(adresse.Text.Length > 2))
             {
-                addressErrorBox.Text = " - For kort adresse";
+                addressErrorBox.Content = " - For kort adresse";
                 addressErrorBox.Foreground = Brushes.Red;
             }
             else
             {
-                addressErrorBox.Text = "";
+                addressErrorBox.Content = "";
                 addressErrorBox.Foreground = Brushes.White;
             }
         }
 
         private void password_LostFocus(object sender, RoutedEventArgs e)
         {
-            if (!dcfcu.checkPassword(password.Password))
+            if (!viewModelCreateCustomer.checkPassword(password.Password))
             {
-                passwordErrorBox.Text = " - For kort kode";
+                passwordErrorBox.Content = " - For kort kode";
                 passwordErrorBox.Foreground = Brushes.Red;
             }
             else {
-                passwordErrorBox.Text = "";
+                passwordErrorBox.Content = "";
                 passwordErrorBox.Foreground = Brushes.White;
             }
         }
-
-        private void ClinicList_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (!(dcfcu.setClinic((Clinic)ClinicList.SelectedItem)))
-            {
-                clinicErrorBox.Text = "Vælg en klinik";
-                clinicErrorBox.Foreground = Brushes.Red;
-            }
-            else 
-            {
-                clinicErrorBox.Text = "";
-                clinicErrorBox.Foreground = Brushes.White;
-            }
-        }
-
      
     }
 }

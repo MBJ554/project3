@@ -21,11 +21,11 @@ namespace Desktop.ViewModels
 
         private Customer customer;
 
-        private CityCaller cc;
+        private CityCaller cityCaller;
 
-        private CustomerCaller cuc;
+        private CustomerCaller customerCaller;
 
-        private ClinicCaller clc;
+        private ClinicCaller clinicCaller;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -34,18 +34,7 @@ namespace Desktop.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
-        public CityCaller CC { get; set; }
-
-        public CustomerCaller CUC { get; set; }
-
-        public ClinicCaller CLC { get; set; }
-
-        internal void Create(Customer customer)
-        {
-            cuc.Create(customer);
-        }
-
-        public Customer Customer { get; set; }
+        public Customer Customer { get { return customer; } set { customer = value; } }
 
         public List<Clinic> Clinics
         {
@@ -68,13 +57,18 @@ namespace Desktop.ViewModels
         public async void RetrieveData()
         {
             customer = new Customer();
-            cc = new CityCaller();
-            cuc = new CustomerCaller();
-            clc = new ClinicCaller();
+            cityCaller = new CityCaller();
+            customerCaller = new CustomerCaller();
+            clinicCaller = new ClinicCaller();
 
-            var clinics = await clc.GetAll();
+            var clinics = await clinicCaller.GetAll();
 
             Clinics = (List<Clinic>)clinics;
+        }
+
+        public void Create()
+        {
+            customerCaller.Create(customer);
         }
 
         public bool checkFirstName(string firstName)
@@ -100,7 +94,7 @@ namespace Desktop.ViewModels
 
         public async Task<City> setCity(string zipCode)
         {
-            City c = await cc.GetByZipCode(zipCode);
+            City c = await cityCaller.GetByZipCode(zipCode);
             if (c != null)
             {
                 Customer.City = c.CityName;
@@ -147,7 +141,7 @@ namespace Desktop.ViewModels
             return reg.IsMatch(checkString);
         }
 
-        public bool checkEmail(string email)
+        public bool CheckEmailIsValid(string email)
         {
             bool res = false;
             if (email.Length > 6)
@@ -157,6 +151,15 @@ namespace Desktop.ViewModels
             }
             return res;
         }
+
+        public bool CheckEmailIsTaken(string email) {
+            bool res = false;
+            if (customerCaller.GetByEmail(email) != null) {
+                res = true;
+            }
+            return res;
+        }
+
 
         public bool setClinic(Clinic clinic)
         {

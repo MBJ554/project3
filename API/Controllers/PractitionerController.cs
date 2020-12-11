@@ -60,12 +60,11 @@ namespace API.Controllers
             _practitionerRepository.Update(practitioner);
         }
 
-        [HttpGet]
-        [Route("api/practitioner/{email}/{password}")]
-        // POST: api/practitioner/email/password
-        public IHttpActionResult Login(string email, string password)
+        [HttpPost]
+        [Route("api/practitioner/login")]
+        public IHttpActionResult Login([FromBody] LoginInfo login)
         {
-            var practitioner = _practitionerRepository.IsAuthorized(email, password);
+            var practitioner = _practitionerRepository.IsAuthorized(login.Email, login.Password);
             if (practitioner != null)
             {
                 return Ok(buildPractitioner(practitioner));
