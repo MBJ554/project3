@@ -165,6 +165,7 @@
     <Compile Include="Models\ExerciseLine.cs" />
     <Compile Include="Models\Injury.cs" />
     <Compile Include="Models\InjuryType.cs" />
+    <Compile Include="Models\LoginInfo.cs" />
     <Compile Include="Models\Practitioner.cs" />
     <Compile Include="Models\RehabProgram.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

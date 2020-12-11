@@ -59,11 +59,11 @@ namespace API.Controllers
         //    return _customerRepository.IsAuthorized(c.Email, c.Password); 
         //}
 
-        [HttpGet]
-        [Route("api/customer/{email}/{password}")]
-        public IHttpActionResult Login(string email, string password)
+        [HttpPost]
+        [Route("api/customer/login")]
+        public IHttpActionResult Login([FromBody] LoginInfo login)
         {
-            var customer = _customerRepository.IsAuthorized(email, password);
+            var customer = _customerRepository.IsAuthorized(login.Email, login.Password);
             if (customer != null)
             {
                 return Ok(BuildCustomer(customer));
