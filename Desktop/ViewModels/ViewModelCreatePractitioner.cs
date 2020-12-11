@@ -17,9 +17,9 @@ namespace Desktop.ViewModels
 
         private Practitioner practitioner;
 
-        private PractitionerCaller pc;
+        private PractitionerCaller practitionerCalller;
 
-        private ClinicCaller clc;
+        private ClinicCaller clinicCaller;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -28,18 +28,10 @@ namespace Desktop.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
+        public Practitioner Practitioner { get { return practitioner; } set { practitioner = value; } }
 
-        public PractitionerCaller PC { get; set; }
-
-        public ClinicCaller CLC { get; set; }
-
-        public Practitioner Practitioner { get; set; }
-
-        //TODO: hvorfor internal
-        internal void Create(Practitioner practitioner)
-        {
-            pc.Create(practitioner);
-        }
+        
+       
 
         public List<Clinic> Clinics
         {
@@ -56,6 +48,7 @@ namespace Desktop.ViewModels
 
         public ViewModelCreatePractitioner()
         {
+            
             RetrieveData();
         }
 
@@ -63,12 +56,27 @@ namespace Desktop.ViewModels
         {
             practitioner = new Practitioner();
            
-            pc = new PractitionerCaller();
-            clc = new ClinicCaller();
+            practitionerCalller = new PractitionerCaller();
+            clinicCaller = new ClinicCaller();
 
-            var clinics =  await clc.GetAll();
+            var clinics =  await clinicCaller.GetAll();
 
             Clinics = (List<Clinic>)clinics;
+        }
+
+        public void Create()
+        {
+            practitionerCalller.Create(practitioner);
+        }
+
+        public bool CheckEmailIsTaken(string email)
+        {
+            bool res = false;
+            if (practitionerCalller.GetByEmail(email) != null)
+            {
+                res = true;
+            }
+            return res;
         }
 
         public bool checkFirstName(string firstName)

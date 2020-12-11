@@ -41,6 +41,7 @@ namespace Desktop
                 {
                     GlobalLoginInfo.UserId = practitioner.Id;
                     GlobalLoginInfo.FullName = practitioner.FirstName + " " + practitioner.LastName;
+                    GlobalLoginInfo.ClinicId = practitioner.ClinicId;
                     MainWindow main = new MainWindow();
                     main.Show();
                     this.Close();

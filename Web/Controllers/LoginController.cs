@@ -33,6 +33,7 @@ namespace Web.Controllers
                 ViewBag.ErrorMessage = "Brugeren findes ikke, brugernavn eller password passer ikke";
                 return View("Index");
             }
+            ViewBag.ErrorMessage = "Brugeren findes ikke, brugernavn eller password passer ikke";
             return RedirectToAction("Index", "Home");
         }
 
