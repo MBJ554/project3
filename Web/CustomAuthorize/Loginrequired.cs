@@ -24,7 +24,9 @@ namespace Web.CustomAuthorize
 
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
         {
-                filterContext.Result = new ViewResult() { ViewName = "UnAuthorize" };
+            //filterContext.Result = new ViewResult() { ViewName = "~/../Login/Index" };
+            filterContext.Result = new RedirectToRouteResult(
+                new System.Web.Routing.RouteValueDictionary { {"Controller", "Login" }, {"View", "Index" } }) ;
         }
 
 
