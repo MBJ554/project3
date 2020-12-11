@@ -19,7 +19,6 @@ namespace Web.Controllers
 
         public async Task<ActionResult> UserLogin(string email, string password)
         {
-
             LoginCaller lc = new LoginCaller();
             var customer = await lc.GetByLogin(email, password);
             if (customer != null)
@@ -32,11 +31,10 @@ namespace Web.Controllers
             else
             {
                 ViewBag.ErrorMessage = "Brugeren findes ikke, brugernavn eller password passer ikke";
-                return View();
+                return View("Index");
             }
             return RedirectToAction("Index", "Home");
         }
-
 
         public ActionResult UserNotFound() {
             return View();
