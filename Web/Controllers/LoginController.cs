@@ -36,25 +36,27 @@ namespace Web.Controllers
                 Session["UserId"] = customer.Id.ToString();
                 Practitioner p = await pc.GetPractitionerByURL(customer.Practitioner);
                 Session["PractitionerId"] = p.Id.ToString();
+                Session["FirstName"] = customer.FirstName;
+                Session["LastName"] = customer.LastName;
             }
             else
             {
-                ViewBag.ErrorMessage = "Brugeren findes ikke, brugernavn eller password passer ikke";
+                TempData["ErrorMessage"] = "Brugeren findes ikke, brugernavn eller password passer ikke";
                 return View("Index");
             }
-            ViewBag.SuccessMessage = "Du er nu logget ind, velkommen til " + customer.FirstName + "!";
-            return View("Index", "Home");
+            TempData["SuccessMessage"] = "Du er nu logget ind, velkommen til " + customer.FirstName + "!";
+            return RedirectToAction("Index", "Home");
         }
+
         /// <summary>
         /// Logout a user by clearing and deleting the current autheticated session.
         /// </summary>
         /// <returns>Home view with loged out successmessage</returns>
-        public async Task<ActionResult> Logout()
+        public ActionResult Logout()
         {
             Session.Clear();
             Session.Abandon();
-            ViewBag.SuccessMessage = "Håber vi ses snart igen!";
-            return View("Index", "Home");
+            return RedirectToAction("Index", "Home");
         }
     }
 }

@@ -35,33 +35,35 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink(" Home", "Index", "Home")</li>
                     <li>@Html.ActionLink(" Konsultationer", "Index", "BookAppointment")</li>
-                    @if (Session["UserId"] != null)
-                    {
-                        <li>@Html.ActionLink(" Log ud", "Logout", "Login")</li>
-                    }
-                    else
-                    {
-                        <li>@Html.ActionLink(" Log på", "Index", "Login")</li>
+                    @{
+                        if (Session["UserId"] != null)
+                        {
+                            <li>@Html.ActionLink(" Log ud", "Logout", "Login")</li>
+                        }
+                        else
+                        {
+                            <li>@Html.ActionLink(" Log på", "Index", "Login")</li>
+                        }
                     }
                 </ul>
             </div>
         </div>
     </div>
     @{
-        if (ViewBag.ErrorMessage != null)
+        if (TempData["ErrorMessage"] != null)
         {
             <div id="alert" class="alert alert-danger alert-dismissible fade in show">
                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                <p> ERROR: @ViewBag.ErrorMessage </p>
+                <p> ERROR: @TempData["ErrorMessage"].ToString() </p>
             </div>
         }
     }
     @{
-        if (ViewBag.SuccessMessage != null)
+        if (TempData["SuccessMessage"] != null)
         {
             <div id="alert" class="alert alert-success alert-dismissible fade in show">
                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                <p> Success: @ViewBag.SuccessMessage </p>
+                <p> Success: @TempData["SuccessMessage"].ToString() </p>
             </div>
         }
     }
