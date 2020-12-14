@@ -35,7 +35,14 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink(" Home", "Index", "Home")</li>
                     <li>@Html.ActionLink(" Konsultationer", "Index", "BookAppointment")</li>
-                    <li>@Html.ActionLink(" Login", "Index", "Login")</li>
+                    @if (Session["UserId"] != null)
+                    {
+                        <li>@Html.ActionLink(" Log ud", "Logout", "Login")</li>
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink(" Log på", "Index", "Login")</li>
+                    }
                 </ul>
             </div>
         </div>
@@ -43,17 +50,26 @@
     @{
         if (ViewBag.ErrorMessage != null)
         {
-        <div id="alert" class="alert alert-danger alert-dismissible fade in show">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            <p> ERROR: @ViewBag.ErrorMessage </p>
-        </div>
+            <div id="alert" class="alert alert-danger alert-dismissible fade in show">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <p> ERROR: @ViewBag.ErrorMessage </p>
+            </div>
+        }
+    }
+    @{
+        if (ViewBag.SuccessMessage != null)
+        {
+            <div id="alert" class="alert alert-success alert-dismissible fade in show">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <p> Success: @ViewBag.SuccessMessage </p>
+            </div>
         }
     }
     <div class="container body-content">
         @RenderBody()
         <hr />
         <footer>
-            <a class="pull-left" href="/" >TrackSpace.dk </a>
+            <a class="pull-left" href="/">TrackSpace.dk </a>
             <p class="pull-right">&copy; @DateTime.Now.Year - TrackSpace Corporation</p>
         </footer>
     </div>

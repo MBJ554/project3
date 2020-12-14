@@ -11,15 +11,22 @@ namespace Web.Callers
 {
     public class LoginCaller
     {
-
         private RestClient client;
 
-
+        /// <summary>
+        /// Creates the RestClient object using 'ProjectApi' path from web.config
+        /// </summary>
         public LoginCaller()
         {
             client = new RestClient(ConfigurationManager.AppSettings["ProjectApi"]);
         }
 
+        /// <summary>
+        /// Uses the API to authenticate a users credentials
+        /// </summary>
+        /// <param name="email">Users email</param>
+        /// <param name="password">Users encrypted password</param>
+        /// <returns>A user if a users was found</returns>
         public async Task<Customer> GetByLogin(string email, string password)
         {
             var request = new RestRequest("api/customer/login", Method.POST);

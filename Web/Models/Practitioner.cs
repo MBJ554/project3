@@ -8,8 +8,6 @@ namespace Web.Models
 	public class Practitioner
 	{
 		public int Id { get; set; }
-		//id er en int 
-
 		public string Clinic { get; set; }
 		public string FirstName { get; set; }
 		public string LastName { get; set; }
