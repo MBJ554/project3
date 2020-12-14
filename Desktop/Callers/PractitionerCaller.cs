@@ -35,7 +35,7 @@ namespace Desktop.Callers
             throw new NotImplementedException();
         }
 
-        public Practitioner GetById(int id)
+        public Practitioner GetById(string id)
         {
             throw new NotImplementedException();
         }

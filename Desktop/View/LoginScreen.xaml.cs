@@ -35,13 +35,15 @@ namespace Desktop
         {
             if (!String.IsNullOrEmpty(txtEmail.Text) && !String.IsNullOrEmpty(txtPassword.Password))
             {
+                ClinicCaller clinicCaller = new ClinicCaller();
                 LoginCaller loginCaller = new LoginCaller();
                 var practitioner = loginCaller.GetByLogin(txtEmail.Text, txtPassword.Password);
                 if (practitioner != null)
                 {
                     GlobalLoginInfo.UserId = practitioner.Id;
                     GlobalLoginInfo.FullName = practitioner.FirstName + " " + practitioner.LastName;
-                    GlobalLoginInfo.ClinicId = practitioner.ClinicId;
+                    GlobalLoginInfo.Clinic = clinicCaller.GetById(practitioner.Clinic);
+                    GlobalLoginInfo.ClinicId = GlobalLoginInfo.Clinic.Id;
                     MainWindow main = new MainWindow();
                     main.Show();
                     this.Close();

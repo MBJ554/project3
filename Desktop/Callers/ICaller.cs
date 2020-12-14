@@ -10,7 +10,7 @@ namespace Desktop.Callers
     {
         Task<IEnumerable<TEntity>> GetAll();
 
-        TEntity GetById(int id);
+        TEntity GetById(string id);
 
         void Delete(int id);
 

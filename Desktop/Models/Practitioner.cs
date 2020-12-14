@@ -13,7 +13,8 @@ namespace Desktop.Models
         public int Id { get; set; }
         public int PersonTypeId { get; set; }
         public int ClinicId { get; set; }
-        public int PractitionerId { get; set; }
+        public string Clinic { get; set; }
+        public Clinic CurrentClinic { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string PhoneNo { get; set; }
@@ -28,8 +29,7 @@ namespace Desktop.Models
         {
             this.Id = id_;
             this.PersonTypeId = 1;
-            this.ClinicId = clinicId_;
-            this.PractitionerId = practitionerId_;
+           
 
             this.FirstName = firstName_;
             this.LastName = lastName_;

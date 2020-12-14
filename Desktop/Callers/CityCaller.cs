@@ -17,6 +17,11 @@ namespace Desktop.Callers
             CityClient = new RestClient(ConfigurationManager.AppSettings["ByApi"]);
         }
 
+        public CityCaller(string Url)
+        {
+            CityClient = new RestClient(Url);
+        }
+
         public void Create(City obj)
         {
             throw new NotImplementedException();
@@ -41,7 +46,7 @@ namespace Desktop.Callers
             return response.Data;
         }
 
-        public City GetById(int id)
+        public City GetById(string id)
         {
             throw new NotImplementedException();
         }
