@@ -32,12 +32,16 @@ namespace Web.Controllers
             var customer = await lc.GetByLogin(email, password);
             if (customer != null)
             {
-                PractitionerCaller pc = new PractitionerCaller();
                 Session["UserId"] = customer.Id.ToString();
+                Session["LastName"] = customer.LastName;
+                Session["FirstName"] = customer.FirstName;
+
+                PractitionerCaller pc = new PractitionerCaller();
                 Practitioner p = await pc.GetPractitionerByURL(customer.Practitioner);
                 Session["PractitionerId"] = p.Id.ToString();
-                Session["FirstName"] = customer.FirstName;
-                Session["LastName"] = customer.LastName;
+                Session["PractitionerFirstName"] = p.FirstName;
+                Session["PractitionerLastName"] = p.LastName;
+                Session["PractitionerPhoneNo"] = p.PhoneNo;
             }
             else
             {

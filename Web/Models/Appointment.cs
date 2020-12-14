@@ -18,9 +18,25 @@ namespace Web.Models
 		public string Customer { get; set; }
 		public string Practitioner { get; set; }
 
-		public Appointment() { 
+		public Appointment(DateTime _startdate, DateTime _enddate)
+		{
+			this.Startdate = _startdate;
+			this.Enddate = _enddate;
+		}
+
+		public Appointment() 
+		{ 
 		
 		}
 
+		public string StartTimeDisplay()
+        {
+			return Startdate.TimeOfDay.ToString();
+        }
+
+		public string EndTimeDisplay()
+		{
+			return Enddate.TimeOfDay.ToString();
+		}
 	}
 }

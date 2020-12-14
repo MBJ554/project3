@@ -187,7 +187,6 @@
     <Content Include="Views\BookAppointment\Index.cshtml" />
     <Content Include="Views\BookAppointment\ChooseAppointmentTime.cshtml" />
     <Content Include="Views\BookAppointment\BookTime.cshtml" />
-    <Content Include="Views\BookAppointment\BookErrorView.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>

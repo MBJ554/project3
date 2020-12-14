@@ -32,11 +32,12 @@ namespace Web.Controllers
             DateTime currentDate = new DateTime();
             if (date < currentDate || date.DayOfWeek == DayOfWeek.Saturday || date.DayOfWeek == DayOfWeek.Sunday)
             {
-                ViewBag.ErrorMessage = "Du skal vælge en date der er valid og vi holder ikke åben i weekenden!";
+                TempData["ErrorMessage"] = "Du skal vælge en date der er valid og vi holder ikke åben i weekenden!";
                 return View();
             }
             AppointmentCaller appointmentCaller = new AppointmentCaller();
             var appointments = await appointmentCaller.GetByDate(date, Session["PractitionerId"] as string);
+            ViewBag.SelectedDate = date.ToShortDateString();
             return View(appointments);
         }
 
@@ -47,7 +48,8 @@ namespace Web.Controllers
         /// <param name="startDateTime">aka apointment start time</param>
         /// <param name="endDateTime">aka apointment end time</param>
         /// <returns>The new appoinment is passed to the view if successfull</returns>
-        public ActionResult BookTime(DateTime startDateTime, DateTime endDateTime) {
+        public ActionResult BookTime(DateTime startDateTime, DateTime endDateTime) 
+        {
             Appointment a = new Appointment();
             a.Enddate = endDateTime;
             a.Startdate = startDateTime;
@@ -61,10 +63,9 @@ namespace Web.Controllers
             }
             catch (Exception e)
             {
-                ViewBag.ErrorMessage = "[ERROR] " + e.Message;
+                TempData["ErrorMessage"] = "[ERROR] " + e.Message;
                 return View(ChooseAppointmentTime(endDateTime.Date));
             }
-   
             return View(a); ;
         }
     }
