@@ -11,18 +11,16 @@ using Web.CustomAuthorize;
 using Web.Models;
 
 namespace Web.Callers
-{
-
-    
+{   
     public class AppointmentCaller : ICaller<Appointment>
     {
-
         private RestClient client;
 
-
+        /// <summary>
+        /// Creates the RestClient object using 'ProjectApi' path from web.config
+        /// </summary>
         public AppointmentCaller()
         {
-
             client = new RestClient(ConfigurationManager.AppSettings["ProjectApi"]);
         }
 
@@ -36,6 +34,10 @@ namespace Web.Callers
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Get all appointments using API
+        /// </summary>
+        /// <returns>IEnumerable<Appointment></returns>
         public async Task<IEnumerable<Appointment>> GetAll()
         {
             var request = new RestRequest("api/appointment", Method.GET);
@@ -53,8 +55,13 @@ namespace Web.Callers
             throw new NotImplementedException();
         }
 
-        //TODO change to IEnumerable
-        public async Task<List<Appointment>> GetByDate(DateTime appointmentDate, string id)
+        /// <summary>
+        /// Get appointments by date for a specific practioner using the API
+        /// </summary>
+        /// <param name="appointmentDate">Appointment date</param>
+        /// <param name="id">Practioner ID</param>
+        /// <returns></returns>
+        public async Task<IEnumerable<Appointment>> GetByDate(DateTime appointmentDate, string id)
         {
             var request = new RestRequest("api/appointment/"+ id, Method.GET);
             request.AddParameter("date", appointmentDate.ToString());
@@ -62,6 +69,10 @@ namespace Web.Callers
             return response.Data;
         }
 
+        /// <summary>
+        /// Book appoinment time and date using the API
+        /// </summary>
+        /// <param name="a">Appointment object</param>
         public void BookTime(Appointment a)
         {
             var request = new RestRequest("api/appointment", Method.POST);
@@ -69,7 +80,7 @@ namespace Web.Callers
             var response = client.Execute(request);
             if (response.StatusCode == System.Net.HttpStatusCode.Conflict)
             {
-                throw new Exception("Der er sket en fejl");
+                throw new Exception(response.ErrorMessage);
             }
         }
     }

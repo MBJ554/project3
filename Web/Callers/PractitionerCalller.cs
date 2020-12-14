@@ -11,23 +11,26 @@ namespace Web.Controllers
 {
     public class PractitionerCaller
     {
-
         private RestClient client;
 
-
+        /// <summary>
+        /// Creates the RestClient object using 'ProjectApi' path from web.config
+        /// </summary>
         public PractitionerCaller()
         {
-
             client = new RestClient(ConfigurationManager.AppSettings["ProjectApi"]);
         }
 
-        public async Task<Practitioner> GetPractitionerId(string practitionerUrl)
+        /// <summary>
+        /// Gets practitioner by the 'practitionerURL' typically retrieved from another API result
+        /// </summary>
+        /// <param name="practitionerUrl">Practioner URL</param>
+        /// <returns>Return a practitioner</returns>
+        public async Task<Practitioner> GetPractitionerByURL(string practitionerUrl)
         {
             var request = new RestRequest(practitionerUrl, Method.GET);
             var response = await client.ExecuteAsync<Practitioner>(request);
             return response.Data;
         }
-
-
     }
 }
