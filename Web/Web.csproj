@@ -189,7 +189,6 @@
     <Content Include="Views\BookAppointment\BookTime.cshtml" />
     <Content Include="Views\BookAppointment\BookErrorView.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
-    <Content Include="Views\Shared\UnAuthorize.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
