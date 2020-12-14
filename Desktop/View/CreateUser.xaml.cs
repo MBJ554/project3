@@ -48,27 +48,41 @@ namespace Desktop
             DataContext = viewModelCreateCustomer;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            viewModelCreateCustomer.Customer.PasswordHash = password.Password;
 
-            if (checkValues()) {
-                viewModelCreateCustomer.Customer.ClinicId = GlobalLoginInfo.ClinicId;
-                viewModelCreateCustomer.Create();         
+            viewModelCreateCustomer.Customer.ClinicId = GlobalLoginInfo.Clinic.Id;
+            viewModelCreateCustomer.Customer.GenerateSalt();
+            viewModelCreateCustomer.Customer.PasswordHash = password.Password;
+            bool check= await checkValues();
+            if (check) {
+                try
+                {
+                    viewModelCreateCustomer.Create();
+                    MessageBox.Show("Brugeren er oprettet", "bruger oprettet");
+                    this.NavigationService.Navigate("View/Home.xaml");
+
+
+                }
+                catch (Exception exception) {
+
+                    MessageBox.Show("Der gik noget galt", "Fejl besked");
+                }     
             }
            
            
            
         }
 
-        private bool checkValues() { 
+        private async Task<bool> checkValues() { 
         bool res = true;
             string message = "";
             if (!viewModelCreateCustomer.checkPhoneNo(mobil.Text)) {
                 message += "- Nummeret skal være 8 cifre langt og må kun indeholde tal";
                 res = false;  
             }
-            if (viewModelCreateCustomer.setCity(postnr.Text).Equals(null))
+            bool checkZipCode = await viewModelCreateCustomer.checkZipCode(postnr.Text);
+            if (!checkZipCode)
             {
                 message += " - Postnummeret findes ikke";
                 res = false;
@@ -102,15 +116,13 @@ namespace Desktop
 
         private async void postnr_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (viewModelCreateCustomer.checkZipCode(postnr.Text))
-            {
-                    await viewModelCreateCustomer.setCity(postnr.Text);
-            }
+            await viewModelCreateCustomer.checkZipCode(postnr.Text);
         }
 
-        private void postnr_LostFocus(object sender, RoutedEventArgs e)
+        private async void postnr_LostFocus(object sender, RoutedEventArgs e)
         {
-            if (!(viewModelCreateCustomer.checkZipCode(postnr.Text)) && viewModelCreateCustomer.setCity(postnr.Text) != null)
+            bool checkZipCode = await viewModelCreateCustomer.checkZipCode(postnr.Text);
+            if (!checkZipCode)
             {
                 zipCodeErrorBox.Content += " - Postnummeret findes ikke";
                 zipCodeErrorBox.Foreground = Brushes.Red;

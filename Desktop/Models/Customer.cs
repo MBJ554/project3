@@ -19,6 +19,8 @@ namespace Desktop.Models
         public int Id { get; set; }
         public int PersonTypeId { get; set; }
         public int ClinicId { get; set; }
+
+        
         public int PractitionerId { get; set; }
         public int RehabProgramId { get; set; }
         public string FirstName { get; set; }
@@ -43,11 +45,10 @@ namespace Desktop.Models
             set { city = value; OnPropertyChanged(); }
         }
 
-        public Customer(int id_, int personTypeId_, int clinicId_, int practitionerId_, int rehabProgramId_, string firstName_, string lastName_, string phoneNo_, string email_, string password_, string address_, string zipCode_)
+        public Customer(int id_, int personTypeId_, int practitionerId_, int rehabProgramId_, string firstName_, string lastName_, string phoneNo_, string email_, string password_, string address_, string zipCode_)
         {
             this.Id = id_;
             this.PersonTypeId = 1;
-            this.ClinicId = clinicId_;
             this.PractitionerId = practitionerId_;
             this.RehabProgramId = rehabProgramId_;
             this.FirstName = firstName_;
@@ -60,7 +61,7 @@ namespace Desktop.Models
             this.ZipCode = zipCode_;
         }
 
-        private void GenerateSalt()
+        public void GenerateSalt()
         {
             var rngCSP = RNGCryptoServiceProvider.Create();
 

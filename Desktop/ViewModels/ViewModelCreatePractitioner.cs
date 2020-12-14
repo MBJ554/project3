@@ -137,15 +137,8 @@ namespace Desktop.ViewModels
             return res;
         }
 
-        public bool setClinic(Clinic clinic)
-        {
-            bool res = false;
-            if (clinic != null) {
-                res = true;
-                practitioner.ClinicId = clinic.Id;
-            }
-            return res;
-        }
+      
+
     }
 
 }

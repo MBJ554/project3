@@ -37,7 +37,7 @@ namespace Desktop.Callers
             throw new NotImplementedException();
         }
 
-        public Customer GetById(int id)
+        public Customer GetById(string id)
         {
             throw new NotImplementedException();
         }

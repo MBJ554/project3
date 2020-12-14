@@ -51,13 +51,22 @@ namespace Desktop
         private void Button_Click(object sender, RoutedEventArgs e)
         {
 
-            if (checkValues())
+            bool check = checkValues();
+            if (check)
             {
-               
-                viewModelCreatePractitioner.Practitioner.ClinicId = GlobalLoginInfo.ClinicId;
+                viewModelCreatePractitioner.Practitioner.ClinicId = GlobalLoginInfo.Clinic.Id;
                 viewModelCreatePractitioner.Practitioner.GenerateSalt();
                 viewModelCreatePractitioner.Practitioner.PasswordHash = password.Password;
-                viewModelCreatePractitioner.Create();
+                try
+                {
+                    viewModelCreatePractitioner.Create();
+                    MessageBox.Show("Brugeren er oprettet", "bruger oprettet");
+                    this.NavigationService.Navigate("View/Home.xaml");
+                }
+                catch (Exception exception)
+                {
+                    MessageBox.Show("Der gik noget galt", "Fejl besked");
+                }
             }
         }
 
@@ -102,13 +111,6 @@ namespace Desktop
         }
 
 
-        public bool numbersOnly(String checkString)
-        {
-
-            Regex reg = new Regex("^[0-9]+$");
-
-            return reg.IsMatch(checkString);
-        }
 
         private void fornavn_LostFocus(object sender, RoutedEventArgs e)
         {

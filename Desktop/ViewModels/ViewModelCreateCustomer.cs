@@ -92,15 +92,7 @@ namespace Desktop.ViewModels
             return res;
         }
 
-        public async Task<City> setCity(string zipCode)
-        {
-            City c = await cityCaller.GetByZipCode(zipCode);
-            if (c != null)
-            {
-                Customer.City = c.CityName;
-            }
-            return c;
-        }
+       
 
         public bool checkLastName(string lastName)
         {
@@ -124,14 +116,30 @@ namespace Desktop.ViewModels
             return res;
         }
 
-        internal bool checkZipCode(string zipCode)
+        public async Task<bool> checkZipCode(string zipCode)
         {
             bool res = false;
-            if (zipCode.Length == 4 & numbersOnly(zipCode))
+            City city = new City();
+            try
             {
-                res = true;
-                customer.ZipCode = zipCode;
+                if (zipCode.Length == 4 & numbersOnly(zipCode))
+                    {
+                    city = await cityCaller.GetByZipCode(zipCode);
+                    if (city.ZipCode != null & city.CityName != null) {
+                        res = true;
+                        customer.ZipCode = city.ZipCode;
+                        customer.City = city.CityName;
+                    }
+                    
+                }
+               
             }
+            catch { 
+                
+                
+            }
+            
+           
             return res;
         }
 
@@ -161,17 +169,7 @@ namespace Desktop.ViewModels
         }
 
 
-        public bool setClinic(Clinic clinic)
-        {
-            bool res = false;
-            if (clinic != null)
-            {
-                res = true;
-                customer.ClinicId = clinic.Id;
-            }
-            return res;
-        }
-
+     
     }
 }
 

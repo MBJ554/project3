@@ -35,9 +35,11 @@ namespace Desktop.Callers
             return response.Data;
         }
 
-        public Clinic GetById(int id)
+        public Clinic GetById(string id)
         {
-            throw new NotImplementedException();
+            var request = new RestRequest( id, Method.GET);
+            var response = client.Execute<Clinic>(request);
+            return response.Data;
         }
 
         public void Update(Clinic obj)
@@ -47,7 +49,7 @@ namespace Desktop.Callers
 
         public IEnumerable<Clinic> GetAllSync()
         {
-            var request = new RestRequest("api/linic", Method.GET);
+            var request = new RestRequest("api/clinic", Method.GET);
             var response = client.Execute<List<Clinic>>(request);
             return response.Data;
         }
