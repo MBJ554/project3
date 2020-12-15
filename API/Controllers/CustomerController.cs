@@ -20,26 +20,32 @@ namespace API.Controllers
         {
             _customerRepository = customerRepository;
         }
-        //TODO kig på hvordan det er løst i CityController
+
+        /// <summary>
+        /// Gets all customers
+        /// </summary>
+        /// <returns>List of all Customers</returns>
         // GET: api/Customer
         public IHttpActionResult GetAll()
         {
             List<Customer> customers = new List<Customer>();
             var customerDAL = _customerRepository.GetAll();
-            foreach (var customer in customerDAL)
-            {
-                if (customer != null)
-                {
-                    customers.Add(BuildCustomer(customer));
-                }
-            }
-            if (customers.Count == 0)
+            if (customerDAL.Count() == 0)
             {
                 return NotFound();
+            }
+            foreach (var customer in customerDAL)
+            {
+                    customers.Add(BuildCustomer(customer));
             }
             return Ok(customers);
         }
 
+        /// <summary>
+        /// Gets a specific customer from an id
+        /// </summary>
+        /// <param name="id">The id of the customer to get</param>
+        /// <returns>A customer</returns>
         // GET: api/Customer/5
         public IHttpActionResult GetById(int id)
         {
@@ -51,14 +57,11 @@ namespace API.Controllers
             return NotFound();
         }
 
-        //[HttpPost]
-        //// POST: api/Customer
-        //[Route("api/Customer/{id}/Login")]
-        //public bool Post([FromBody] Customer c)
-        //{
-        //    return _customerRepository.IsAuthorized(c.Email, c.Password); 
-        //}
-
+        /// <summary>
+        /// Gets a customer from email and password
+        /// </summary>
+        /// <param name="login">contains the email and password</param>
+        /// <returns>The customer who logged in</returns>
         [HttpPost]
         [Route("api/customer/login")]
         public IHttpActionResult Login([FromBody] LoginInfo login)
@@ -71,12 +74,20 @@ namespace API.Controllers
             return NotFound();
         }
 
+        /// <summary>
+        /// Creates a new customer
+        /// </summary>
+        /// <param name="customer">The customer that is being created</param>
         // POST: api/Customer
         public void Post([FromBody] API.DAL.Models.Customer customer)
         {
             _customerRepository.Create(customer);
         }
 
+        /// <summary>
+        /// Updates a specific customer
+        /// </summary>
+        /// <param name="customer">The customer to be updated</param>
         // PUT: api/Customer/5
         [HttpPut]
         public void Put([FromBody] API.DAL.Models.Customer customer)
@@ -84,12 +95,26 @@ namespace API.Controllers
             _customerRepository.Update(customer);
         }
 
+        /// <summary>
+        /// Deletes a specific customer
+        /// </summary>
+        /// <param name="id">The id of the customer</param>
+        /// <returns>OkResult if the customer is deleted</returns>
         // DELETE: api/Customer/5
-        public bool Delete(int id)
+        public IHttpActionResult Delete(int id)
         {
-            return _customerRepository.Delete(id);
+            if (_customerRepository.Delete(id))
+            {
+                return Ok();
+            }
+            return NotFound();
         }
        
+        /// <summary>
+        /// Converts customer DAL model to  customer API model, and adds api urls instead of ids
+        /// </summary>
+        /// <param name="customer">Customer to convert</param>
+        /// <returns>Converted Customer</returns>
         private Customer BuildCustomer(API.DAL.Models.Customer customer)
         {  
             return new Customer
@@ -104,7 +129,7 @@ namespace API.Controllers
                 PhoneNo = customer.PhoneNo,
                 Email = customer.Email,
                 Address = customer.Address,
-                ZipCode = customer.ZipCode
+                ZipCode = customer.ZipCode 
             };
         }
     }

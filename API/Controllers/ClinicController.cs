@@ -14,72 +14,81 @@ namespace API.Controllers
 {
     public class ClinicController : ApiController
     {
-        private readonly string connectionString = ConfigurationManager.ConnectionStrings["connStr"].ConnectionString;
-        // GET: api/Clinic
+  
         private readonly IClinicRepository _clinicRepository;
+
         public ClinicController(IClinicRepository clinicRepository)
         {
             _clinicRepository = clinicRepository;
         }
 
+        /// <summary>
+        /// Gets all clinics
+        /// </summary>
+        /// <returns>List of all clinics</returns>
+        //Get: api/clinic
         public IHttpActionResult Get()
         {
-            var clinicsDAL = _clinicRepository.GetAll();
             var clinics = new List<Clinic>();
+            var clinicsDAL = _clinicRepository.GetAll();
+            if (clinicsDAL.Count() == 0)
+            {
+                return NotFound();
+            }
             foreach (var clinic in clinicsDAL)
             {
                 clinics.Add(buildClinic(clinic));
             }
-            if (clinics.Count == 0)
-            {
-                return NotFound();
-            }
            return Ok(clinics);
         }
 
-        // GET: api/City/GetById
+        /// <summary>
+        /// Get a specific clinic from an id
+        /// </summary>
+        /// <param name="id">The id of the clinic to get</param>
+        /// <returns>A clinic</returns>
+        // GET: api/clinic/5
         public IHttpActionResult Get(int id)
         {
             var clinicDAL = _clinicRepository.GetById(id);
             if (clinicDAL != null)
             {
-                var clinic = buildClinic(clinicDAL);
-                return Ok(clinic);
+                return Ok(buildClinic(clinicDAL));
             }
             return NotFound();
         }
 
-        // POST: api/City
-        public void Post([FromBody] Clinic clinic)
+        /// <summary>
+        /// Creates a new clinic
+        /// </summary>
+        /// <param name="clinic">The clinic that is being created</param>
+        // POST: api/clinic
+        public void Post([FromBody] API.DAL.Models.Clinic clinic)
         {
-            using (var conn = new SqlConnection(connectionString))
-            {
-                string sql = "INSERT INTO [dbo].[Clinic] ([name], " +
-                    "[address], " +
-                    "[zipCode], " +
-                    "[phoneNo], " +
-                    "[description]) " +
-                    "VALUES (@name, " +
-                    "@address, " +
-                    "@zipCode, " +
-                    "@phoneNo, " +
-                    "@description)";
-                conn.Execute(sql, clinic);
-            }
+            _clinicRepository.Create(clinic);
         }
 
-        // DELETE: api/City/5
-        public Clinic Delete(int id)
+        /// <summary>
+        /// Deletes a specific clinic
+        /// </summary>
+        /// <param name="id">The id of the clinic</param>
+        /// <returns>OkResult if the clinic is deleted</returns>
+        // DELETE: api/clinic/5
+        public IHttpActionResult Delete(int id)
         {
-            using (var conn = new SqlConnection(connectionString))
+            if (_clinicRepository.Delete(id))
             {
-                string sql = "Delete FROM Clinic where id = @id";
-                //return conn.Execute(sql, city) == 1;
-                conn.Query<Clinic>(sql, new { id }).SingleOrDefault();
-                return null;
+                return Ok();
             }
+            return NotFound();
         }
 
+
+        /// <summary>
+        /// Converts clinic DAL model to clinic API model
+        /// </summary>
+        /// <param name="clinic">The clinic to convert</param>
+        /// <returns>Converted clinic</returns>
         private Clinic buildClinic(API.DAL.Models.Clinic clinic)
         {
             return new Clinic

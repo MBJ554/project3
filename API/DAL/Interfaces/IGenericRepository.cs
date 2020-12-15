@@ -10,8 +10,8 @@ namespace API.DAL.Interfaces
     {
         IEnumerable<TEntity> GetAll();
         TEntity GetById(int id);
-        TEntity Create(TEntity obj);
-        TEntity Update(TEntity obj);
+        void Create(TEntity obj);
+        void Update(TEntity obj);
         bool Delete(int id);
 
     }
