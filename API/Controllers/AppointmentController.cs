@@ -43,7 +43,8 @@ namespace API.Controllers
         /// </summary>
         /// <param name="id">The id of the Appointment to get</param>
         /// <returns>An Appointment</returns>
-        // GET: api/Appointment/5
+        //GET: api/appointment/5
+        [Route("api/appointment/{id}")]
         public IHttpActionResult GetById(int id)
         {
             var appointmentDAL = _appointmentRepository.GetById(id);
@@ -57,14 +58,15 @@ namespace API.Controllers
         /// <summary>
         /// Get all Appointments for a specific Practitioner on a specific date
         /// </summary>
-        /// <param name="practitionerId">The id of the practitioner to find appointments for</param>
+        /// <param name="id">The id of the practitioner to find appointments for</param>
         /// <param name="date">The date to find appointments on</param>
         /// <returns>List of all appointments for a practitioner on a given date</returns>
-        // GET: api/Appointment/practitionerId
-        public IHttpActionResult Get(int practitionerId, [FromUri] string date)
+        // GET: api/appointment/5
+        [Route("api/appointment/{id}/")]
+        public IHttpActionResult Get(int id, [FromUri] string date)
         {
             DateTime appointmentDate = DateTime.Parse(date);
-            var appointmentsDAL = _appointmentRepository.GetAllByPractitionerAndDate(appointmentDate, practitionerId);
+            var appointmentsDAL = _appointmentRepository.GetAllByPractitionerAndDate(appointmentDate, id);
 
             List<Appointment> appointments = new List<Appointment>();
             for (int i = 0; i < 14; i++)

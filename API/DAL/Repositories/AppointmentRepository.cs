@@ -19,6 +19,7 @@ namespace API.DAL.Repositories
         {
             using (var conn = new SqlConnection(connectionString))
             {
+                conn.Open();
                 using (var transaction = conn.BeginTransaction())
                 {
                     try

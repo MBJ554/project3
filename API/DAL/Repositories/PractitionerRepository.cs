@@ -21,6 +21,7 @@ namespace API.DAL.Repositories
         {
             using (var conn = new SqlConnection(connectionString))
             {
+                conn.Open();
                 using (var transaction = conn.BeginTransaction())
                 {
                     try
@@ -59,8 +60,8 @@ namespace API.DAL.Repositories
         {
             using (var conn = new SqlConnection(connectionString))
             {
-                string sql = "DELETE FROM Person WHERE id = @id";
-                return conn.Execute(sql, new { id }) == 1;
+                string sql = "DELETE FROM Person WHERE id = @id AND personTypeId = (SELECT id FROM PersonType WHERE type = 'Practitioner')";
+                return conn.Execute(sql, new { id = id }) == 1;
             }
         }
 
@@ -106,6 +107,7 @@ namespace API.DAL.Repositories
         {
             using (var conn = new SqlConnection(connectionString))
             {
+                conn.Open();
                 using (var transaction = conn.BeginTransaction())
                 {
                     try
@@ -115,7 +117,7 @@ namespace API.DAL.Repositories
                         ",[lastName] = @LastName" +
                         ",[phoneNo] = @PhoneNo" +
                         ",[email] = @Email ," +
-                        "[password] = @Password WHERE id = @Id";
+                        "[password] = @Password WHERE id = @Id AND personTypeId = (SELECT id FROM PersonType WHERE type = 'Practitioner')";
 
                         conn.Execute(sql, obj, transaction: transaction);
                         transaction.Commit();
