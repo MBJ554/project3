@@ -15,47 +15,49 @@ namespace API.DAL.Repositories
     {
         private readonly string connectionString = ConfigurationManager.ConnectionStrings["connStr"].ConnectionString;
 
-        //TODO fix return
-        public Appointment Create(Appointment obj)
+        public void Create(Appointment obj)
         {
-            try
+            using (var conn = new SqlConnection(connectionString))
             {
-                using (var conn = new SqlConnection(connectionString))
+                using (var transaction = conn.BeginTransaction())
                 {
-                    string sql = "INSERT INTO [dbo].[Appointment] " +
-                        "([startdate], " +
-                        "[enddate], " +
-                        "[customerId], " +
-                        "[practitionerId]) VALUES " +
-                        "(@startdate, " +
-                        "@enddate, " +
-                        "@customerId, " +
-                        "@practitionerId)";
-                    conn.Execute(sql, obj);
-                    return null;
-                }
-            }
-            catch (SqlException e)
-            {
-
-                if (e.Number == 2627)
-                {
-                    throw new DataAccessException("Den valgte tid er ikke længere tilgængelig. Prøv igen", e);
-                }
-                else
-                {
-                    throw new DataAccessException("Der gik noget galt, prøv igen", e);
+                    try
+                    {
+                        string sql = "INSERT INTO [dbo].[Appointment] " +
+                            "([startdate], " +
+                            "[enddate], " +
+                            "[customerId], " +
+                            "[practitionerId]) VALUES " +
+                            "(@startdate, " +
+                            "@enddate, " +
+                            "@customerId, " +
+                            "@practitionerId)";
+                        conn.Execute(sql, obj, transaction: transaction);
+                        transaction.Commit();
+                    }
+                    catch (SqlException e)
+                    {
+                        transaction.Rollback();
+                        if (e.Number == 2627)
+                        {
+                            throw new DataAccessException("Den valgte tid er ikke længere tilgængelig. Prøv igen", e);
+                        }
+                        else
+                        {
+                            throw new DataAccessException("Der gik noget galt, prøv igen", e);
+                        }
+                    }
                 }
             }
         }
-        //TODO FIX return
+
         public bool Delete(int id)
         {
             using (var conn = new SqlConnection(connectionString))
             {
                 string sql = "Delete FROM Appointment where id = @id";
-                conn.Query<Appointment>(sql, new { id }).SingleOrDefault();
-                return true;
+                //TODO: tjek om det her virker og lav alt andet om til denne måde både return og id
+                return conn.Execute(sql, new { id = id }) == 1; 
             }
         }
 
@@ -73,9 +75,8 @@ namespace API.DAL.Repositories
         {
             using (var conn = new SqlConnection(connectionString))
             {
-                // TODO: Fix stavefejl i database med practitioner
                 string sql = "SELECT * FROM Appointment WHERE (SELECT CONVERT (date , startdate)) = @date  AND practitionerId = @practitionerId";
-                return conn.Query<Appointment>(sql, new { date.Date, practitionerId } );
+                return conn.Query<Appointment>(sql, new { date = date.Date, practitionerId = practitionerId } );
             }
         }
 
@@ -84,11 +85,11 @@ namespace API.DAL.Repositories
             using (var conn = new SqlConnection(connectionString))
             {
                 string sql = "SELECT * FROM Appointment Where id = @id";
-                return conn.Query<Appointment>(sql, new { id }).SingleOrDefault();
+                return conn.Query<Appointment>(sql, new {  id = id }).SingleOrDefault();
             }
         }
 
-        public Appointment Update(Appointment obj)
+        public void Update(Appointment obj)
         {
             throw new NotImplementedException();
         }

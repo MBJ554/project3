@@ -14,7 +14,7 @@ namespace API.DAL.Repositories
     {
         private readonly string connectionString = ConfigurationManager.ConnectionStrings["connStr"].ConnectionString;
 
-        public ExerciseLine Create(ExerciseLine obj)
+        public void Create(ExerciseLine obj)
         {
             throw new NotImplementedException();
         }
@@ -31,11 +31,7 @@ namespace API.DAL.Repositories
 
         public IEnumerable<ExerciseLine> GetAllByRehabProgramId(int id)
         {
-            using (var conn = new SqlConnection(connectionString))
-            {
-                string sql = "SELECT * FROM ExerciseLine WHERE rehabProgramId = @id";
-                return conn.Query<ExerciseLine>(sql, new { id });
-            };
+            throw new NotImplementedException();
         }
 
         public ExerciseLine GetById(int id)
@@ -43,7 +39,7 @@ namespace API.DAL.Repositories
             throw new NotImplementedException();
         }
 
-        public ExerciseLine Update(ExerciseLine obj)
+        public void Update(ExerciseLine obj)
         {
             throw new NotImplementedException();
         }

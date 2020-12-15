@@ -17,8 +17,13 @@ namespace API.Controllers
         {
             _appointmentRepository = appointmentRepository;
         }
+
+        /// <summary>
+        /// Gets all appointments
+        /// </summary>
+        /// <returns>List of all Appointments</returns>
         // GET: api/Appointment
-        public IHttpActionResult Get()
+        public IHttpActionResult GetAll()
         {
             List<Appointment> appointments = new List<Appointment>();
             var appointmentsDAL = _appointmentRepository.GetAll();
@@ -33,8 +38,13 @@ namespace API.Controllers
             return Ok(appointments);
         }
 
-        // GET: api/Appointment/GetById
-        public IHttpActionResult Get(int id)
+        /// <summary>
+        /// Gets a specific Appointment from an id
+        /// </summary>
+        /// <param name="id">The id of the Appointment to get</param>
+        /// <returns>An Appointment</returns>
+        // GET: api/Appointment/5
+        public IHttpActionResult GetById(int id)
         {
             var appointmentDAL = _appointmentRepository.GetById(id);
             if (appointmentDAL != null)
@@ -44,11 +54,17 @@ namespace API.Controllers
             return NotFound();
         }
 
-        // GET: api/Appointment/id
-        public IHttpActionResult Get(int id, [FromUri] string date)
+        /// <summary>
+        /// Get all Appointments for a specific Practitioner on a specific date
+        /// </summary>
+        /// <param name="practitionerId">The id of the practitioner to find appointments for</param>
+        /// <param name="date">The date to find appointments on</param>
+        /// <returns>List of all appointments for a practitioner on a given date</returns>
+        // GET: api/Appointment/practitionerId
+        public IHttpActionResult Get(int practitionerId, [FromUri] string date)
         {
             DateTime appointmentDate = DateTime.Parse(date);
-            var appointmentsDAL = _appointmentRepository.GetAllByPractitionerAndDate(appointmentDate, id);
+            var appointmentsDAL = _appointmentRepository.GetAllByPractitionerAndDate(appointmentDate, practitionerId);
 
             List<Appointment> appointments = new List<Appointment>();
             for (int i = 0; i < 14; i++)
@@ -69,6 +85,11 @@ namespace API.Controllers
 
         }
 
+        /// <summary>
+        /// Creates a new Appointment
+        /// </summary>
+        /// <param name="appointment">The appointment that is being created</param>
+        /// <returns>OkResult if the appointment was created successfully </returns>
         // POST: api/Appointment
         public IHttpActionResult Post([FromBody] Appointment appointment)
         {
@@ -80,20 +101,31 @@ namespace API.Controllers
             catch (DataAccessException e)
             {
                 return Content(HttpStatusCode.Conflict, e.Message);
-                //throw e;
             }
-
             return Ok();
         }
 
 
-
+        /// <summary>
+        /// Deletes a specific Appointment
+        /// </summary>
+        /// <param name="id">The id of the Appointment</param>
+        /// <returns></returns>
         // DELETE: api/Appointment/5
-        public bool Delete(int id)
+        public IHttpActionResult Delete(int id)
         {
-            return _appointmentRepository.Delete(id);
+            if (_appointmentRepository.Delete(id))
+            {
+                return Ok();
+            }
+            return NotFound();
         }
 
+        /// <summary>
+        /// Converts appointment DAL model to appointment API model.
+        /// </summary>
+        /// <param name="appointment">Appointment to convert</param>
+        /// <returns>Converted appointment</returns>
         private Appointment BuildAppointment(API.DAL.Models.Appointment appointment)
         {
             return new Appointment
@@ -106,10 +138,13 @@ namespace API.Controllers
             };
         }
 
+        /// <summary>
+        /// Converts appointment API model to appointment DAL model
+        /// </summary>
+        /// <param name="appointment">Appointment to convert</param>
+        /// <returns>Converted appointment</returns>
         private API.DAL.Models.Appointment BuildDalAppointment(Appointment appointment)
         {
-
-            // TODO : Fix tidkonvertiring til UTC
             return new API.DAL.Models.Appointment
             {
                 Id = appointment.Id,

@@ -17,14 +17,13 @@ namespace API.DAL.Repositories
     {
         private readonly string connectionString = ConfigurationManager.ConnectionStrings["connStr"].ConnectionString;
 
-        public Practitioner Create(Practitioner obj)
+        public void Create(Practitioner obj)
         {
             using (var conn = new SqlConnection(connectionString))
             {
-                conn.Open();
-                try
+                using (var transaction = conn.BeginTransaction())
                 {
-                    using (var transaction = conn.BeginTransaction())
+                    try
                     {
                         string sql = "INSERT INTO[dbo].[Person] " +
                         "([personTypeId], " +
@@ -44,21 +43,15 @@ namespace API.DAL.Repositories
                         ", @passwordHash" +
                         ", @salt)";
 
-                        //TODO Kig på error codes fra api da den ikke returner customer
-                        var rowsAffected = conn.Execute(sql, obj, transaction: transaction);
+                        conn.Execute(sql, obj, transaction: transaction);
                         transaction.Commit();
-                        if (rowsAffected > 0)
-                        {
-                            return obj;
-                        }
-                        return null;
+                    }
+                    catch (SqlException e)
+                    {
+                        transaction.Rollback();
+                        throw new DataAccessException("Der gik noget galt, prøv igen.", e);
                     }
                 }
-                catch (SqlException e)
-                {
-                    throw new DataAccessException("Der gik noget galt, prøv igen.", e);
-                }
-                
             }
         }
 
@@ -67,7 +60,6 @@ namespace API.DAL.Repositories
             using (var conn = new SqlConnection(connectionString))
             {
                 string sql = "DELETE FROM Person WHERE id = @id";
-
                 return conn.Execute(sql, new { id }) == 1;
             }
         }
@@ -110,26 +102,29 @@ namespace API.DAL.Repositories
             return null;
         }
 
-        public Practitioner Update(Practitioner obj)
+        public void Update(Practitioner obj)
         {
             using (var conn = new SqlConnection(connectionString))
             {
                 using (var transaction = conn.BeginTransaction())
                 {
-                    string sql = "UPDATE [dbo].[Person] SET [clinicId] = @ClinicId " +
-                    ",[firstName] = @FirstName " +
-                    ",[lastName] = @LastName" +
-                    ",[phoneNo] = @PhoneNo" +
-                    ",[email] = @Email ," +
-                    "[password] = @Password WHERE id = @Id";
-
-                    var rowsAffected = conn.Execute(sql, obj);
-                    transaction.Commit();
-                    if (rowsAffected > 0)
+                    try
                     {
-                        return obj;
+                        string sql = "UPDATE [dbo].[Person] SET [clinicId] = @ClinicId " +
+                        ",[firstName] = @FirstName " +
+                        ",[lastName] = @LastName" +
+                        ",[phoneNo] = @PhoneNo" +
+                        ",[email] = @Email ," +
+                        "[password] = @Password WHERE id = @Id";
+
+                        conn.Execute(sql, obj, transaction: transaction);
+                        transaction.Commit();
                     }
-                    return null;
+                    catch (SqlException e)
+                    {
+                        transaction.Rollback();
+                        throw new DataAccessException("Der gik noget galt prøv igen", e);
+                    }
                 }
             }
         }

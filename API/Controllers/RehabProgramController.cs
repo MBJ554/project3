@@ -36,24 +36,13 @@ namespace API.Controllers
         // POST: api/RehabProgram
         public void Post([FromBody] RehabProgram rehabProgram)
         {
-            //using (var conn = new SqlConnection(connectionString))
-            //{
-            //    string sql = "INSERT INTO [dbo].[RehabProgram] ([description], [startDate], [endDate]) VALUES (@description, @startDate, @EndDate)";
-            //    conn.Execute(sql, rehabProgram);
-            //}
+            throw new NotImplementedException();
         }
 
         // DELETE: api/RehabProgram/5
         public RehabProgram Delete(int id)
         {
-            //using (var conn = new SqlConnection(connectionString))
-            //{
-            //    string sql = "Delete FROM RehabProgram where id = @id";
-            //    RehabProgram r = Get(id);
-            //    conn.Query<City>(sql, new { id }).SingleOrDefault();
-            //    return r;
-            //}
-            return null;
+            throw new NotImplementedException();
         }
     }
 }

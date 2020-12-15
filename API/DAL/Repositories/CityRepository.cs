@@ -1,4 +1,5 @@
-﻿using API.DAL.Interfaces;
+﻿using API.DAL.Exceptions;
+using API.DAL.Interfaces;
 using API.DAL.Models;
 using Dapper;
 using System;
@@ -13,14 +14,40 @@ namespace API.DAL.Repositories
     public class CityRepository : ICityRepository
     {
         private readonly string connectionString = ConfigurationManager.ConnectionStrings["connStr"].ConnectionString;
-        public City Create(City obj)
+
+        public void Create(City obj)
         {
-            throw new NotImplementedException();
+            using (var conn = new SqlConnection(connectionString))
+            {
+                using (var transaction = conn.BeginTransaction())
+                {
+                    try
+                    {
+                        string sql = "INSERT INTO [dbo].[City] ([zipCode], [city]) VALUES (@zipCode, @city)";
+                        conn.Execute(sql, obj, transaction: transaction);
+                        transaction.Commit();
+                    }
+                    catch (SqlException e)
+                    {
+                        transaction.Rollback();
+                        throw new DataAccessException("Der gik noget galt prøv igen", e);
+                    }
+                }  
+            }
         }
 
         public bool Delete(int id)
         {
             throw new NotImplementedException();
+        }
+
+        public bool DeleteByZipCode(string zipCode)
+        {
+            using (var conn = new SqlConnection(connectionString))
+            {
+                string sql = "Delete FROM City where zipcode = @zipCode";
+                return conn.Execute(sql, new { zipCode }) != 0;
+            }
         }
 
         public IEnumerable<City> GetAll()
@@ -46,8 +73,7 @@ namespace API.DAL.Repositories
             }
         }
     
-
-        public City Update(City obj)
+        public void Update(City obj)
         {
             throw new NotImplementedException();
         }
