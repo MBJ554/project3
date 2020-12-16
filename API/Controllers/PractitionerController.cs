@@ -1,4 +1,5 @@
 ﻿using API.ApiHelpers;
+using API.DAL.Exceptions;
 using API.DAL.Interfaces;
 using API.DAL.Repositories;
 using API.Models;
@@ -60,9 +61,17 @@ namespace API.Controllers
         /// </summary>
         /// <param name="practitioner">The practitioner that is being created</param>
         // POST: api/Practitioner
-        public void Post([FromBody] API.DAL.Models.Practitioner practitioner)
+        public IHttpActionResult Post([FromBody] API.DAL.Models.Practitioner practitioner)
         {
-            _practitionerRepository.Create(practitioner);
+            try
+            {
+                _practitionerRepository.Create(practitioner);
+            }
+            catch (DataAccessException)
+            {
+                return NotFound();
+            }
+            return Ok();
         }
 
         /// <summary>

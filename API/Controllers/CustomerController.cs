@@ -1,4 +1,5 @@
 ﻿using API.ApiHelpers;
+using API.DAL.Exceptions;
 using API.DAL.Interfaces;
 using API.Models;
 using Dapper;
@@ -79,9 +80,17 @@ namespace API.Controllers
         /// </summary>
         /// <param name="customer">The customer that is being created</param>
         // POST: api/Customer
-        public void Post([FromBody] API.DAL.Models.Customer customer)
+        public IHttpActionResult Post([FromBody] API.DAL.Models.Customer customer)
         {
-            _customerRepository.Create(customer);
+            try
+            {
+                _customerRepository.Create(customer);
+            }
+            catch (DataAccessException)
+            {
+                return NotFound();
+            }
+            return Ok();
         }
 
         /// <summary>

@@ -22,25 +22,9 @@ SET IDENTITY_INSERT [dbo].[PersonType] OFF
 GO
 SET IDENTITY_INSERT [dbo].[Person] ON 
 GO
-INSERT [dbo].[Person] ([id], [personTypeId], [clinicId], [practitionerId], [firstName], [lastName], [phoneNo], [email], [passwordHash], [salt], [address], [zipCode]) VALUES (2, 2, 1, NULL, N'admin', N'admin', N'12345678', N'admin@admin.dk', N'f3m8fDJnwal5W7NCBsr4NYocMbN1VMSNWFOY83c65XDTvE+W4pXHxPi1fdGZqLYRpha+susiJnBIP9IFpZjP0A==', N'/An022H2TvPjUr4+IqbWON9VVwy8xEd8wI/UHMmRptHCOF+n/QOK0tmqMn/m/xFXKdp5ucMEKoky/7iqjv/JzygLCESVaDRC3GZyqpuO8V80/sY+aXd8w26wNN+RtBJmDOVIU3lhuixJpzzHG0zIUOe21DEvMtjBkjych3ajd0wkkdRaZaXVuXrYhYKI9kxAX/qQPhJGxxQ6/VzFpZmujA+a5pKaM0H3avCEkX5yNL2vmcK72LAH9YI3D/gw4DZk4KuAEtS1yTorh+7O0QkyUmYC2oSyKkeICytitKa1+VGVi8z0iJctqKxetKXGBvVcgmW9TwG4wlrhdl5J94EVMw==', NULL, NULL)
+INSERT [dbo].[Person] ([id], [personTypeId], [clinicId], [practitionerId], [firstName], [lastName], [phoneNo], [email], [passwordHash], [salt], [address], [zipCode]) VALUES (1, 2, 1, NULL, N'Admin', N'Jensen', N'11111111', N'admin@admin.desktop', N'e5IejFFR+GlG1eBn+pGC3gt5gzs2fZoVWHAOaebs+jJv2mjSN53UwOtpmpA+queRV+nxWx6/u8683ON8Qc4QEQ==', N'yLSScf5LLxfmYXVBlKNVLG97iu/hFcTa2mivf9XxZB9p5i2E/Ta4XRX6LsYsdlp7UeERN6MFjyYzIlPL10nn5rWQw2671PYh2MLj/QNSRK1QKqZn9vf9brqpOCrmvq9CuRBLpBWAEgQven6dAS1Ebn3cZlTgahz2mio95Hk/KFzbFC8YtjQ9z34NdwRxaEndUp4s/JZDtSfYSqXx9clIKuVuzstyJoYRan2q1k6pSvtKL4R0ejSCJyonZ1+6dgbx+k/eZYHCBeEaRXe/CVWrssU+qGILY4mgkZg4EfaVs6pSrRRawWUZv2p3Y2mdx9fD0AnxtC2s8EXLxSpoBVvWIA==', NULL, NULL)
 GO
-INSERT [dbo].[Person] ([id], [personTypeId], [clinicId], [practitionerId], [firstName], [lastName], [phoneNo], [email], [passwordHash], [salt], [address], [zipCode]) VALUES (1, 1, 1, 2, N'Magnus', N'Munk', N'50718449', N'mail@mail.com', N'vagRJq/iNcLUIVJol234+TK+MJR6QJ4rlbDqJpn/C2J5BZuPq3jIyHUqSqDG/FUGQWdS0pvVDwnnhYMXcl/1uQ==', N'nTND6yHWnzccqIQImUeh2DCFlaiC9wto7e6LaTZXnHtlwI3s1kMv9thGTDvn9WKqRFECGRG9zBjkqypVbTt4kmX3CiG75UgVoDWcFdQCw9iNsyPgBo4HrdMw3T3KEpjq+uTamHxsv6WFKIbQkYaC/pGRGSDbgkTbbtLsuBRMeYvOqh3nQZiXr4mbBv+w0zFU/PzTXFN9h9BztX3EUg6iefoTExiQ+4y9X7TWgR7a633mcmi7yGqCQVlc5bNYMrjwXt7hZhEooO4R1ddNLEgwTHnZZm1K+FtOIFOxF+nGYytK+/YTn89cBIvb43g8yG5/nBbviznoKdoxrVi7FDUvUQ==', N'vejen 2', N'7470')
+INSERT [dbo].[Person] ([id], [personTypeId], [clinicId], [practitionerId], [firstName], [lastName], [phoneNo], [email], [passwordHash], [salt], [address], [zipCode]) VALUES (2, 1, 1, 1, N'Customer', N'Jensen', N'22222222', N'admin@admin.web', N'OhlwPqQpOzZaUl4FbH4k9kVIa6wh9AKDTh8k1WXt0TjROQH2VxHUwDHqARIJVOojPCYz0sH+b/zO74m1DlBqBg==', N'gcNsRCAYmZqcvJajWQO4Dil+0DZ8OaqsikpME//PEx3DKfzg0KEtIQKgNOykWVaaBHHuRkFrNMHIXfMsH3BZEMB414isI43RshPsi+yyvFgrSzvnxFAlBxiwwXNhVPCh5cboP6ITrHZoGP2BVx31CODuMg1O6H6fZo6QhVr+x+1nHcn5bGnAJSIPbuQu6LIZwvZAZNAL137IBKJf39p7z2J60zC5roKbcv5H7scoxHBwEYOWSC9AE91ax1+efp4MSOXSw0omU4v88T4HtqvKbgTZKZQOrWlzyKr/1wxDytN1/AGu7jUHXNMrgZR/VNZyGZ5Z1wKCS/3boW0pE8DEvw==', N'adminvej 3', N'9000')
 GO
 SET IDENTITY_INSERT [dbo].[Person] OFF 
 GO
---INSERT [dbo].[Person] ([personTypeId], [clinicId], [practitionerId], [firstName], [lastName], [phoneNo], [email], [password], [address], [zipCode]) VALUES (2, 1, NULL, N'Doctor', N'Who', N'69696969', N'Tardis@Gallifrey.dk', N'whodaman', NULL, NULL)
---GO
---INSERT [dbo].[Person] ([personTypeId], [clinicId], [practitionerId], [firstName], [lastName], [phoneNo], [email], [password], [address], [zipCode]) VALUES (1, 1, 1, N'Jens', N'Bobsen', N'12345678', N'bob@gmail.com', N'Bob1234', N'Bobvej 2', N'8800')
---GO
---INSERT [dbo].[Person] ([personTypeId], [clinicId], [practitionerId], [firstName], [lastName], [phoneNo], [email], [password], [address], [zipCode]) VALUES (1, 1, 1, N'Magnus', N'Munk', N'50718449', N'æggehoved', N'123', N'vej 2', N'7470')
---GO
---INSERT [dbo].[Person] ([personTypeId], [clinicId], [practitionerId], [firstName], [lastName], [phoneNo], [email], [password], [address], [zipCode]) VALUES (1, 1, 1, N'Mikkel', N'Brøgger', N'23404540', N'mikkelbrgger@gmail.com', N'210997', N'Godsbanen 63, 1, 9', N'9000')
---GO
---INSERT [dbo].[RehabProgram] ([customerID], [description], [startDate], [endDate]) VALUES (3, N'Følger programmet 3 gange om ugen', CAST(N'2020-11-09T18:16:02.567' AS DateTime), CAST(N'2020-11-09T18:16:02.567' AS DateTime))
---GO
---INSERT [dbo].[RehabProgram] ([customerID], [description], [startDate], [endDate]) VALUES (4, N'følg programmet 2 gange om ugen', CAST(N'2020-11-09T18:28:01.190' AS DateTime), CAST(N'2020-11-09T18:28:01.190' AS DateTime))
---GO
---INSERT [dbo].[ExerciseLine] ([rehabProgramId], [excerciseId], [sets], [reps]) VALUES (1, 1, 0, 0)
---GO
---INSERT [dbo].[ExerciseLine] ([rehabProgramId], [excerciseId], [sets], [reps]) VALUES (2, 2, 0, 0)
---GO

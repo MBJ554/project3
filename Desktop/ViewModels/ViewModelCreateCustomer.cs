@@ -202,7 +202,6 @@ namespace Desktop.ViewModels
 
         public ViewModelCreateCustomer()
         {
-            Customer.ClinicId = GlobalLoginInfo.Clinic.Id;
             customer = new Customer(this);
             cityCaller = new CityCaller();
             customerCaller = new CustomerCaller();
@@ -213,7 +212,10 @@ namespace Desktop.ViewModels
         public bool Create()
         {
             bool res = false;
-            if (FirstNameIsValid & LastNameIsValid & AddressIsValid & ZipCodeIsValid & EmailIsValid & PhoneNoIsValid & PasswordIsValid) {
+            if (FirstNameIsValid & LastNameIsValid & AddressIsValid & ZipCodeIsValid & EmailIsValid & PhoneNoIsValid & PasswordIsValid) 
+            {
+                customer.PractitionerId = GlobalLoginInfo.UserId;
+                customer.ClinicId = GlobalLoginInfo.Clinic.Id;
                 customerCaller.Create(customer);
                 res = true;
             }
@@ -222,7 +224,7 @@ namespace Desktop.ViewModels
 
         public void checkFirstName(string firstName)
         {
-            if (firstName.Length > 2)
+            if (firstName.Length > 1)
             {
                 FirstNameIsValid = true;
             }

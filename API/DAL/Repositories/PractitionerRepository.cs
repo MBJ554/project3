@@ -79,7 +79,7 @@ namespace API.DAL.Repositories
             using (var conn = new SqlConnection(connectionString))
             {
                 string sql = "SELECT * FROM Person WHERE personTypeId = (SELECT id FROM PersonType WHERE type = 'Practitioner') AND id = @id";
-                return conn.QuerySingleOrDefault<Practitioner>(sql, new { id });
+                return conn.QuerySingleOrDefault<Practitioner>(sql, new { id = id });
             }
         }
 

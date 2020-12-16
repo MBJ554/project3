@@ -29,6 +29,7 @@ namespace API.DAL.Repositories
                         string sql = "INSERT INTO [dbo].[Person] " +
                             "([personTypeId], " +
                             "[clinicId]," +
+                            "[practitionerId]," +
                             "[firstName]," +
                             "[lastName]," +
                             "[phoneNo]," +
@@ -39,6 +40,7 @@ namespace API.DAL.Repositories
                             "[zipCode])" +
                             "VALUES ((SELECT id FROM PersonType WHERE type = 'Customer')" +
                             ", @clinicId" +
+                            ", @practitionerId" +
                             ", @firstName" +
                             ", @lastName" +
                             ", @phoneNo" +

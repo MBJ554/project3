@@ -136,6 +136,11 @@ namespace Desktop.Models
             GenerateSalt();
         }
 
+        public Customer()
+        {
+
+        }
+
 
 
     }

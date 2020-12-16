@@ -28,7 +28,7 @@ namespace Desktop.Models
             set
             {
                 firstName = value;
-                viewModelCreatePractitioner.checkFirstName(value);
+                viewModelCreatePractitioner?.checkFirstName(value);
             }
         }
         private string lastName;
@@ -41,7 +41,7 @@ namespace Desktop.Models
             set
             {
                 lastName = value;
-                viewModelCreatePractitioner.checkLastName(value);
+                viewModelCreatePractitioner?.checkLastName(value);
             }
         }
 
@@ -55,7 +55,7 @@ namespace Desktop.Models
             set
             {
                 phoneNo = value;
-                viewModelCreatePractitioner.checkPhoneNo(value);
+                viewModelCreatePractitioner?.checkPhoneNo(value);
             }
         }
 
@@ -69,7 +69,7 @@ namespace Desktop.Models
             set
             {
                 email = value;
-                viewModelCreatePractitioner.checkEmail(value);
+                viewModelCreatePractitioner?.checkEmail(value);
             }
         }
         private string passwordHash;
@@ -82,7 +82,7 @@ namespace Desktop.Models
             set
             {
                 passwordHash = HashPassword(value);
-                viewModelCreatePractitioner.checkPassword(value);
+                viewModelCreatePractitioner?.checkPassword(value);
             }
         }
 
@@ -108,6 +108,11 @@ namespace Desktop.Models
         {
             this.viewModelCreatePractitioner = viewModelCreatePractitioner;
             GenerateSalt();
+        }
+
+        public Practitioner()
+        {
+
         }
     }
 }

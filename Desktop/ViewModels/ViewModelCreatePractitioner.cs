@@ -204,10 +204,8 @@ namespace Desktop.ViewModels
         
 
         public ViewModelCreatePractitioner()
-        {
-            Practitioner.ClinicId = GlobalLoginInfo.Clinic.Id;
+        { 
             practitioner = new Practitioner(this);
-
             practitionerCalller = new PractitionerCaller();
           
         }
@@ -217,7 +215,9 @@ namespace Desktop.ViewModels
         public bool Create()
         {
             bool res = false;
-            if (FirstNameIsValid & LastNameIsValid & PhoneNoIsValid & EmailIsValid & PasswordIsValid) {
+            if (FirstNameIsValid & LastNameIsValid & PhoneNoIsValid & EmailIsValid & PasswordIsValid) 
+            {
+                practitioner.ClinicId = GlobalLoginInfo.Clinic.Id;
                 practitionerCalller.Create(practitioner);
                 res = true;
             }
