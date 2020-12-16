@@ -1,20 +1,13 @@
 ﻿using API.DAL.Interfaces;
 using API.Models;
-using Dapper;
-using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Data.SqlClient;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace API.Controllers
 {
     public class ClinicController : ApiController
     {
-  
         private readonly IClinicRepository _clinicRepository;
 
         public ClinicController(IClinicRepository clinicRepository)
@@ -31,15 +24,15 @@ namespace API.Controllers
         {
             var clinics = new List<Clinic>();
             var clinicsDAL = _clinicRepository.GetAll();
-            if (clinicsDAL.Count() == 0)
+            if (clinicsDAL.Any())
             {
-                return NotFound();
+                foreach (var clinic in clinicsDAL)
+                {
+                    clinics.Add(BuildClinic(clinic));
+                }
+                return Ok(clinics);
             }
-            foreach (var clinic in clinicsDAL)
-            {
-                clinics.Add(buildClinic(clinic));
-            }
-           return Ok(clinics);
+            return NotFound();
         }
 
         /// <summary>
@@ -53,7 +46,7 @@ namespace API.Controllers
             var clinicDAL = _clinicRepository.GetById(id);
             if (clinicDAL != null)
             {
-                return Ok(buildClinic(clinicDAL));
+                return Ok(BuildClinic(clinicDAL));
             }
             return NotFound();
         }
@@ -83,13 +76,12 @@ namespace API.Controllers
             return NotFound();
         }
 
-
         /// <summary>
         /// Converts clinic DAL model to clinic API model
         /// </summary>
         /// <param name="clinic">The clinic to convert</param>
         /// <returns>Converted clinic</returns>
-        private Clinic buildClinic(API.DAL.Models.Clinic clinic)
+        private Clinic BuildClinic(API.DAL.Models.Clinic clinic)
         {
             return new Clinic
             {

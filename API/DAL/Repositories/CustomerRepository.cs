@@ -6,10 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
-using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Web;
 
 namespace API.DAL.Repositories
 {
@@ -91,7 +89,7 @@ namespace API.DAL.Repositories
 
         public Customer IsAuthorized(string email, string password)
         {
-            using (var conn  = new SqlConnection(connectionString))
+            using (var conn = new SqlConnection(connectionString))
             {
                 string sql = "SELECT * FROM Person p WHERE personTypeId = (SELECT id FROM PersonType WHERE type = 'Customer') AND email = @email";
                 var customer = conn.QuerySingleOrDefault<Customer>(sql, new { email });

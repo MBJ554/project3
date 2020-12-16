@@ -3,11 +3,8 @@ using Desktop.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace Desktop.ViewModels
 {
@@ -26,6 +23,7 @@ namespace Desktop.ViewModels
         private string firstNameErrorMessage;
         public string FirstNameErrorMessage { get { return firstNameErrorMessage; } set { firstNameErrorMessage = value; OnPropertyChanged(); } }
         private bool firstNameIsValid;
+
         public bool FirstNameIsValid
         {
             get
@@ -50,6 +48,7 @@ namespace Desktop.ViewModels
         private string lastNameErrorMessage;
         public string LastNameErrorMessage { get { return lastNameErrorMessage; } set { lastNameErrorMessage = value; OnPropertyChanged(); } }
         private bool lastNameIsValid;
+
         public bool LastNameIsValid
         {
             get
@@ -74,6 +73,7 @@ namespace Desktop.ViewModels
         private string passwordErrorMessage;
         public string PasswordErrorMessage { get { return passwordErrorMessage; } set { passwordErrorMessage = value; OnPropertyChanged(); } }
         private bool passwordIsValid;
+
         public bool PasswordIsValid
         {
             get
@@ -98,6 +98,7 @@ namespace Desktop.ViewModels
         private string phoneNoErrorMessage;
         public string PhoneNoErrorMessage { get { return phoneNoErrorMessage; } set { phoneNoErrorMessage = value; OnPropertyChanged(); } }
         private bool phoneNoIsValid;
+
         public bool PhoneNoIsValid
         {
             get
@@ -122,6 +123,7 @@ namespace Desktop.ViewModels
         private string emailErrorMessage;
         public string EmailErrorMessage { get { return emailErrorMessage; } set { emailErrorMessage = value; OnPropertyChanged(); } }
         private bool emailIsValid;
+
         public bool EmailIsValid
         {
             get
@@ -146,6 +148,7 @@ namespace Desktop.ViewModels
         private string zipCodeErrorMessage;
         public string ZipCodeErrorMessage { get { return zipCodeErrorMessage; } set { zipCodeErrorMessage = value; OnPropertyChanged(); } }
         private bool zipCodeIsValid;
+
         public bool ZipCodeIsValid
         {
             get
@@ -170,6 +173,7 @@ namespace Desktop.ViewModels
         private string addressErrorMessage;
         public string AddressErrorMessage { get { return addressErrorMessage; } set { addressErrorMessage = value; OnPropertyChanged(); } }
         private bool addressIsValid;
+
         public bool AddressIsValid
         {
             get
@@ -198,24 +202,16 @@ namespace Desktop.ViewModels
 
         public Practitioner Practitioner { get { return practitioner; } set { practitioner = value; } }
 
-        
-       
-
-        
-
         public ViewModelCreatePractitioner()
-        { 
+        {
             practitioner = new Practitioner(this);
             practitionerCalller = new PractitionerCaller();
-          
         }
-
-       
 
         public bool Create()
         {
             bool res = false;
-            if (FirstNameIsValid & LastNameIsValid & PhoneNoIsValid & EmailIsValid & PasswordIsValid) 
+            if (FirstNameIsValid & LastNameIsValid & PhoneNoIsValid & EmailIsValid & PasswordIsValid)
             {
                 practitioner.ClinicId = GlobalLoginInfo.Clinic.Id;
                 practitionerCalller.Create(practitioner);
@@ -230,7 +226,8 @@ namespace Desktop.ViewModels
             {
                 FirstNameIsValid = true;
             }
-            else {
+            else
+            {
                 FirstNameIsValid = false;
             }
         }
@@ -241,7 +238,8 @@ namespace Desktop.ViewModels
             {
                 PasswordIsValid = true;
             }
-            else {
+            else
+            {
                 PasswordIsValid = false;
             }
         }
@@ -252,7 +250,8 @@ namespace Desktop.ViewModels
             {
                 LastNameIsValid = true;
             }
-            else {
+            else
+            {
                 LastNameIsValid = false;
             }
         }
@@ -263,7 +262,7 @@ namespace Desktop.ViewModels
             {
                 PhoneNoIsValid = true;
             }
-            else 
+            else
             {
                 PhoneNoIsValid = false;
             }
@@ -281,7 +280,8 @@ namespace Desktop.ViewModels
             {
                 EmailIsValid = true;
             }
-            else {
+            else
+            {
                 EmailIsValid = false;
             }
         }
@@ -297,8 +297,5 @@ namespace Desktop.ViewModels
                 AddressIsValid = false;
             }
         }
-
     }
-
 }
-

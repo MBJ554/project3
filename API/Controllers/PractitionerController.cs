@@ -1,13 +1,9 @@
 ﻿using API.ApiHelpers;
 using API.DAL.Exceptions;
 using API.DAL.Interfaces;
-using API.DAL.Repositories;
 using API.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace API.Controllers
@@ -15,6 +11,7 @@ namespace API.Controllers
     public class PractitionerController : ApiController
     {
         private readonly IPractitionerRepository _practitionerRepository;
+
         public PractitionerController(IPractitionerRepository practitionerRepository)
         {
             _practitionerRepository = practitionerRepository;
@@ -29,15 +26,15 @@ namespace API.Controllers
         {
             List<Practitioner> practitioners = new List<Practitioner>();
             var practitionersDAL = _practitionerRepository.GetAll();
-            if (practitionersDAL.Count() == 0)
+            if (practitionersDAL.Any())
             {
-                return NotFound();
+                foreach (var practitioner in practitionersDAL)
+                {
+                    practitioners.Add(BuildPractitioner(practitioner));
+                }
+                return Ok(practitioners);
             }
-            foreach (var practitioner in practitionersDAL)
-            {
-                    practitioners.Add(buildPractitioner(practitioner));
-            }
-            return Ok(practitioners);
+            return NotFound();
         }
 
         /// <summary>
@@ -51,7 +48,7 @@ namespace API.Controllers
             var practitioner = _practitionerRepository.GetById(id);
             if (practitioner != null)
             {
-                return Ok(buildPractitioner(practitioner));
+                return Ok(BuildPractitioner(practitioner));
             }
             return NotFound();
         }
@@ -97,7 +94,7 @@ namespace API.Controllers
             var practitioner = _practitionerRepository.IsAuthorized(login.Email, login.Password);
             if (practitioner != null)
             {
-                return Ok(buildPractitioner(practitioner));
+                return Ok(BuildPractitioner(practitioner));
             }
             return NotFound();
         }
@@ -122,7 +119,7 @@ namespace API.Controllers
         /// </summary>
         /// <param name="practitioner">Practitioner to convert</param>
         /// <returns>Converted practitioner</returns>
-        private Practitioner buildPractitioner(API.DAL.Models.Practitioner practitioner)
+        private Practitioner BuildPractitioner(API.DAL.Models.Practitioner practitioner)
         {
             return new Practitioner
             {

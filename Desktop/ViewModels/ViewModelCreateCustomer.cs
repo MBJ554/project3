@@ -1,22 +1,14 @@
 ﻿using Desktop.Callers;
 using Desktop.Models;
-using RestSharp;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Configuration;
-using System.Linq;
-using System.Net;
 using System.Runtime.CompilerServices;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace Desktop.ViewModels
 {
     public class ViewModelCreateCustomer : INotifyPropertyChanged
     {
-
         private List<Clinic> clinics;
 
         private Customer customer;
@@ -32,6 +24,7 @@ namespace Desktop.ViewModels
         private string firstNameErrorMessage;
         public string FirstNameErrorMessage { get { return firstNameErrorMessage; } set { firstNameErrorMessage = value; OnPropertyChanged(); } }
         private bool firstNameIsValid;
+
         public bool FirstNameIsValid
         {
             get
@@ -45,7 +38,8 @@ namespace Desktop.ViewModels
                 {
                     FirstNameErrorMessage = "";
                 }
-                else {
+                else
+                {
                     FirstNameErrorMessage = " - Fornavnet er for kort";
                 }
                 OnPropertyChanged();
@@ -55,6 +49,7 @@ namespace Desktop.ViewModels
         private string lastNameErrorMessage;
         public string LastNameErrorMessage { get { return lastNameErrorMessage; } set { lastNameErrorMessage = value; OnPropertyChanged(); } }
         private bool lastNameIsValid;
+
         public bool LastNameIsValid
         {
             get
@@ -68,7 +63,8 @@ namespace Desktop.ViewModels
                 {
                     LastNameErrorMessage = "";
                 }
-                else {
+                else
+                {
                     LastNameErrorMessage = " - Efternavn er for kort";
                 }
                 OnPropertyChanged();
@@ -76,8 +72,9 @@ namespace Desktop.ViewModels
         }
 
         private string passwordErrorMessage;
-        public string PasswordErrorMessage { get { return passwordErrorMessage;  } set { passwordErrorMessage = value; OnPropertyChanged(); } }
+        public string PasswordErrorMessage { get { return passwordErrorMessage; } set { passwordErrorMessage = value; OnPropertyChanged(); } }
         private bool passwordIsValid;
+
         public bool PasswordIsValid
         {
             get
@@ -87,7 +84,8 @@ namespace Desktop.ViewModels
             set
             {
                 passwordIsValid = value;
-                if (passwordIsValid == true) {
+                if (passwordIsValid == true)
+                {
                     PasswordErrorMessage = "";
                 }
                 else
@@ -98,11 +96,10 @@ namespace Desktop.ViewModels
             }
         }
 
-       
-
         private string phoneNoErrorMessage;
-        public string PhoneNoErrorMessage { get { return phoneNoErrorMessage;  } set { phoneNoErrorMessage = value; OnPropertyChanged(); } }
+        public string PhoneNoErrorMessage { get { return phoneNoErrorMessage; } set { phoneNoErrorMessage = value; OnPropertyChanged(); } }
         private bool phoneNoIsValid;
+
         public bool PhoneNoIsValid
         {
             get
@@ -116,7 +113,8 @@ namespace Desktop.ViewModels
                 {
                     PhoneNoErrorMessage = "";
                 }
-                else {
+                else
+                {
                     PhoneNoErrorMessage = " - Telefonnummeret skal være 8 cifre langt";
                 }
                 OnPropertyChanged();
@@ -126,6 +124,7 @@ namespace Desktop.ViewModels
         private string emailErrorMessage;
         public string EmailErrorMessage { get { return emailErrorMessage; } set { emailErrorMessage = value; OnPropertyChanged(); } }
         private bool emailIsValid;
+
         public bool EmailIsValid
         {
             get
@@ -135,10 +134,12 @@ namespace Desktop.ViewModels
             set
             {
                 emailIsValid = value;
-                if (emailIsValid == true) {
+                if (emailIsValid == true)
+                {
                     EmailErrorMessage = "";
                 }
-                else{
+                else
+                {
                     EmailErrorMessage = " - Email er for kort";
                 }
                 OnPropertyChanged();
@@ -146,8 +147,9 @@ namespace Desktop.ViewModels
         }
 
         private string zipCodeErrorMessage;
-        public string ZipCodeErrorMessage { get { return zipCodeErrorMessage;  } set { zipCodeErrorMessage = value; OnPropertyChanged(); } }
+        public string ZipCodeErrorMessage { get { return zipCodeErrorMessage; } set { zipCodeErrorMessage = value; OnPropertyChanged(); } }
         private bool zipCodeIsValid;
+
         public bool ZipCodeIsValid
         {
             get
@@ -161,7 +163,8 @@ namespace Desktop.ViewModels
                 {
                     ZipCodeErrorMessage = "";
                 }
-                else {
+                else
+                {
                     ZipCodeErrorMessage = " - Postnummeret findes ikke";
                 }
                 OnPropertyChanged();
@@ -169,8 +172,9 @@ namespace Desktop.ViewModels
         }
 
         private string addressErrorMessage;
-        public string AddressErrorMessage { get { return addressErrorMessage;  } set { addressErrorMessage = value; OnPropertyChanged(); } }
+        public string AddressErrorMessage { get { return addressErrorMessage; } set { addressErrorMessage = value; OnPropertyChanged(); } }
         private bool addressIsValid;
+
         public bool AddressIsValid
         {
             get
@@ -184,13 +188,13 @@ namespace Desktop.ViewModels
                 {
                     AddressErrorMessage = "";
                 }
-                else {
+                else
+                {
                     AddressErrorMessage = " - Addresse er for kort";
                 }
                 OnPropertyChanged();
             }
         }
-
 
         protected void OnPropertyChanged([CallerMemberName] string name = null)
         {
@@ -199,7 +203,6 @@ namespace Desktop.ViewModels
 
         public Customer Customer { get { return customer; } set { customer = value; } }
 
-
         public ViewModelCreateCustomer()
         {
             customer = new Customer(this);
@@ -207,12 +210,10 @@ namespace Desktop.ViewModels
             customerCaller = new CustomerCaller();
         }
 
-       
-
         public bool Create()
         {
             bool res = false;
-            if (FirstNameIsValid & LastNameIsValid & AddressIsValid & ZipCodeIsValid & EmailIsValid & PhoneNoIsValid & PasswordIsValid) 
+            if (FirstNameIsValid & LastNameIsValid & AddressIsValid & ZipCodeIsValid & EmailIsValid & PhoneNoIsValid & PasswordIsValid)
             {
                 customer.PractitionerId = GlobalLoginInfo.UserId;
                 customer.ClinicId = GlobalLoginInfo.Clinic.Id;
@@ -228,7 +229,8 @@ namespace Desktop.ViewModels
             {
                 FirstNameIsValid = true;
             }
-            else {
+            else
+            {
                 FirstNameIsValid = false;
             }
         }
@@ -239,12 +241,11 @@ namespace Desktop.ViewModels
             {
                 PasswordIsValid = true;
             }
-            else {
+            else
+            {
                 PasswordIsValid = false;
             }
         }
-
-       
 
         public void checkLastName(string lastName)
         {
@@ -252,7 +253,8 @@ namespace Desktop.ViewModels
             {
                 LastNameIsValid = true;
             }
-            else {
+            else
+            {
                 LastNameIsValid = false;
             }
         }
@@ -263,7 +265,8 @@ namespace Desktop.ViewModels
             {
                 PhoneNoIsValid = true;
             }
-            else {
+            else
+            {
                 PhoneNoIsValid = false;
             }
         }
@@ -286,17 +289,16 @@ namespace Desktop.ViewModels
                         ZipCodeIsValid = false;
                         Customer.City = "";
                     }
-
                 }
-                else {
+                else
+                {
                     ZipCodeIsValid = false;
                     Customer.City = "";
                 }
-               
             }
-            catch { 
-                       
-            }         
+            catch
+            {
+            }
         }
 
         public bool numbersOnly(string checkString)
@@ -311,12 +313,13 @@ namespace Desktop.ViewModels
             {
                 EmailIsValid = true;
             }
-            else {
+            else
+            {
                 EmailIsValid = false;
             }
         }
 
-        public  void checkAddress(string address)
+        public void checkAddress(string address)
         {
             if (address.Length > 6)
             {
@@ -329,4 +332,3 @@ namespace Desktop.ViewModels
         }
     }
 }
-

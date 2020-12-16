@@ -1,13 +1,8 @@
-﻿using API.DAL.Repositories;
-using API.DAL.Interfaces;
-using API.Models;
+﻿using API.DAL.Interfaces;
+using API.DAL.Repositories;
 using Autofac;
 using Autofac.Integration.WebApi;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Web;
 using System.Web.Http;
 
 namespace API

@@ -2,14 +2,9 @@
 using API.DAL.Exceptions;
 using API.DAL.Interfaces;
 using API.Models;
-using Dapper;
-using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Web.Http;
-
 
 namespace API.Controllers
 {
@@ -31,15 +26,15 @@ namespace API.Controllers
         {
             List<Customer> customers = new List<Customer>();
             var customerDAL = _customerRepository.GetAll();
-            if (customerDAL.Count() == 0)
+            if (customerDAL.Any())
             {
-                return NotFound();
-            }
-            foreach (var customer in customerDAL)
-            {
+                foreach (var customer in customerDAL)
+                {
                     customers.Add(BuildCustomer(customer));
+                }
+                return Ok(customers);
             }
-            return Ok(customers);
+            return NotFound();
         }
 
         /// <summary>
@@ -118,14 +113,14 @@ namespace API.Controllers
             }
             return NotFound();
         }
-       
+
         /// <summary>
         /// Converts customer DAL model to  customer API model, and adds api urls instead of ids
         /// </summary>
         /// <param name="customer">Customer to convert</param>
         /// <returns>Converted Customer</returns>
         private Customer BuildCustomer(API.DAL.Models.Customer customer)
-        {  
+        {
             return new Customer
             {
                 Id = customer.Id,
@@ -138,7 +133,7 @@ namespace API.Controllers
                 PhoneNo = customer.PhoneNo,
                 Email = customer.Email,
                 Address = customer.Address,
-                ZipCode = customer.ZipCode 
+                ZipCode = customer.ZipCode
             };
         }
     }

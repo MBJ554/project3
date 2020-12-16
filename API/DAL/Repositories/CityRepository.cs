@@ -6,8 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
 
 namespace API.DAL.Repositories
 {
@@ -33,7 +31,7 @@ namespace API.DAL.Repositories
                         transaction.Rollback();
                         throw new DataAccessException("Der gik noget galt prøv igen", e);
                     }
-                }  
+                }
             }
         }
 
@@ -73,7 +71,7 @@ namespace API.DAL.Repositories
                 return conn.QuerySingleOrDefault<City>(sql, new { zipCode });
             }
         }
-    
+
         public void Update(City obj)
         {
             throw new NotImplementedException();

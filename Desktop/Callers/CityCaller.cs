@@ -3,8 +3,6 @@ using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Desktop.Callers
@@ -12,6 +10,7 @@ namespace Desktop.Callers
     public class CityCaller : ICaller<City>
     {
         private RestClient CityClient;
+
         public CityCaller()
         {
             CityClient = new RestClient(ConfigurationManager.AppSettings["ByApi"]);

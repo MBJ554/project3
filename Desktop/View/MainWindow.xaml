@@ -10,40 +10,39 @@
     <Window.Resources>
         <Storyboard x:Key="MenuOpen">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
-                <EasingDoubleKeyFrame KeyTime="0" Value="63"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="200"/>
+                <EasingDoubleKeyFrame KeyTime="0" Value="63" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="200" />
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
         <Storyboard x:Key="MenuClose">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
-                <EasingDoubleKeyFrame KeyTime="0" Value="200"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="63"/>
+                <EasingDoubleKeyFrame KeyTime="0" Value="200" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="63" />
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
-
     </Window.Resources>
 
     <Window.Triggers>
         <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="ButtonOpenMenu">
-            <BeginStoryboard Storyboard="{StaticResource MenuOpen}"/>
+            <BeginStoryboard Storyboard="{StaticResource MenuOpen}" />
         </EventTrigger>
         <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="ButtonCloseMenu">
-            <BeginStoryboard Storyboard="{StaticResource MenuClose}"/>
+            <BeginStoryboard Storyboard="{StaticResource MenuClose}" />
         </EventTrigger>
     </Window.Triggers>
 
     <Grid x:Name="GridMain" Background="LightGray">
         <Grid Height="70" VerticalAlignment="Top" Background="#FF0084DF">
-            <Image Source="/images/trackspacesort.png" Margin="10,0,10,0"/>
+            <Image Source="/images/trackspacesort.png" Margin="10,0,10,0" />
             <StackPanel VerticalAlignment="Center" Orientation="Horizontal" HorizontalAlignment="Right">
-                <TextBlock Name="UserName" Text="Indstillinger" VerticalAlignment="Center" FontSize="18"/>
+                <TextBlock Name="UserName" Text="Indstillinger" VerticalAlignment="Center" FontSize="18" />
                 <materialDesign:PopupBox Margin="10" PlacementMode="BottomAndAlignRightEdges" StaysOpen="False">
                     <StackPanel Width="150">
-                        <Button Content="Profil"/>
-                        <Button Content="Indstillinger"/>
-                        <Button Content="Hjælp"/>
-                        <Separator/>
-                        <Button x:Name="btnLogOut" Content="Exit" Click="btnLogOut_Click"/>
+                        <Button Content="Profil" />
+                        <Button Content="Indstillinger" />
+                        <Button Content="Hjælp" />
+                        <Separator />
+                        <Button x:Name="btnLogOut" Content="Exit" Click="btnLogOut_Click" />
                     </StackPanel>
                 </materialDesign:PopupBox>
             </StackPanel>
@@ -52,51 +51,48 @@
             <StackPanel>
                 <Grid Height="70" Background="White">
                     <Button x:Name="ButtonOpenMenu" Height="60" Width="60" Margin="5" HorizontalAlignment="center" VerticalAlignment="Top" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF31577E" Click="ButtonOpenMenu_Click">
-                        <materialDesign:PackIcon Kind="Menu" Width="30" Height="30"/>
+                        <materialDesign:PackIcon Kind="Menu" Width="30" Height="30" />
                     </Button>
                     <Button x:Name="ButtonCloseMenu" Visibility="Collapsed" Height="60" Width="60" Margin="5" HorizontalAlignment="Right" VerticalAlignment="Top" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF31577E" Click="ButtonCloseMenu_Click">
-                        <materialDesign:PackIcon Kind="ArrowLeft" Width="25" Height="25"/>
+                        <materialDesign:PackIcon Kind="ArrowLeft" Width="25" Height="25" />
                     </Button>
                 </Grid>
                 <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" Foreground="White">
                     <ListViewItem x:Name="Home" Height="60">
                         <StackPanel Orientation="Horizontal" MouseDown="StackPanel_MouseDown">
                             <materialDesign:PackIcon Kind="ViewDashboard" Width="25" Height="25" Margin="10" VerticalAlignment="Center" />
-                            <TextBlock Text="Forside" VerticalAlignment="Center" Margin="20 10"/>
+                            <TextBlock Text="Forside" VerticalAlignment="Center" Margin="20 10" />
                         </StackPanel>
                     </ListViewItem>
                     <ListViewItem Height="60">
                         <StackPanel Orientation="Horizontal" MouseDown="StackPanel_MouseDown_1">
                             <materialDesign:PackIcon Kind="UserAdd"  Width="25" Height="25" Margin="10" VerticalAlignment="Center" />
-                            <TextBlock Text="Opret praktiserende" VerticalAlignment="Center" Margin="20 10"/>
+                            <TextBlock Text="Opret praktiserende" VerticalAlignment="Center" Margin="20 10" />
                         </StackPanel>
                     </ListViewItem>
                     <ListViewItem x:Name="Create" Height="60">
                         <StackPanel Orientation="Horizontal" MouseDown="StackPanel_MouseDown_2">
                             <materialDesign:PackIcon Kind="Pencil" Width="25" Height="25" Margin="10" VerticalAlignment="Center" />
-                            <TextBlock Text="Opret bruger" VerticalAlignment="Center" Margin="20 10"/>
+                            <TextBlock Text="Opret bruger" VerticalAlignment="Center" Margin="20 10" />
                         </StackPanel>
                     </ListViewItem>
                     <ListViewItem Height="60">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="Message" Width="25" Height="25" Margin="10" VerticalAlignment="Center" />
-                            <TextBlock Text="Beskeder" VerticalAlignment="Center" Margin="20 10"/>
+                            <TextBlock Text="Beskeder" VerticalAlignment="Center" Margin="20 10" />
                         </StackPanel>
                     </ListViewItem>
                     <ListViewItem Height="60">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="House" Width="25" Height="25" Margin="10" VerticalAlignment="Center" />
-                            <TextBlock Text="Find klinik" VerticalAlignment="Center" Margin="20 10"/>
+                            <TextBlock Text="Find klinik" VerticalAlignment="Center" Margin="20 10" />
                         </StackPanel>
                     </ListViewItem>
                 </ListView>
             </StackPanel>
-
         </Grid>
         <Grid Width="880" Height="530" HorizontalAlignment="Right" VerticalAlignment="Bottom">
             <Frame x:Name="Main" NavigationUIVisibility="Hidden"></Frame>
         </Grid>
-
-
     </Grid>
 </Window>

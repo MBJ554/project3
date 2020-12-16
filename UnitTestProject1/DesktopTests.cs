@@ -1,5 +1,4 @@
-﻿using System;
-using Desktop.Callers;
+﻿using Desktop.Callers;
 using Desktop.Models;
 using Desktop.ViewModels;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -23,7 +22,6 @@ namespace UnitTestProject1
             Assert.AreEqual("Karup J", city.CityName);
         }
 
-
         [TestMethod]
         public void CityApiFail()
         {
@@ -32,12 +30,10 @@ namespace UnitTestProject1
             CityCaller cityCaller = new CityCaller("https://dawa.aws.dk");
             bool res = false;
 
-
             //Act
             try
             {
                 city = cityCaller.GetByZipCode("1234").Result;
-                
             }
             catch
             {
@@ -58,11 +54,9 @@ namespace UnitTestProject1
             vievModelCreateCustomer.Customer.ClinicId = 1;
             bool res = false;
             //Act
-            
 
             //Assert
             Assert.AreEqual(true, res);
         }
-
     }
 }

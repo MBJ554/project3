@@ -1,25 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace API.Models
+﻿namespace API.Models
 {
-	public class InjuryType
-	{
-		public int Id { get; set; }
-		public string Name { get; set; }
-		public string Description { get; set; }
+    public class InjuryType
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
 
-		public InjuryType(int id_, string name_, string description_)
-		{
-			this.Id = id_;
-			this.Name = name_;
-			this.Description = description_;
-		}
-		public InjuryType()
+        public InjuryType()
         {
-
         }
-	}
+    }
 }

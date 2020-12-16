@@ -3,8 +3,6 @@ using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Desktop.Callers
@@ -37,7 +35,7 @@ namespace Desktop.Callers
 
         public Clinic GetById(string id)
         {
-            var request = new RestRequest( id, Method.GET);
+            var request = new RestRequest(id, Method.GET);
             var response = client.Execute<Clinic>(request);
             return response.Data;
         }
@@ -53,6 +51,5 @@ namespace Desktop.Callers
             var response = client.Execute<List<Clinic>>(request);
             return response.Data;
         }
-
     }
 }
