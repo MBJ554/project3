@@ -25,6 +25,10 @@ namespace Desktop.Callers
             var request = new RestRequest("api/customer", Method.POST);
             request.AddJsonBody(obj);
             var response = client.Execute(request);
+            if(response.StatusCode != System.Net.HttpStatusCode.OK)
+            {
+                throw new Exception();
+            }
         }
 
         public void Delete(int id)

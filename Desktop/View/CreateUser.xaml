@@ -55,47 +55,46 @@
 
 
         <TextBox x:Name="fornavn" Grid.Column="2" Grid.Row="3"
-                 Width="150" Margin="5,5,0,0" Text="{Binding Path=Customer.FirstName, Mode=OneWayToSource}" LostFocus="fornavn_LostFocus" HorizontalAlignment="Left"/>
+                 Width="150" Margin="5,5,0,0" Text="{Binding Path=Customer.FirstName, Mode=OneWayToSource}"  HorizontalAlignment="Left" />
         <TextBox x:Name="efternavn" Grid.Column="2" Grid.Row="4"
-                 Width="150" Margin="5,5,0,0" Text="{Binding Path=Customer.LastName, Mode=OneWayToSource}" LostFocus="efternavn_LostFocus" HorizontalAlignment="Left"/>
+                 Width="150" Margin="5,5,0,0" Text="{Binding Path=Customer.LastName, Mode=OneWayToSource}"  HorizontalAlignment="Left" />
         <TextBox x:Name="mobil" Grid.Column="2" Grid.Row="5"
-                 Width="150" Margin="5,5,0,0" Text="{Binding Path=Customer.PhoneNo, Mode=OneWayToSource}" LostFocus="mobil_LostFocus" HorizontalAlignment="Left"/>
+                 Width="150" Margin="5,5,0,0" Text="{Binding Path=Customer.PhoneNo, Mode=OneWayToSource}" HorizontalAlignment="Left"/>
         <TextBox x:Name="email" Grid.Column="2" Grid.Row="6"
-                 Width="150" Margin="5,5,0,0" Text="{Binding Path=Customer.Email, Mode=OneWayToSource}" LostFocus="email_LostFocus" HorizontalAlignment="Left"/>
+                 Width="150" Margin="5,5,0,0" Text="{Binding Path=Customer.Email, Mode=OneWayToSource}"  HorizontalAlignment="Left"/>
         <TextBox x:Name="adresse" Grid.Column="2" Grid.Row="7"
-                 Width="150" Margin="5,5,0,0" Text="{Binding Path=Customer.Address, Mode=OneWayToSource}" LostFocus="adresse_LostFocus" HorizontalAlignment="Left"/>
-        <Label x:Name="firstNameErrorBox" Grid.Column="3" Grid.Row="3"
+                 Width="150" Margin="5,5,0,0" Text="{Binding Path=Customer.Address, Mode=OneWayToSource}" HorizontalAlignment="Left" />
+        <Label x:Name="firstNameErrorBox" Grid.Column="3" Grid.Row="3" Content="{Binding Path= FirstNameErrorMessage, Mode=OneWay}"
+                 Width="150" Margin="5,5,0,0" BorderThickness="0" />
+        <Label x:Name="lastNameErrorBox" Grid.Column="3" Grid.Row="4" Content="{Binding Path= LastNameErrorMessage, Mode=OneWay}"
+                 Width="150" Margin="5,5,0,0" BorderThickness="0" />
+        <Label x:Name="mobileErrorBox" Grid.Column="3" Grid.Row="5" Content="{Binding Path= PhoneNoErrorMessage, Mode=OneWay}"
                  Width="150" Margin="5,5,0,0" BorderThickness="0"/>
-        <Label x:Name="lastNameErrorBox" Grid.Column="3" Grid.Row="4"
-                 Width="150" Margin="5,5,0,0" BorderThickness="0"/>
-        <Label x:Name="mobileErrorBox" Grid.Column="3" Grid.Row="5"
-                 Width="150" Margin="5,5,0,0" BorderThickness="0"/>
-        <Label x:Name="emailErrorBox" Grid.Column="3" Grid.Row="6"
-                 Width="150" Margin="5,5,0,0" BorderThickness="0"/>
-        <Label x:Name="addressErrorBox" Grid.Column="3" Grid.Row="7"
-                 Width="150" Margin="5,5,0,0" BorderThickness="0"/>
-        <Label x:Name="zipCodeErrorBox" Grid.Column="3" Grid.Row="8"
-                 Width="150" Margin="5,5,0,0" BorderThickness="0"/>
-        <Label x:Name="passwordErrorBox" Grid.Column="3" Grid.Row="9"
-                 Width="150" Margin="5,5,0,0" BorderThickness="0"/>
-        <Label x:Name="clinicErrorBox" Grid.Column="3" Grid.Row="10"
-                 Width="150" Margin="5,5,0,0" BorderThickness="0"/>
+        <Label x:Name="emailErrorBox" Grid.Column="3" Grid.Row="6" Content="{Binding Path= EmailErrorMessage, Mode=OneWay}"
+                 Width="150" Margin="5,5,0,0" BorderThickness="0" />
+        <Label x:Name="addressErrorBox" Grid.Column="3" Grid.Row="7" Content="{Binding Path= AddressErrorMessage, Mode=OneWay}"
+                 Width="150" Margin="5,5,0,0" BorderThickness="0" />
+        <Label x:Name="zipCodeErrorBox" Grid.Column="3" Grid.Row="8" Content="{Binding Path= ZipCodeErrorMessage, Mode=OneWay}"
+                 Width="150" Margin="5,5,0,0" BorderThickness="0" />
+        <Label x:Name="passwordErrorBox" Grid.Column="3" Grid.Row="9" Content="{Binding Path= PasswordErrorMessage, Mode=OneWay}"
+                 Width="150" Margin="5,5,0,0" BorderThickness="0" />
+        
 
 
 
         <StackPanel Grid.Column="2" Grid.Row="8" Orientation="Horizontal">
 
             <TextBox x:Name="postnr" Grid.Column="2" Grid.Row="8"
-                 Width="145" Margin="5,5,0,0" TextChanged="postnr_TextChanged" Text="{Binding Path=Customer.ZipCode, Mode=OneWay}" LostFocus="postnr_LostFocus" HorizontalAlignment="Left"/>
+                 Width="145" Margin="5,5,0,0" Text="{Binding Path=Customer.ZipCode, Mode=OneWayToSource}" HorizontalAlignment="Left" />
            
-            <TextBox x:Name="city" IsEnabled="False" Text="{Binding Path=Customer.City, Mode=OneWay}"></TextBox>
+            <TextBox x:Name="city" IsEnabled="False" Text="{Binding Path=Customer.City, Mode=TwoWay}"></TextBox>
 
         </StackPanel>
 
 
 
         <PasswordBox x:Name="password" Grid.Column="2" Grid.Row="9"
-                 Width="150" Margin="6,5,1,0" Height="25" VerticalAlignment="Top" LostFocus="password_LostFocus" HorizontalAlignment="Left"/>
+                 Width="150" Margin="6,5,1,0" Height="25" VerticalAlignment="Top" HorizontalAlignment="Left" />
         
        
 
