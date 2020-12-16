@@ -28,16 +28,5 @@ namespace Web.Controllers
 
             return View();
         }
-
-        /// <summary>
-        /// Main entry page for contact page
-        /// </summary>
-        /// <returns>Main Contact View</returns>
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
     }
 }
