@@ -39,7 +39,7 @@ namespace UnitTestProject1
                 city = cityCaller.GetByZipCode("1234").Result;
                 
             }
-            catch (Exception e)
+            catch
             {
                 res = true;
             }

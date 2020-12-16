@@ -28,194 +28,69 @@ namespace Desktop
 
         private ViewModelCreateCustomer viewModelCreateCustomer;
 
-      
-
-        public ViewModelCreateCustomer ViewModelCreateCustomer { get 
-            {
-                return viewModelCreateCustomer;
-            } 
-            set 
-            {
-                viewModelCreateCustomer = value;
-            } 
-        }
 
         public CreateUser()
         {
 
             viewModelCreateCustomer = new ViewModelCreateCustomer();
             InitializeComponent();
+            
             DataContext = viewModelCreateCustomer;
         }
 
-        private async void Button_Click(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-
-            viewModelCreateCustomer.Customer.ClinicId = GlobalLoginInfo.Clinic.Id;
             viewModelCreateCustomer.Customer.GenerateSalt();
-            viewModelCreateCustomer.Customer.PasswordHash = password.Password;
-            bool check= await checkValues();
-            if (check) {
-                try
-                {
-                    viewModelCreateCustomer.Create();
-                    MessageBox.Show("Brugeren er oprettet", "bruger oprettet");
-                    this.NavigationService.Navigate("View/Home.xaml");
-
-
-                }
+            viewModelCreateCustomer.Customer.PasswordHash = password.Password;        
+            try
+            {
+                    if (viewModelCreateCustomer.Create())
+                    {
+                        MessageBox.Show("Brugeren er oprettet", "bruger oprettet");
+                        this.NavigationService.Navigate("View/Home.xaml");
+                    }
+                    else {
+                        ShowErrorMessage();
+                    }
+            }
                 catch (Exception exception) {
-
                     MessageBox.Show("Der gik noget galt", "Fejl besked");
-                }     
-            }
+            }     
+            
            
            
            
         }
 
-        private async Task<bool> checkValues() { 
-        bool res = true;
+        private void ShowErrorMessage() { 
             string message = "";
-            if (!viewModelCreateCustomer.checkPhoneNo(mobil.Text)) {
-                message += "- Nummeret skal være 8 cifre langt og må kun indeholde tal";
-                res = false;  
+            if (mobileErrorBox.Content != null) {
+                message += mobileErrorBox.Content;
             }
-            bool checkZipCode = await viewModelCreateCustomer.checkZipCode(postnr.Text);
-            if (!checkZipCode)
+            if (zipCodeErrorBox.Content != null)
             {
-                message += " - Postnummeret findes ikke";
-                res = false;
+                message += zipCodeErrorBox.Content;
             }
-            if(!viewModelCreateCustomer.checkFirstName(fornavn.Text))
+            if(firstNameErrorBox.Content != null)
             {
-                message += " - For kort fornavn";
-                res = false;
+                message += firstNameErrorBox.Content;
             }
-            if(!viewModelCreateCustomer.checkLastName(efternavn.Text))
+            if(lastNameErrorBox.Content != null)
             {
-                message += " - For kort efternavn";
-                res = false;
+                message += lastNameErrorBox.Content;
             }
-            if (!viewModelCreateCustomer.checkPassword(password.Password)) 
+            if (passwordErrorBox.Content != null) 
             {
-                message += " - For kort kode";
-                res = false;
+                message += passwordErrorBox.Content;
             }
-            //if (dcfcu.CheckEmailIsTaken(email.Text)) {
-            //    message += " - Mailen er taget af en anden bruger";
-            //    res = false;
-            //}
-            if (res == false) {
-                MessageBox.Show(message, "Fejl Besked");
-            }
-            return res;
-        }
-
-      
-
-        private async void postnr_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            await viewModelCreateCustomer.checkZipCode(postnr.Text);
-        }
-
-        private async void postnr_LostFocus(object sender, RoutedEventArgs e)
-        {
-            bool checkZipCode = await viewModelCreateCustomer.checkZipCode(postnr.Text);
-            if (!checkZipCode)
+            if (addressErrorBox.Content != null) 
             {
-                zipCodeErrorBox.Content += " - Postnummeret findes ikke";
-                zipCodeErrorBox.Foreground = Brushes.Red;
+                message += addressErrorBox.Content;
             }
-            else
-            {
-                zipCodeErrorBox.Content = "";
-                zipCodeErrorBox.Foreground = Brushes.White;
+            if (message != "") {
+                MessageBox.Show(message, "Fejl Besked");              
             }
-        }
-
-        private void email_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (!viewModelCreateCustomer.CheckEmailIsValid(email.Text))
-            {
-                emailErrorBox.Content = " - Email er for kort";
-                emailErrorBox.Foreground = Brushes.Red;
-            }
-            else
-            {
-                emailErrorBox.Content = "";
-                emailErrorBox.Foreground = Brushes.White;
-            }
-        }
-
-        private void mobil_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (!viewModelCreateCustomer.checkPhoneNo(mobil.Text))
-            {
-                mobileErrorBox.Content = " - ugyldigt nummer";
-                mobileErrorBox.Foreground = Brushes.Red;
-            }
-            else
-            {
-                mobileErrorBox.Content = "";
-                mobileErrorBox.Foreground = Brushes.White;
-            }
-        }
-
-        private void efternavn_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if(!viewModelCreateCustomer.checkLastName(efternavn.Text))
-            {
-                lastNameErrorBox.Content = " - For kort efternavn";
-                lastNameErrorBox.Foreground = Brushes.Red;
-            }
-            else
-            {
-                lastNameErrorBox.Content = "";
-                lastNameErrorBox.Foreground = Brushes.White;
-            }
-        }
-
-        private void fornavn_LostFocus(object sender, RoutedEventArgs e)
-            {
-            if(!viewModelCreateCustomer.checkFirstName(fornavn.Text))
-            {
-                firstNameErrorBox.Content = " - For kort fornavn";
-                firstNameErrorBox.Foreground = Brushes.Red;
-            }
-            else
-            {
-                firstNameErrorBox.Content = "";
-                firstNameErrorBox.Foreground = Brushes.White;
-            }
-        }
-
-        private void adresse_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (!(adresse.Text.Length > 2))
-            {
-                addressErrorBox.Content = " - For kort adresse";
-                addressErrorBox.Foreground = Brushes.Red;
-            }
-            else
-            {
-                addressErrorBox.Content = "";
-                addressErrorBox.Foreground = Brushes.White;
-            }
-        }
-
-        private void password_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (!viewModelCreateCustomer.checkPassword(password.Password))
-            {
-                passwordErrorBox.Content = " - For kort kode";
-                passwordErrorBox.Foreground = Brushes.Red;
-            }
-            else {
-                passwordErrorBox.Content = "";
-                passwordErrorBox.Foreground = Brushes.White;
-            }
-        }
+        } 
      
     }
 }

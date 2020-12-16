@@ -26,20 +26,6 @@ namespace Desktop
 
         private ViewModelCreatePractitioner viewModelCreatePractitioner;
 
-
-
-        public ViewModelCreatePractitioner ViewModelCreatePratitioner
-        {
-            get
-            {
-                return viewModelCreatePractitioner;
-            }
-            set
-            {
-                viewModelCreatePractitioner = value;
-            }
-        }
-
         public CreatePractitioner()
         {
 
@@ -49,140 +35,56 @@ namespace Desktop
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-            bool check = checkValues();
-            if (check)
-            {
-                viewModelCreatePractitioner.Practitioner.ClinicId = GlobalLoginInfo.Clinic.Id;
+        {          
                 viewModelCreatePractitioner.Practitioner.GenerateSalt();
                 viewModelCreatePractitioner.Practitioner.PasswordHash = password.Password;
-                try
+            try
+            {
+                if (viewModelCreatePractitioner.Create())
                 {
-                    viewModelCreatePractitioner.Create();
                     MessageBox.Show("Brugeren er oprettet", "bruger oprettet");
                     this.NavigationService.Navigate("View/Home.xaml");
                 }
-                catch (Exception exception)
+                else
                 {
-                    MessageBox.Show("Der gik noget galt", "Fejl besked");
+                    ShowErrorMessage();
                 }
             }
+            catch
+            {
+                MessageBox.Show("Der gik noget galt", "Fejl besked");
+            }
+            
         }
 
-        private bool checkValues()
+        private void ShowErrorMessage()
         {
-            bool res = true;
             string message = "";
-            if (!(viewModelCreatePractitioner.checkPhoneNo(mobil.Text)))
+            if (mobileErrorBox.Content != null)
             {
-                message += "- Nummeret skal være 8 cifre langt og må kun indeholde tal";
-                res = false;
+                message += mobileErrorBox.Content;
             }
-            if (!(viewModelCreatePractitioner.checkFirstName(fornavn.Text)))
+            if (firstNameErrorBox.Content != null)
             {
-                message += " - For kort fornavn";
-                res = false;
+                message += firstNameErrorBox.Content;
             }
-            if (!(viewModelCreatePractitioner.checkLastName(efternavn.Text)))
+            if (lastNameErrorBox.Content != null)
             {
-                message += " - For kort efternavn";
-                res = false;
+                message += lastNameErrorBox.Content;
             }
-            if (!viewModelCreatePractitioner.checkPassword(password.Password))
+            if (passwordErrorBox.Content != null)
             {
-                message += " - For kort kode";
-                res = false;
+                message += passwordErrorBox.Content;
             }
-            if (!viewModelCreatePractitioner.checkEmail(email.Text))
+            if (emailErrorBox.Content != null)
             {
-                message += " - For kort Email";
-                res = false;
+                message += emailErrorBox.Content;
             }
-            //if (vmpc.CheckEmailIsTaken(email.Text)) {
-            //    message += " - Mailen er taget af en anden bruger";
-            //    res = false;
-            //}
-            if (res == false)
+            if (message != "")
             {
                 MessageBox.Show(message, "Fejl Besked");
             }
-            return res;
         }
-
-
-
-        private void fornavn_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (!(viewModelCreatePractitioner.checkFirstName(fornavn.Text)))
-            {
-                firstNameErrorBox.Content = " - For kort fornavn";
-                firstNameErrorBox.Foreground = Brushes.Red;
-            }
-            else
-            {
-                firstNameErrorBox.Content = "";
-                firstNameErrorBox.Foreground = Brushes.White;
-            }
-        }
-
-        private void efternavn_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (!(viewModelCreatePractitioner.checkLastName(efternavn.Text)))
-            {
-                lastNameErrorBox.Content = " - For kort efternavn";
-                lastNameErrorBox.Foreground = Brushes.Red;
-            }
-            else
-            {
-                lastNameErrorBox.Content = "";
-                lastNameErrorBox.Foreground = Brushes.White;
-            }
-        }
-
-        private void mobil_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (!(viewModelCreatePractitioner.checkPhoneNo(mobil.Text)))
-            {
-                mobileErrorBox.Content = " - ugyldigt nummer";
-                mobileErrorBox.Foreground = Brushes.Red;
-            }
-            else
-            {
-                mobileErrorBox.Content = "";
-                mobileErrorBox.Foreground = Brushes.White;
-            }
-        }
-
-        private void email_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (!viewModelCreatePractitioner.checkEmail(email.Text))
-            {
-                emailErrorBox.Content = " - Email er for kort";
-                emailErrorBox.Foreground = Brushes.Red;
-            }
-            else
-            {
-                emailErrorBox.Content = "";
-                emailErrorBox.Foreground = Brushes.White;
-            }
-        }
-
-        private void password_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (!(password.Password.Length > 6))
-            {
-                passwordErrorBox.Content = " - For kort kode";
-                passwordErrorBox.Foreground = Brushes.Red;
-            }
-            else
-            {
-                passwordErrorBox.Content = "";
-                passwordErrorBox.Foreground = Brushes.White;
-            }
-        }
-
-       
-        
+ 
     }
 }
