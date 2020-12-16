@@ -25,7 +25,7 @@ namespace Web.Models
 		}
 
 		public Appointment() 
-		{ 
+		{
 		
 		}
 

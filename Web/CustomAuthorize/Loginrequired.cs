@@ -21,11 +21,7 @@ namespace Web.CustomAuthorize
         /// <returns>Boolean result</returns>
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
-            bool authorize = false;
-            if (HttpContext.Current.Session["UserId"] != null) {
-                authorize = true;
-            }
-            return authorize;
+            return HttpContext.Current.Session["UserId"] != null;
         }
 
         /// <summary>
@@ -36,7 +32,5 @@ namespace Web.CustomAuthorize
         {
             filterContext.Result = new RedirectResult("Login");
         }
-
-
     }
 }

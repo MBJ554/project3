@@ -15,9 +15,10 @@
     var formatDate = date => date.toISOString().slice(0, 10);
     var currentDate = formatDate(new Date());
 
-    // Update the min attribute for datepicket.
+    // Update the 'min' attribute for input element of type 'date' with the currentDate-value.
     document.getElementById('AppointmentDate').setAttribute('min', currentDate);
 
+    // Create 'alert' if the date chosen is a Saturday or Sunday.
     document.getElementById('AppointmentDate').addEventListener('input', function (e) {
         var day = new Date(this.value).getUTCDay();
         if ([6, 0].includes(day)) {
@@ -27,6 +28,3 @@
         }
     });
 </script>
-
-
-
