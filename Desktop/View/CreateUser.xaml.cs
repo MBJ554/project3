@@ -3,6 +3,7 @@ using Desktop.Models;
 using Desktop.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -31,8 +32,8 @@ namespace Desktop
 
         public CreateUser()
         {
-
-            viewModelCreateCustomer = new ViewModelCreateCustomer();
+          
+            viewModelCreateCustomer = new ViewModelCreateCustomer(); 
             InitializeComponent();
             
             DataContext = viewModelCreateCustomer;

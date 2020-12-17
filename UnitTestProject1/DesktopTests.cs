@@ -9,13 +9,14 @@ namespace UnitTestProject1
     [TestClass]
     public class DesktopTests
     {
+        
+
         [TestMethod]
         public void CityApiSuccess()
         {
             //Arrange
             City city;
             CityCaller cityCaller = new CityCaller("https://dawa.aws.dk");
-
             //Act
             city = cityCaller.GetByZipCode("7470").Result;
 
@@ -28,41 +29,22 @@ namespace UnitTestProject1
         public void CityApiFail()
         {
             //Arrange
-            City city;
-            CityCaller cityCaller = new CityCaller("https://dawa.aws.dk");
+            City city = null;
             bool res = false;
-
+            CityCaller cityCaller = new CityCaller("https://dawa.aws.dk");
 
             //Act
             try
             {
                 city = cityCaller.GetByZipCode("1234").Result;
-                
             }
             catch
             {
                 res = true;
             }
-
+            Assert.IsNull(city);
             //Assert
             Assert.AreEqual(true, res);
         }
-
-        [TestMethod]
-        public void CustomerViewViewModel()
-        {
-            //Arrange
-            ViewModelCreateCustomer vievModelCreateCustomer = new ViewModelCreateCustomer();
-            vievModelCreateCustomer.Customer.Address = "vejen 2";
-            vievModelCreateCustomer.Customer.City = "Karup J";
-            vievModelCreateCustomer.Customer.ClinicId = 1;
-            bool res = false;
-            //Act
-            
-
-            //Assert
-            Assert.AreEqual(true, res);
-        }
-
     }
 }

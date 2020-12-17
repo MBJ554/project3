@@ -16,9 +16,14 @@ namespace Desktop.Callers
 
         public CustomerCaller()
         {
-
             client = new RestClient(ConfigurationManager.AppSettings["ProjectApi"]);
         }
+
+        public CustomerCaller(string baseUrl)
+        {
+            client = new RestClient(baseUrl);
+        }
+
 
         public void Create(Customer obj)
         {
