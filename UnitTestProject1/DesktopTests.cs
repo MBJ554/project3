@@ -1,6 +1,5 @@
 ﻿using Desktop.Callers;
 using Desktop.Models;
-using Desktop.ViewModels;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace UnitTestProject1
@@ -8,8 +7,6 @@ namespace UnitTestProject1
     [TestClass]
     public class DesktopTests
     {
-        
-
         [TestMethod]
         public void CityApiSuccess()
         {
@@ -32,7 +29,6 @@ namespace UnitTestProject1
 
             CityCaller cityCaller = new CityCaller("https://dawa.aws.dk");
 
-
             //Act
             try
             {
@@ -43,7 +39,6 @@ namespace UnitTestProject1
                 res = true;
             }
 
-        
             //Assert
             Assert.IsNull(city);
             Assert.AreEqual(true, res);
