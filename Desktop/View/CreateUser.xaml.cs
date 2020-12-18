@@ -1,5 +1,12 @@
-﻿using Desktop.ViewModels;
+using Desktop.ViewModels;
 using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -14,7 +21,9 @@ namespace Desktop
 
         public CreateUser()
         {
-            viewModelCreateCustomer = new ViewModelCreateCustomer();
+          
+            viewModelCreateCustomer = new ViewModelCreateCustomer(); 
+
             InitializeComponent();
 
             DataContext = viewModelCreateCustomer;

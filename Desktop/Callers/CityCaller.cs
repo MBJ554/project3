@@ -75,11 +75,5 @@ namespace Desktop.Callers
             throw new NotImplementedException();
         }
 
-        public IEnumerable<City> GetAllSync()
-        {
-            var request = new RestRequest("/postnumre", Method.GET);
-            var response = CityClient.Execute<List<City>>(request);
-            return response.Data;
-        }
     }
 }

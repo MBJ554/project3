@@ -13,6 +13,11 @@ namespace Desktop.Callers
             client = new RestClient(ConfigurationManager.AppSettings["ProjectApi"]);
         }
 
+        public LoginCaller(string baseUrl)
+        {
+            client = new RestClient(baseUrl);
+        }
+
         public Practitioner GetByLogin(string email, string password)
         {
             var request = new RestRequest("api/practitioner/login", Method.POST);
