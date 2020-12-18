@@ -1,14 +1,7 @@
 ﻿using API.DAL.Interfaces;
-using API.DAL.Repositories;
 using API.Models;
-using Dapper;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace API.Controllers
@@ -16,11 +9,12 @@ namespace API.Controllers
     public class RehabProgramController : ApiController
     {
         private readonly IRehabProgramRepository _rehabProgramRepository;
+
         public RehabProgramController(IRehabProgramRepository rehabProgramRepository)
         {
             _rehabProgramRepository = rehabProgramRepository;
         }
-       
+
         // GET: api/RehabProgram
         public IEnumerable<RehabProgram> Get()
         {
@@ -46,4 +40,3 @@ namespace API.Controllers
         }
     }
 }
-

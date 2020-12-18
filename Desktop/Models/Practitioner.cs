@@ -1,16 +1,12 @@
 ﻿using Desktop.ViewModels;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Desktop.Models
 {
     public class Practitioner
     {
-
         public int Id { get; set; }
         public int PersonTypeId { get; set; }
         public int ClinicId { get; set; }
@@ -19,6 +15,7 @@ namespace Desktop.Models
         private ViewModelCreatePractitioner viewModelCreatePractitioner;
 
         private string firstName;
+
         public string FirstName
         {
             get
@@ -31,7 +28,9 @@ namespace Desktop.Models
                 viewModelCreatePractitioner?.checkFirstName(value);
             }
         }
+
         private string lastName;
+
         public string LastName
         {
             get
@@ -46,6 +45,7 @@ namespace Desktop.Models
         }
 
         private string phoneNo;
+
         public string PhoneNo
         {
             get
@@ -60,6 +60,7 @@ namespace Desktop.Models
         }
 
         private string email;
+
         public string Email
         {
             get
@@ -72,7 +73,9 @@ namespace Desktop.Models
                 viewModelCreatePractitioner?.checkEmail(value);
             }
         }
+
         private string passwordHash;
+
         public string PasswordHash
         {
             get
@@ -97,7 +100,7 @@ namespace Desktop.Models
             rngCSP.GetNonZeroBytes(random);
             this.Salt = Convert.ToBase64String(random);
         }
-      
+
         private string HashPassword(string password)
         {
             HashAlgorithm hashAlgorithm = SHA512.Create();
@@ -112,7 +115,6 @@ namespace Desktop.Models
 
         public Practitioner()
         {
-
         }
     }
 }

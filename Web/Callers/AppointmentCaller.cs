@@ -2,16 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.Script.Serialization;
-using Web.CustomAuthorize;
 using Web.Models;
 
 namespace Web.Callers
-{   
+{
     public class AppointmentCaller : ICaller<Appointment>
     {
         private RestClient client;
@@ -47,7 +42,7 @@ namespace Web.Callers
 
         public Appointment GetById(int id)
         {
-           throw new NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public void Update(Appointment obj)
@@ -63,7 +58,7 @@ namespace Web.Callers
         /// <returns></returns>
         public async Task<IEnumerable<Appointment>> GetByDate(DateTime appointmentDate, string id)
         {
-            var request = new RestRequest("api/appointment/"+ id, Method.GET);
+            var request = new RestRequest("api/appointment/" + id, Method.GET);
             request.AddParameter("date", appointmentDate.ToString());
             var response = await client.ExecuteAsync<List<Appointment>>(request);
             return response.Data;

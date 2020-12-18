@@ -13,6 +13,7 @@ namespace API.Controllers
     public class AppointmentController : ApiController
     {
         private readonly IAppointmentRepository _appointmentRepository;
+
         public AppointmentController(IAppointmentRepository appointmentRepository)
         {
             _appointmentRepository = appointmentRepository;
@@ -27,15 +28,15 @@ namespace API.Controllers
         {
             List<Appointment> appointments = new List<Appointment>();
             var appointmentsDAL = _appointmentRepository.GetAll();
-            if (appointmentsDAL.Count() == 0)
+            if (appointmentsDAL.Any())
             {
-                return NotFound();
+                foreach (var appointment in appointmentsDAL)
+                {
+                    appointments.Add(BuildAppointment(appointment));
+                }
+                return Ok(appointments);
             }
-            foreach (var appointment in appointmentsDAL)
-            {
-                appointments.Add(BuildAppointment(appointment));
-            }
-            return Ok(appointments);
+            return NotFound();
         }
 
         /// <summary>
@@ -84,7 +85,6 @@ namespace API.Controllers
             }
 
             return NotFound();
-
         }
 
         /// <summary>
@@ -106,7 +106,6 @@ namespace API.Controllers
             }
             return Ok();
         }
-
 
         /// <summary>
         /// Deletes a specific Appointment
@@ -155,8 +154,6 @@ namespace API.Controllers
                 CustomerId = int.Parse(appointment.Customer),
                 PractitionerId = int.Parse(appointment.Practitioner)
             };
-
-
         }
     }
 }

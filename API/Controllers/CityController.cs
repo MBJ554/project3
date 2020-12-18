@@ -1,19 +1,13 @@
 ﻿using API.DAL.Interfaces;
 using API.Models;
-using Dapper;
-using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Data.SqlClient;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace API.Controllers
 {
     public class CityController : ApiController
-    { 
+    {
         private readonly ICityRepository _cityRepository;
 
         public CityController(ICityRepository cityRepository)
@@ -31,15 +25,15 @@ namespace API.Controllers
         {
             List<City> cities = new List<City>();
             var citiesDAL = _cityRepository.GetAll();
-            if (citiesDAL.Count() == 0)
+            if (citiesDAL.Any())
             {
-                return NotFound();
+                foreach (var city in citiesDAL)
+                {
+                    cities.Add(BuildCity(city));
+                }
+                return Ok(cities);
             }
-            foreach (var city in citiesDAL)
-            {
-                cities.Add(BuildCity(city));
-            }
-            return Ok(cities);
+            return NotFound();
         }
 
         /// <summary>
@@ -65,7 +59,7 @@ namespace API.Controllers
         /// <param name="city">The city that is being created</param>
         // POST: api/City
         [HttpPost]
-        public void Post([FromBody]API.DAL.Models.City city)
+        public void Post([FromBody] API.DAL.Models.City city)
         {
             _cityRepository.Create(city);
         }

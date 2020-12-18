@@ -1,10 +1,5 @@
-﻿using API.DAL.Exceptions;
-using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Linq;
+﻿using System;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 using Web.Callers;
 using Web.CustomAuthorize;
@@ -12,13 +7,12 @@ using Web.Models;
 
 namespace Web.Controllers
 {
-    
     [LoginRequired]
     public class BookAppointmentController : Controller
     {
         public ActionResult Index()
-        {       
-            return View();           
+        {
+            return View();
         }
 
         /// <summary>
@@ -48,12 +42,12 @@ namespace Web.Controllers
         /// <param name="startDateTime">aka apointment start time</param>
         /// <param name="endDateTime">aka apointment end time</param>
         /// <returns>The new appoinment is passed to the view if successfull</returns>
-        public ActionResult BookTime(DateTime startDateTime, DateTime endDateTime) 
+        public ActionResult BookTime(DateTime startDateTime, DateTime endDateTime)
         {
             Appointment a = new Appointment();
             a.Enddate = endDateTime;
             a.Startdate = startDateTime;
-           
+
             a.Customer = Session["UserId"] as string;
             a.Practitioner = Session["PractitionerId"] as string;
             AppointmentCaller ac = new AppointmentCaller();

@@ -1,20 +1,6 @@
-﻿using Desktop.Models;
-using Desktop.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+﻿using Desktop.ViewModels;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Desktop
 {
@@ -23,21 +9,19 @@ namespace Desktop
     /// </summary>
     public partial class CreatePractitioner : Page
     {
-
         private ViewModelCreatePractitioner viewModelCreatePractitioner;
 
         public CreatePractitioner()
         {
-
             viewModelCreatePractitioner = new ViewModelCreatePractitioner();
             InitializeComponent();
             DataContext = viewModelCreatePractitioner;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
-        {          
-                viewModelCreatePractitioner.Practitioner.GenerateSalt();
-                viewModelCreatePractitioner.Practitioner.PasswordHash = password.Password;
+        {
+            viewModelCreatePractitioner.Practitioner.GenerateSalt();
+            viewModelCreatePractitioner.Practitioner.PasswordHash = password.Password;
             try
             {
                 if (viewModelCreatePractitioner.Create())
@@ -54,7 +38,6 @@ namespace Desktop
             {
                 MessageBox.Show("Der gik noget galt", "Fejl besked");
             }
-            
         }
 
         private void ShowErrorMessage()
@@ -85,6 +68,5 @@ namespace Desktop
                 MessageBox.Show(message, "Fejl Besked");
             }
         }
- 
     }
 }

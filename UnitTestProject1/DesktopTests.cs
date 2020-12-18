@@ -1,5 +1,4 @@
-﻿using System;
-using Desktop.Callers;
+﻿using Desktop.Callers;
 using Desktop.Models;
 using Desktop.ViewModels;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -24,14 +23,15 @@ namespace UnitTestProject1
             Assert.AreEqual("Karup J", city.CityName);
         }
 
-
         [TestMethod]
         public void CityApiFail()
         {
             //Arrange
             City city = null;
             bool res = false;
+
             CityCaller cityCaller = new CityCaller("https://dawa.aws.dk");
+
 
             //Act
             try
@@ -42,8 +42,10 @@ namespace UnitTestProject1
             {
                 res = true;
             }
-            Assert.IsNull(city);
+
+        
             //Assert
+            Assert.IsNull(city);
             Assert.AreEqual(true, res);
         }
     }

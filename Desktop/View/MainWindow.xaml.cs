@@ -1,18 +1,6 @@
 ﻿using Desktop.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Desktop
 {
@@ -50,7 +38,6 @@ namespace Desktop
         private void btnLogOut_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
-
         }
 
         private void ButtonOpenMenu_Click(object sender, RoutedEventArgs e)
@@ -61,7 +48,6 @@ namespace Desktop
 
         private void ButtonCloseMenu_Click(object sender, RoutedEventArgs e)
         {
-
             ButtonCloseMenu.Visibility = Visibility.Collapsed;
             ButtonOpenMenu.Visibility = Visibility.Visible;
         }
@@ -70,8 +56,6 @@ namespace Desktop
         {
             Main.Content = new Home();
         }
-
-        
 
         private void StackPanel_MouseDown_2(object sender, MouseButtonEventArgs e)
         {

@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Web;
 
 namespace API.DAL.Repositories
 {
@@ -57,8 +56,7 @@ namespace API.DAL.Repositories
             using (var conn = new SqlConnection(connectionString))
             {
                 string sql = "Delete FROM Appointment where id = @id";
-                //TODO: tjek om det her virker og lav alt andet om til denne måde både return og id
-                return conn.Execute(sql, new { id = id }) == 1; 
+                return conn.Execute(sql, new { id = id }) == 1;
             }
         }
 
@@ -77,7 +75,7 @@ namespace API.DAL.Repositories
             using (var conn = new SqlConnection(connectionString))
             {
                 string sql = "SELECT * FROM Appointment WHERE (SELECT CONVERT (date , startdate)) = @date  AND practitionerId = @practitionerId";
-                return conn.Query<Appointment>(sql, new { date = date.Date, practitionerId = practitionerId } );
+                return conn.Query<Appointment>(sql, new { date = date.Date, practitionerId = practitionerId });
             }
         }
 
@@ -86,7 +84,7 @@ namespace API.DAL.Repositories
             using (var conn = new SqlConnection(connectionString))
             {
                 string sql = "SELECT * FROM Appointment Where id = @id";
-                return conn.Query<Appointment>(sql, new {  id = id }).SingleOrDefault();
+                return conn.Query<Appointment>(sql, new { id = id }).SingleOrDefault();
             }
         }
 
