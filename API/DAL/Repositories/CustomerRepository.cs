@@ -1,50 +1,61 @@
-﻿using API.DAL.Interfaces;
+﻿using API.DAL.Exceptions;
+using API.DAL.Interfaces;
 using API.DAL.Models;
 using Dapper;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
-using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Web;
 
 namespace API.DAL.Repositories
 {
     public class CustomerRepository : ICustomerRepository
     {
         private readonly string connectionString = ConfigurationManager.ConnectionStrings["connStr"].ConnectionString;
-        public Customer Create(Customer customer)
+
+        public void Create(Customer customer)
         {
             using (var conn = new SqlConnection(connectionString))
             {
-                string sql = "INSERT INTO [dbo].[Person] " +
-                    "([personTypeId], " +
-                    "[clinicId]," +
-                    "[firstName]," +
-                    "[lastName]," +
-                    "[phoneNo]," +
-                    "[email]," +
-                    "[passwordHash]," +
-                    "[salt]," +
-                    "[address]," +
-                    "[zipCode])" +
-                    "VALUES ((SELECT id FROM PersonType WHERE type = 'Customer')" +
-                    ", @clinicId" +
-                    ", @firstName" +
-                    ", @lastName" +
-                    ", @phoneNo" +
-                    ", @email" +
-                    ", @passwordHash" +
-                    ", @salt" +
-                    ", @address" +
-                    ", @zipCode)";
-                if (conn.Execute(sql, customer) > 0)
+                conn.Open();
+                using (var transaction = conn.BeginTransaction())
                 {
-                    return customer;
+                    try
+                    {
+                        string sql = "INSERT INTO [dbo].[Person] " +
+                            "([personTypeId], " +
+                            "[clinicId]," +
+                            "[practitionerId]," +
+                            "[firstName]," +
+                            "[lastName]," +
+                            "[phoneNo]," +
+                            "[email]," +
+                            "[passwordHash]," +
+                            "[salt]," +
+                            "[address]," +
+                            "[zipCode])" +
+                            "VALUES ((SELECT id FROM PersonType WHERE type = 'Customer')" +
+                            ", @clinicId" +
+                            ", @practitionerId" +
+                            ", @firstName" +
+                            ", @lastName" +
+                            ", @phoneNo" +
+                            ", @email" +
+                            ", @passwordHash" +
+                            ", @salt" +
+                            ", @address" +
+                            ", @zipCode)";
+                        conn.Execute(sql, customer, transaction: transaction);
+                        transaction.Commit();
+                    }
+                    catch (SqlException e)
+                    {
+                        transaction.Rollback();
+                        throw new DataAccessException("Der gik noget galt, prøv igen.", e);
+                    }
                 }
-                return null;
             }
         }
 
@@ -52,7 +63,7 @@ namespace API.DAL.Repositories
         {
             using (var conn = new SqlConnection(connectionString))
             {
-                string sql = "DELETE FROM Person where id = @id";
+                string sql = "DELETE FROM Person where id = @id AND personTypeId = (SELECT id FROM PersonType WHERE type = 'Customer')";
 
                 return conn.Execute(sql, new { id }) == 1;
             }
@@ -66,7 +77,7 @@ namespace API.DAL.Repositories
                 return conn.Query<Customer>(sql);
             }
         }
-        // TODO City ikke nødvendig som vi gær det nu, dog skal vi mpske stadig populate vores database med zipcode sådan at vi ikke er afhængige af dawas
+
         public Customer GetById(int id)
         {
             using (var conn = new SqlConnection(connectionString))
@@ -78,7 +89,7 @@ namespace API.DAL.Repositories
 
         public Customer IsAuthorized(string email, string password)
         {
-            using (var conn  = new SqlConnection(connectionString))
+            using (var conn = new SqlConnection(connectionString))
             {
                 string sql = "SELECT * FROM Person p WHERE personTypeId = (SELECT id FROM PersonType WHERE type = 'Customer') AND email = @email";
                 var customer = conn.QuerySingleOrDefault<Customer>(sql, new { email });
@@ -96,25 +107,34 @@ namespace API.DAL.Repositories
             return null;
         }
 
-        public Customer Update(Customer customer)
+        public void Update(Customer customer)
         {
             using (var conn = new SqlConnection(connectionString))
             {
-                string sql = "UPDATE [dbo].[Person] SET [clinicId] = @ClinicId " +
-                    ",[practitionerId] = @PractitionerId " +
-                    ",[rehabProgramId] = @RehabProgramId " +
-                    ",[firstName] = @FirstName " +
-                    ",[lastName] = @LastName" +
-                    ",[phoneNo] = @PhoneNo" +
-                    ",[email] = @Email ," +
-                    "[password] = @Password ," +
-                    "[address] = @Address ," +
-                    "[zipCode] = @ZipCode WHERE id = @Id";
-                if (conn.Execute(sql, customer) > 0)
+                conn.Open();
+                using (var transaction = conn.BeginTransaction())
                 {
-                    return customer;
+                    try
+                    {
+                        string sql = "UPDATE [dbo].[Person] SET [clinicId] = @ClinicId " +
+                            ",[practitionerId] = @PractitionerId " +
+                            ",[rehabProgramId] = @RehabProgramId " +
+                            ",[firstName] = @FirstName " +
+                            ",[lastName] = @LastName" +
+                            ",[phoneNo] = @PhoneNo" +
+                            ",[email] = @Email ," +
+                            "[password] = @Password ," +
+                            "[address] = @Address ," +
+                            "[zipCode] = @ZipCode WHERE id = @Id AND personTypeId = (SELECT id FROM PersonType WHERE type = 'Customer')";
+                        conn.Execute(sql, customer, transaction: transaction);
+                        transaction.Commit();
+                    }
+                    catch (SqlException e)
+                    {
+                        transaction.Rollback();
+                        throw new DataAccessException("Der gik noget galt prøv igen", e);
+                    }
                 }
-                return null;
             }
         }
     }

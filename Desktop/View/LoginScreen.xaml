@@ -9,12 +9,12 @@
         WindowStartupLocation="CenterScreen" WindowStyle="None">
     <Border Background="LightGray" CornerRadius="20" Margin="20">
         <StackPanel Margin="15">
-            <Image Source="/images/trackspacesort.png" Width="250"/>
+            <Image Source="/images/trackspacesort.png" Width="250" />
             <Separator></Separator>
             <Label Content="Email" Foreground="Gray" FontSize="18"></Label>
-            <TextBox Name="txtEmail" Background="#FFF7F7F7" Foreground="Black" FontSize="18"/>
+            <TextBox Name="txtEmail" Background="#FFF7F7F7" Foreground="Black" FontSize="18" />
             <Label Content="Password" Foreground="Gray" FontSize="18"></Label>
-            <PasswordBox Name="txtPassword" Background="#FFF7F7F7" Foreground="Black" FontSize="18"/>
+            <PasswordBox Name="txtPassword" Background="#FFF7F7F7" Foreground="Black" FontSize="18" />
             <Button Name="btnSubmit" Content="Log ind" Margin="60 30" Click="btnSubmit_Click"></Button>
             <Button Name="btnExit" Content="Exit" Width="70" Background="DarkRed" Click="btnExit_Click"></Button>
         </StackPanel>

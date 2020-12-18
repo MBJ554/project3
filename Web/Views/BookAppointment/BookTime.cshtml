@@ -4,22 +4,15 @@
     ViewBag.Title = "BookTime";
 }
 
-<h2>BookedTid</h2>
+<h2>Din tid er blevet bestilt</h2>
+
+<p>
+    Hej @Session["FirstName"]! Din tid hos @Session["PractitionerFirstName"] @Session["PractitionerLastName"] er blevet bestilt!
+</p>
+
+<p>
+    <strong>Din tid:</strong> Fra @Html.DisplayFor(model => model.Startdate) til @Html.DisplayFor(model => model.Enddate)
+</p>
 
 <br>
-@Html.DisplayFor(model => model.Startdate)
-<br>
-
-<br>
-@Html.DisplayFor(model => model.Enddate)
-<br>
-<br>
-@Html.DisplayFor(model => model.Practitioner)
-<br>
-<br>
-@Html.DisplayFor(model => model.Customer)
-<br>
-<br>
-@Html.ActionLink("Til Hovedmenuen", "Index", "Home")
-<br>
-
+@Html.ActionLink("Tilbage", "Index", "Home", new { @class = "btn btn-info" })

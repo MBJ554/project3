@@ -1,30 +1,40 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace Web.Models
 {
     public class Appointment
     {
-		public DateTime Startdate { get; set; }
-		public DateTime Enddate { get; set; }
-		public string Customer { get; set; }
-		public string Practitioner { get; set; }
+        /// <summary>
+        /// Startdate and time for the appointment.
+        /// </summary>
+        public DateTime Startdate { get; set; }
 
-		public string StartEndDate { get { return Startdate.ToString() + " - " + Enddate.ToString(); }  }
+        /// <summary>
+        /// Enddate and time for the appointment.
+        /// </summary>
+        public DateTime Enddate { get; set; }
 
-		public Appointment( DateTime _startdate, DateTime _enddate)
-		{
-			
-			this.Startdate = _startdate;
-			this.Enddate = _enddate;
-			
-		}
+        public string Customer { get; set; }
+        public string Practitioner { get; set; }
 
-		public Appointment() { 
-		
-		}
+        public Appointment(DateTime _startdate, DateTime _enddate)
+        {
+            this.Startdate = _startdate;
+            this.Enddate = _enddate;
+        }
 
-	}
+        public Appointment()
+        {
+        }
+
+        public string StartTimeDisplay()
+        {
+            return Startdate.TimeOfDay.ToString();
+        }
+
+        public string EndTimeDisplay()
+        {
+            return Enddate.TimeOfDay.ToString();
+        }
+    }
 }

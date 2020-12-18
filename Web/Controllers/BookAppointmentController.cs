@@ -1,78 +1,66 @@
-﻿using API.DAL.Exceptions;
-using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Linq;
+﻿using System;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 using Web.Callers;
+using Web.CustomAuthorize;
 using Web.Models;
 
 namespace Web.Controllers
 {
+    [LoginRequired]
     public class BookAppointmentController : Controller
     {
-        // GET: BookAppointment
         public ActionResult Index()
         {
-            var ID = Session["UserId"];
-            if (ID != null)
-            {
-                return View();
-            }
-            return RedirectToAction("Index", "Login");
+            return View();
         }
 
+        /// <summary>
+        /// Uses date to fetch all appointment-times for that date/practitioner using the API/AppointmentCaller.
+        /// Also there is a client side validation of the date selected.
+        /// </summary>
+        /// <param name="date">Find all appointment times on this date</param>
+        /// <returns></returns>
         public async Task<ActionResult> ChooseAppointmentTime(DateTime date)
         {
-            // TODO Validate the date so the server wont accept dates out of range but instead redirect to 'Index,View' with a ViewBag.ErrorMessage = "Date not valid"
-            AppointmentCaller appointmentCaller = new AppointmentCaller();
-            var bookedAppointments = await appointmentCaller.GetByDate(date, Session["PractitionerId"] as string);
-
-            // List<Appointment> bookedAppointments = new List<Appointment>();
-            // Appointment bookedAppointment = new Appointment();
-            // bookedAppointment.Startdate = DateTime.Today.AddHours(10);
-           
-            List<Appointment> allowedAppointments = new List<Appointment>();
-            for (int i = 0; i < 14; i++)
+            DateTime currentDate = new DateTime();
+            if (date < currentDate || date.DayOfWeek == DayOfWeek.Saturday || date.DayOfWeek == DayOfWeek.Sunday)
             {
-                Appointment a = new Appointment();
-                a.Startdate = date.AddHours(8 + (i * 0.50));
-                a.Enddate = date.AddHours(8 + (i * 0.5 + 0.5));
-                allowedAppointments.Add(a);
+                TempData["ErrorMessage"] = "Du skal vælge en date der er valid og vi holder ikke åben i weekenden!";
+                return View();
             }
-            List<Appointment> checkList = new List<Appointment>(allowedAppointments);
-            if (bookedAppointments != null) {
-                foreach (Appointment a in bookedAppointments)
-                {
-                    foreach (Appointment ap in checkList) 
-                    {
-                        if (a.Startdate == ap.Startdate) 
-                        {
-                            allowedAppointments.Remove(ap);
-                        }
-                    }
-                }
-            }
-            return View(allowedAppointments);
+            AppointmentCaller appointmentCaller = new AppointmentCaller();
+            var appointments = await appointmentCaller.GetByDate(date, Session["PractitionerId"] as string);
+            ViewBag.SelectedDate = date.ToShortDateString();
+            return View(appointments);
         }
 
-
-        [HandleError(ExceptionType = typeof(Exception), View = "BookErrorView")]
-        public ActionResult BookTime(DateTime startDate, DateTime endDate) {
+        /// <summary>
+        /// BookTime takes the two datetime objects and uses the API to book a time for the selected date, practitioner and time span selected.
+        /// Concurrency issues throws exception with suitable response message. The 'ChoseAppointmentTime'-view is shown with the error message.
+        /// </summary>
+        /// <param name="startDateTime">aka apointment start time</param>
+        /// <param name="endDateTime">aka apointment end time</param>
+        /// <returns>The new appoinment is passed to the view if successfull</returns>
+        public ActionResult BookTime(DateTime startDateTime, DateTime endDateTime)
+        {
             Appointment a = new Appointment();
-            a.Enddate = endDate;
-            a.Startdate = startDate;
-            // TODO tilføj kunde og udøver // No dansker snak in da code ;)
-           
+            a.Enddate = endDateTime;
+            a.Startdate = startDateTime;
+
             a.Customer = Session["UserId"] as string;
             a.Practitioner = Session["PractitionerId"] as string;
             AppointmentCaller ac = new AppointmentCaller();
-            ac.BookTime(a);
+            try
+            {
+                ac.BookTime(a);
+            }
+            catch (Exception e)
+            {
+                TempData["ErrorMessage"] = "[ERROR] " + e.Message;
+                return View(ChooseAppointmentTime(endDateTime.Date));
+            }
             return View(a); ;
         }
-        
-
     }
 }

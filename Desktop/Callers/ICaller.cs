@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Desktop.Callers
@@ -10,7 +7,7 @@ namespace Desktop.Callers
     {
         Task<IEnumerable<TEntity>> GetAll();
 
-        TEntity GetById(int id);
+        TEntity GetById(string id);
 
         void Delete(int id);
 

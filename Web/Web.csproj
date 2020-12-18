@@ -128,6 +128,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Callers\PractitionerCalller.cs" />
+    <Compile Include="CustomAuthorize\Loginrequired.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -148,6 +149,7 @@
     <Content Include="Content\favicon\favicon-16x16.png" />
     <Content Include="Content\favicon\favicon-32x32.png" />
     <Content Include="Content\favicon\favicon.ico" />
+    <Content Include="Content\favicon\full_logo.png" />
     <Content Include="Content\favicon\mstile-150x150.png" />
     <Content Include="Content\favicon\safari-pinned-tab.svg" />
     <Content Include="favicon.ico" />
@@ -179,15 +181,11 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\BookAppointment\Index.cshtml" />
     <Content Include="Views\BookAppointment\ChooseAppointmentTime.cshtml" />
     <Content Include="Views\BookAppointment\BookTime.cshtml" />
-    <Content Include="Views\BookAppointment\BookErrorView.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
-    <Content Include="Views\Login\UserLogin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

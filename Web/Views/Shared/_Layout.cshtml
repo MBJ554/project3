@@ -8,14 +8,13 @@
     @Scripts.Render("~/bundles/modernizr")
 
     <!-- Favicon config -->
-    <link rel="apple-touch-icon" sizes="180x180" href="~/Content/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="~/Content/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="~/Content/favicon/favicon-16x16.png">
-    <link rel="manifest" href="~/Content/favicon/site.webmanifest">
-    <link rel="mask-icon" href="~/Content/favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="apple-touch-icon" sizes="180x180" href="~/content/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="~/content/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="~/content/favicon/apple-touch-icon.png">
+    <link rel="manifest" href="~/content/favicon/apple-touch-icon.png">
+    <link rel="mask-icon" href="~/content/favicon/safari-pinned-tab.svg" color="#5bbad5">
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">
-       
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -26,31 +25,52 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("TrackSpace", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                <a href="/">
+                    <img src="~/Content/favicon/full_logo.png" class="navbar-brand" />
+                    <!--style="height:40px;margin-top:5px;"-->
+                </a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Konsultationer", "Index", "BookAppointment")</li>
-                    <li>@Html.ActionLink("Login", "Index", "Login")</li>
+                    <li>@Html.ActionLink(" Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink(" Konsultationer", "Index", "BookAppointment")</li>
+                    @{
+                        if (Session["UserId"] != null)
+                        {
+                            <li>@Html.ActionLink(" Log ud", "Logout", "Login")</li>
+                        }
+                        else
+                        {
+                            <li>@Html.ActionLink(" Log på", "Index", "Login")</li>
+                        }
+                    }
                 </ul>
             </div>
         </div>
     </div>
     @{
-        if (ViewBag.ErrorMessage != null)
+        if (TempData["ErrorMessage"] != null)
         {
-        <div id="alert" class="alert alert-danger alert-dismissible fade in show">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            <p> ERROR: @ViewBag.ErrorMessage </p>
-        </div>
+            <div id="alert" class="alert alert-danger alert-dismissible fade in show">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <p> ERROR: @TempData["ErrorMessage"].ToString() </p>
+            </div>
+        }
+    }
+    @{
+        if (TempData["SuccessMessage"] != null)
+        {
+            <div id="alert" class="alert alert-success alert-dismissible fade in show">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <p> Success: @TempData["SuccessMessage"].ToString() </p>
+            </div>
         }
     }
     <div class="container body-content">
         @RenderBody()
         <hr />
         <footer>
-            <a class="pull-left" href="https://trackspace.dk" target="_blank">TrackSpace.dk </a>
+            <a class="pull-left" href="/">TrackSpace.dk </a>
             <p class="pull-right">&copy; @DateTime.Now.Year - TrackSpace Corporation</p>
         </footer>
     </div>
@@ -59,4 +79,3 @@
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>
-

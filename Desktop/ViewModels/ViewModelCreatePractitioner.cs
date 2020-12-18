@@ -3,11 +3,8 @@ using Desktop.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace Desktop.ViewModels
 {
@@ -17,99 +14,258 @@ namespace Desktop.ViewModels
 
         private Practitioner practitioner;
 
-        private PractitionerCaller pc;
+        private PractitionerCaller practitionerCalller;
 
-        private ClinicCaller clc;
+        private ClinicCaller clinicCaller;
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        private string firstNameErrorMessage;
+        public string FirstNameErrorMessage { get { return firstNameErrorMessage; } set { firstNameErrorMessage = value; OnPropertyChanged(); } }
+        private bool firstNameIsValid;
+
+        public bool FirstNameIsValid
+        {
+            get
+            {
+                return firstNameIsValid;
+            }
+            set
+            {
+                firstNameIsValid = value;
+                if (firstNameIsValid == true)
+                {
+                    FirstNameErrorMessage = "";
+                }
+                else
+                {
+                    FirstNameErrorMessage = " - Fornavnet er for kort";
+                }
+                OnPropertyChanged();
+            }
+        }
+
+        private string lastNameErrorMessage;
+        public string LastNameErrorMessage { get { return lastNameErrorMessage; } set { lastNameErrorMessage = value; OnPropertyChanged(); } }
+        private bool lastNameIsValid;
+
+        public bool LastNameIsValid
+        {
+            get
+            {
+                return lastNameIsValid;
+            }
+            set
+            {
+                lastNameIsValid = value;
+                if (value == true)
+                {
+                    LastNameErrorMessage = "";
+                }
+                else
+                {
+                    LastNameErrorMessage = " - Efternavn er for kort";
+                }
+                OnPropertyChanged();
+            }
+        }
+
+        private string passwordErrorMessage;
+        public string PasswordErrorMessage { get { return passwordErrorMessage; } set { passwordErrorMessage = value; OnPropertyChanged(); } }
+        private bool passwordIsValid;
+
+        public bool PasswordIsValid
+        {
+            get
+            {
+                return passwordIsValid;
+            }
+            set
+            {
+                passwordIsValid = value;
+                if (passwordIsValid == true)
+                {
+                    PasswordErrorMessage = "";
+                }
+                else
+                {
+                    PasswordErrorMessage = " - Password er for kort";
+                }
+                OnPropertyChanged();
+            }
+        }
+
+        private string phoneNoErrorMessage;
+        public string PhoneNoErrorMessage { get { return phoneNoErrorMessage; } set { phoneNoErrorMessage = value; OnPropertyChanged(); } }
+        private bool phoneNoIsValid;
+
+        public bool PhoneNoIsValid
+        {
+            get
+            {
+                return phoneNoIsValid;
+            }
+            set
+            {
+                phoneNoIsValid = value;
+                if (phoneNoIsValid == true)
+                {
+                    PhoneNoErrorMessage = "";
+                }
+                else
+                {
+                    PhoneNoErrorMessage = " - Telefonnummeret skal være 8 cifre langt";
+                }
+                OnPropertyChanged();
+            }
+        }
+
+        private string emailErrorMessage;
+        public string EmailErrorMessage { get { return emailErrorMessage; } set { emailErrorMessage = value; OnPropertyChanged(); } }
+        private bool emailIsValid;
+
+        public bool EmailIsValid
+        {
+            get
+            {
+                return emailIsValid;
+            }
+            set
+            {
+                emailIsValid = value;
+                if (emailIsValid == true)
+                {
+                    EmailErrorMessage = "";
+                }
+                else
+                {
+                    EmailErrorMessage = " - Email er for kort";
+                }
+                OnPropertyChanged();
+            }
+        }
+
+        private string zipCodeErrorMessage;
+        public string ZipCodeErrorMessage { get { return zipCodeErrorMessage; } set { zipCodeErrorMessage = value; OnPropertyChanged(); } }
+        private bool zipCodeIsValid;
+
+        public bool ZipCodeIsValid
+        {
+            get
+            {
+                return zipCodeIsValid;
+            }
+            set
+            {
+                zipCodeIsValid = value;
+                if (zipCodeIsValid == true)
+                {
+                    ZipCodeErrorMessage = "";
+                }
+                else
+                {
+                    ZipCodeErrorMessage = " - Postnummeret findes ikke";
+                }
+                OnPropertyChanged();
+            }
+        }
+
+        private string addressErrorMessage;
+        public string AddressErrorMessage { get { return addressErrorMessage; } set { addressErrorMessage = value; OnPropertyChanged(); } }
+        private bool addressIsValid;
+
+        public bool AddressIsValid
+        {
+            get
+            {
+                return addressIsValid;
+            }
+            set
+            {
+                addressIsValid = value;
+                if (addressIsValid)
+                {
+                    AddressErrorMessage = "";
+                }
+                else
+                {
+                    AddressErrorMessage = " - Addresse er for kort";
+                }
+                OnPropertyChanged();
+            }
+        }
 
         protected void OnPropertyChanged([CallerMemberName] string name = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
-
-        public PractitionerCaller PC { get; set; }
-
-        public ClinicCaller CLC { get; set; }
-
-        public Practitioner Practitioner { get; set; }
-
-        internal void Create(Practitioner practitioner)
-        {
-            pc.Create(practitioner);
-        }
-
-        public List<Clinic> Clinics
-        {
-            get
-            {
-                return clinics;
-            }
-            set
-            {
-                clinics = value;
-                OnPropertyChanged();
-            }
-        }
+        public Practitioner Practitioner { get { return practitioner; } set { practitioner = value; } }
 
         public ViewModelCreatePractitioner()
         {
-            RetrieveData();
+            practitioner = new Practitioner(this);
+            practitionerCalller = new PractitionerCaller();
         }
 
-        public async void RetrieveData()
-        {
-            practitioner = new Practitioner();
-           
-            pc = new PractitionerCaller();
-            clc = new ClinicCaller();
-
-            var clinics =  await clc.GetAll();
-
-            Clinics = (List<Clinic>)clinics;
-        }
-
-        public bool checkFirstName(string firstName)
+        public bool Create()
         {
             bool res = false;
+            if (FirstNameIsValid & LastNameIsValid & PhoneNoIsValid & EmailIsValid & PasswordIsValid)
+            {
+                practitioner.ClinicId = GlobalLoginInfo.Clinic.Id;
+                practitionerCalller.Create(practitioner);
+                res = true;
+            }
+            return res;
+        }
+
+        public void checkFirstName(string firstName)
+        {
             if (firstName.Length > 1)
             {
-                res = true;
-                practitioner.FirstName = firstName;
+                FirstNameIsValid = true;
             }
-            return res;
+            else
+            {
+                FirstNameIsValid = false;
+            }
         }
 
-        public bool checkPassword(string password)
+        public void checkPassword(string password)
         {
-            bool res = false;
-            if (password.Length > 5) {
-                res = true;
+            if (password.Length > 5)
+            {
+                PasswordIsValid = true;
             }
-            return res;
+            else
+            {
+                PasswordIsValid = false;
+            }
         }
 
-        public bool checkLastName(string lastName)
+        public void checkLastName(string lastName)
         {
-            bool res = false;
             if (lastName.Length > 1)
             {
-                res = true;
-                practitioner.LastName = lastName;
+                LastNameIsValid = true;
             }
-            return res;
+            else
+            {
+                LastNameIsValid = false;
+            }
         }
 
-        internal bool checkPhoneNo(string mobil)
+        public void checkPhoneNo(string mobil)
         {
-            bool res = false;
             if (numbersOnly(mobil) & mobil.Length == 8)
             {
-                res = true;
-                practitioner.PhoneNo = mobil;
+                PhoneNoIsValid = true;
             }
-            return res;
+            else
+            {
+                PhoneNoIsValid = false;
+            }
         }
 
         public bool numbersOnly(String checkString)
@@ -118,26 +274,28 @@ namespace Desktop.ViewModels
             return reg.IsMatch(checkString);
         }
 
-        public bool checkEmail(string email)
+        public void checkEmail(string email)
         {
-            bool res = false;
-            if (email.Length > 6) {
-                res = true;
-                practitioner.Email = email;
+            if (email.Length > 6)
+            {
+                EmailIsValid = true;
             }
-            return res;
+            else
+            {
+                EmailIsValid = false;
+            }
         }
 
-        public bool setClinic(Clinic clinic)
+        public void checkAddress(string address)
         {
-            bool res = false;
-            if (clinic != null) {
-                res = true;
-                practitioner.ClinicId = clinic.Id;
+            if (address.Length > 6)
+            {
+                AddressIsValid = true;
             }
-            return res;
+            else
+            {
+                AddressIsValid = false;
+            }
         }
     }
-
 }
-

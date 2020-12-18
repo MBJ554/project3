@@ -1,44 +1,97 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Desktop.ViewModels;
+using System;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Desktop.Models
 {
     public class Practitioner
     {
-
         public int Id { get; set; }
         public int PersonTypeId { get; set; }
         public int ClinicId { get; set; }
-        public int PractitionerId { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string PhoneNo { get; set; }
-        public string Email { get; set; }
+        public string Clinic { get; set; }
+        public Clinic CurrentClinic { get; set; }
+        private ViewModelCreatePractitioner viewModelCreatePractitioner;
+
+        private string firstName;
+
+        public string FirstName
+        {
+            get
+            {
+                return firstName;
+            }
+            set
+            {
+                firstName = value;
+                viewModelCreatePractitioner?.checkFirstName(value);
+            }
+        }
+
+        private string lastName;
+
+        public string LastName
+        {
+            get
+            {
+                return lastName;
+            }
+            set
+            {
+                lastName = value;
+                viewModelCreatePractitioner?.checkLastName(value);
+            }
+        }
+
+        private string phoneNo;
+
+        public string PhoneNo
+        {
+            get
+            {
+                return phoneNo;
+            }
+            set
+            {
+                phoneNo = value;
+                viewModelCreatePractitioner?.checkPhoneNo(value);
+            }
+        }
+
+        private string email;
+
+        public string Email
+        {
+            get
+            {
+                return email;
+            }
+            set
+            {
+                email = value;
+                viewModelCreatePractitioner?.checkEmail(value);
+            }
+        }
+
         private string passwordHash;
-        public string PasswordHash { get { return passwordHash; } set { passwordHash = HashPassword(value); } }
+
+        public string PasswordHash
+        {
+            get
+            {
+                return passwordHash;
+            }
+            set
+            {
+                passwordHash = HashPassword(value);
+                viewModelCreatePractitioner?.checkPassword(value);
+            }
+        }
 
         public string Salt { get; private set; }
 
-
-        public Practitioner(int id_, int personTypeId_, int clinicId_, int practitionerId_, string firstName_, string lastName_, string phoneNo_, string email_, string password_)
-        {
-            this.Id = id_;
-            this.PersonTypeId = 1;
-            this.ClinicId = clinicId_;
-            this.PractitionerId = practitionerId_;
-
-            this.FirstName = firstName_;
-            this.LastName = lastName_;
-            this.PhoneNo = phoneNo_;
-            this.Email = email_;
-            this.PasswordHash = password_;
-        }
-
-        private void GenerateSalt()
+        public void GenerateSalt()
         {
             var rngCSP = RNGCryptoServiceProvider.Create();
 
@@ -47,16 +100,21 @@ namespace Desktop.Models
             rngCSP.GetNonZeroBytes(random);
             this.Salt = Convert.ToBase64String(random);
         }
-      
+
         private string HashPassword(string password)
         {
             HashAlgorithm hashAlgorithm = SHA512.Create();
             return Convert.ToBase64String(hashAlgorithm.ComputeHash(Encoding.UTF8.GetBytes(Salt + password)));
         }
 
+        public Practitioner(ViewModelCreatePractitioner viewModelCreatePractitioner)
+        {
+            this.viewModelCreatePractitioner = viewModelCreatePractitioner;
+            GenerateSalt();
+        }
+
         public Practitioner()
         {
-            GenerateSalt();
         }
     }
 }

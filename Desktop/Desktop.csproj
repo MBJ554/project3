@@ -96,12 +96,13 @@
     <Compile Include="Callers\ICaller.cs" />
     <Compile Include="Callers\LoginCaller.cs" />
     <Compile Include="Callers\PractitionerCaller.cs" />
-    <Compile Include="CreatePractitioner.xaml.cs">
+    <Compile Include="View\CreatePractitioner.xaml.cs">
       <DependentUpon>CreatePractitioner.xaml</DependentUpon>
     </Compile>
-    <Compile Include="LoginScreen.xaml.cs">
+    <Compile Include="View\LoginScreen.xaml.cs">
       <DependentUpon>LoginScreen.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\GlobalLoginInfo.cs" />
     <Compile Include="Models\Practitioner.cs" />
     <Compile Include="ViewModels\ViewModelCreatePractitioner.cs" />
     <Compile Include="ViewModels\ViewModelLoginScreen.cs" />
@@ -132,9 +133,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="TestPage.xaml.cs">
-      <DependentUpon>TestPage.xaml</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -151,11 +149,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="CreatePractitioner.xaml">
+    <Page Include="View\CreatePractitioner.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="LoginScreen.xaml">
+    <Page Include="View\LoginScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -170,10 +168,6 @@
     <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="TestPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

@@ -3,8 +3,6 @@ using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Desktop.Callers
@@ -12,9 +10,15 @@ namespace Desktop.Callers
     public class CityCaller : ICaller<City>
     {
         private RestClient CityClient;
+
         public CityCaller()
         {
             CityClient = new RestClient(ConfigurationManager.AppSettings["ByApi"]);
+        }
+
+        public CityCaller(string Url)
+        {
+            CityClient = new RestClient(Url);
         }
 
         public void Create(City obj)
@@ -34,14 +38,14 @@ namespace Desktop.Callers
             if (response.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 RestClient LocalApi = new RestClient(ConfigurationManager.AppSettings["ProjectApi"]);
-                var request2 = new RestRequest("/zipCode", Method.GET);
+                var request2 = new RestRequest("api/zipCode", Method.GET);
                 var response2 = await LocalApi.ExecuteAsync<List<City>>(request);
                 return response2.Data;
             }
             return response.Data;
         }
 
-        public City GetById(int id)
+        public City GetById(string id)
         {
             throw new NotImplementedException();
         }
@@ -55,7 +59,7 @@ namespace Desktop.Callers
             if (response.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 RestClient LocalApi = new RestClient(ConfigurationManager.AppSettings["ProjectApi"]);
-                var request2 = new RestRequest("/zipCode/" + id, Method.GET);
+                var request2 = new RestRequest("api/zipCode/" + id, Method.GET);
                 var response2 = await LocalApi.ExecuteAsync<City>(request2);
                 c = response2.Data;
             }
@@ -71,11 +75,5 @@ namespace Desktop.Callers
             throw new NotImplementedException();
         }
 
-        public IEnumerable<City> GetAllSync()
-        {
-            var request = new RestRequest("/postnumre", Method.GET);
-            var response = CityClient.Execute<List<City>>(request);
-            return response.Data;
-        }
     }
 }

@@ -3,8 +3,6 @@ using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Desktop.Callers
@@ -20,9 +18,13 @@ namespace Desktop.Callers
 
         public void Create(Practitioner obj)
         {
-            var request = new RestRequest("/Practitioner", Method.POST);
+            var request = new RestRequest("api/practitioner", Method.POST);
             request.AddJsonBody(obj);
             var response = client.Execute(request);
+            if (response.StatusCode != System.Net.HttpStatusCode.OK)
+            {
+                throw new Exception();
+            }
         }
 
         public void Delete(int id)
@@ -35,7 +37,7 @@ namespace Desktop.Callers
             throw new NotImplementedException();
         }
 
-        public Practitioner GetById(int id)
+        public Practitioner GetById(string id)
         {
             throw new NotImplementedException();
         }
@@ -43,6 +45,13 @@ namespace Desktop.Callers
         public void Update(Practitioner obj)
         {
             throw new NotImplementedException();
+        }
+
+        internal object GetByEmail(string email)
+        {
+            var request = new RestRequest("api/practitioner" + email, Method.GET);
+            var response = client.Execute<Customer>(request);
+            return response.Data;
         }
     }
 }

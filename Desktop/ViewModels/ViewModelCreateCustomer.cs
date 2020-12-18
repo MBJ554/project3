@@ -1,174 +1,334 @@
 ﻿using Desktop.Callers;
 using Desktop.Models;
-using RestSharp;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Configuration;
-using System.Linq;
-using System.Net;
 using System.Runtime.CompilerServices;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace Desktop.ViewModels
 {
     public class ViewModelCreateCustomer : INotifyPropertyChanged
     {
-
         private List<Clinic> clinics;
 
         private Customer customer;
 
-        private CityCaller cc;
+        private CityCaller cityCaller;
 
-        private CustomerCaller cuc;
+        private CustomerCaller customerCaller;
 
-        private ClinicCaller clc;
+        private ClinicCaller clinicCaller;
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        private string firstNameErrorMessage;
+        public string FirstNameErrorMessage { get { return firstNameErrorMessage; } set { firstNameErrorMessage = value; OnPropertyChanged(); } }
+        private bool firstNameIsValid;
+
+        public bool FirstNameIsValid
+        {
+            get
+            {
+                return firstNameIsValid;
+            }
+            set
+            {
+                firstNameIsValid = value;
+                if (firstNameIsValid == true)
+                {
+                    FirstNameErrorMessage = "";
+                }
+                else
+                {
+                    FirstNameErrorMessage = " - Fornavnet er for kort";
+                }
+                OnPropertyChanged();
+            }
+        }
+
+        private string lastNameErrorMessage;
+        public string LastNameErrorMessage { get { return lastNameErrorMessage; } set { lastNameErrorMessage = value; OnPropertyChanged(); } }
+        private bool lastNameIsValid;
+
+        public bool LastNameIsValid
+        {
+            get
+            {
+                return lastNameIsValid;
+            }
+            set
+            {
+                lastNameIsValid = value;
+                if (value == true)
+                {
+                    LastNameErrorMessage = "";
+                }
+                else
+                {
+                    LastNameErrorMessage = " - Efternavn er for kort";
+                }
+                OnPropertyChanged();
+            }
+        }
+
+        private string passwordErrorMessage;
+        public string PasswordErrorMessage { get { return passwordErrorMessage; } set { passwordErrorMessage = value; OnPropertyChanged(); } }
+        private bool passwordIsValid;
+
+        public bool PasswordIsValid
+        {
+            get
+            {
+                return passwordIsValid;
+            }
+            set
+            {
+                passwordIsValid = value;
+                if (passwordIsValid == true)
+                {
+                    PasswordErrorMessage = "";
+                }
+                else
+                {
+                    PasswordErrorMessage = " _ Password er for kort";
+                }
+                OnPropertyChanged();
+            }
+        }
+
+        private string phoneNoErrorMessage;
+        public string PhoneNoErrorMessage { get { return phoneNoErrorMessage; } set { phoneNoErrorMessage = value; OnPropertyChanged(); } }
+        private bool phoneNoIsValid;
+
+        public bool PhoneNoIsValid
+        {
+            get
+            {
+                return phoneNoIsValid;
+            }
+            set
+            {
+                phoneNoIsValid = value;
+                if (phoneNoIsValid == true)
+                {
+                    PhoneNoErrorMessage = "";
+                }
+                else
+                {
+                    PhoneNoErrorMessage = " - Telefonnummeret skal være 8 cifre langt";
+                }
+                OnPropertyChanged();
+            }
+        }
+
+        private string emailErrorMessage;
+        public string EmailErrorMessage { get { return emailErrorMessage; } set { emailErrorMessage = value; OnPropertyChanged(); } }
+        private bool emailIsValid;
+
+        public bool EmailIsValid
+        {
+            get
+            {
+                return emailIsValid;
+            }
+            set
+            {
+                emailIsValid = value;
+                if (emailIsValid == true)
+                {
+                    EmailErrorMessage = "";
+                }
+                else
+                {
+                    EmailErrorMessage = " - Email er for kort";
+                }
+                OnPropertyChanged();
+            }
+        }
+
+        private string zipCodeErrorMessage;
+        public string ZipCodeErrorMessage { get { return zipCodeErrorMessage; } set { zipCodeErrorMessage = value; OnPropertyChanged(); } }
+        private bool zipCodeIsValid;
+
+        public bool ZipCodeIsValid
+        {
+            get
+            {
+                return zipCodeIsValid;
+            }
+            set
+            {
+                zipCodeIsValid = value;
+                if (zipCodeIsValid == true)
+                {
+                    ZipCodeErrorMessage = "";
+                }
+                else
+                {
+                    ZipCodeErrorMessage = " - Postnummeret findes ikke";
+                }
+                OnPropertyChanged();
+            }
+        }
+
+        private string addressErrorMessage;
+        public string AddressErrorMessage { get { return addressErrorMessage; } set { addressErrorMessage = value; OnPropertyChanged(); } }
+        private bool addressIsValid;
+
+        public bool AddressIsValid
+        {
+            get
+            {
+                return addressIsValid;
+            }
+            set
+            {
+                addressIsValid = value;
+                if (addressIsValid)
+                {
+                    AddressErrorMessage = "";
+                }
+                else
+                {
+                    AddressErrorMessage = " - Addresse er for kort";
+                }
+                OnPropertyChanged();
+            }
+        }
 
         protected void OnPropertyChanged([CallerMemberName] string name = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
-        public CityCaller CC { get; set; }
-
-        public CustomerCaller CUC { get; set; }
-
-        public ClinicCaller CLC { get; set; }
-
-        internal void Create(Customer customer)
-        {
-            cuc.Create(customer);
-        }
-
-        public Customer Customer { get; set; }
-
-        public List<Clinic> Clinics
-        {
-            get
-            {
-                return clinics;
-            }
-            set
-            {
-                clinics = value;
-                OnPropertyChanged();
-            }
-        }
+        public Customer Customer { get { return customer; } set { customer = value; } }
 
         public ViewModelCreateCustomer()
         {
-            RetrieveData();
+            customer = new Customer(this);
+            cityCaller = new CityCaller();
+            customerCaller = new CustomerCaller();
         }
 
-        public async void RetrieveData()
-        {
-            customer = new Customer();
-            cc = new CityCaller();
-            cuc = new CustomerCaller();
-            clc = new ClinicCaller();
-
-            var clinics = await clc.GetAll();
-
-            Clinics = (List<Clinic>)clinics;
-        }
-
-        public bool checkFirstName(string firstName)
+        public bool Create()
         {
             bool res = false;
-            if (firstName.Length > 2)
+            if (FirstNameIsValid & LastNameIsValid & AddressIsValid & ZipCodeIsValid & EmailIsValid & PhoneNoIsValid & PasswordIsValid)
             {
+                customer.PractitionerId = GlobalLoginInfo.UserId;
+                customer.ClinicId = GlobalLoginInfo.Clinic.Id;
+                customerCaller.Create(customer);
                 res = true;
-                customer.FirstName = firstName;
             }
             return res;
         }
 
-        public bool checkPassword(string password)
+        public void checkFirstName(string firstName)
         {
-            bool res = false;
+            if (firstName.Length > 1)
+            {
+                FirstNameIsValid = true;
+            }
+            else
+            {
+                FirstNameIsValid = false;
+            }
+        }
+
+        public void checkPassword(string password)
+        {
             if (password.Length > 5)
             {
-                res = true;
+                PasswordIsValid = true;
             }
-            return res;
-        }
-
-        public async Task<City> setCity(string zipCode)
-        {
-            City c = await cc.GetByZipCode(zipCode);
-            if (c != null)
+            else
             {
-                Customer.City = c.CityName;
+                PasswordIsValid = false;
             }
-            return c;
         }
 
-        public bool checkLastName(string lastName)
+        public void checkLastName(string lastName)
         {
-            bool res = false;
             if (lastName.Length > 2)
             {
-                res = true;
-                customer.LastName = lastName;
+                LastNameIsValid = true;
             }
-            return res;
+            else
+            {
+                LastNameIsValid = false;
+            }
         }
 
-        internal bool checkPhoneNo(string mobil)
+        public void checkPhoneNo(string mobil)
         {
-            bool res = false;
             if (numbersOnly(mobil) & mobil.Length == 8)
             {
-                res = true;
-                customer.PhoneNo = mobil;
+                PhoneNoIsValid = true;
             }
-            return res;
-        }
-
-        internal bool checkZipCode(string zipCode)
-        {
-            bool res = false;
-            if (zipCode.Length == 4 & numbersOnly(zipCode))
+            else
             {
-                res = true;
-                customer.ZipCode = zipCode;
+                PhoneNoIsValid = false;
             }
-            return res;
         }
 
-        public bool numbersOnly(String checkString)
+        public async void checkZipCode(string zipCode)
+        {
+            City city = new City();
+            try
+            {
+                if (zipCode.Length == 4 & numbersOnly(zipCode))
+                {
+                    city = await cityCaller.GetByZipCode(zipCode);
+                    if (city != null & city.ZipCode != null & city.CityName != null)
+                    {
+                        ZipCodeIsValid = true;
+                        customer.City = city.CityName;
+                    }
+                    else
+                    {
+                        ZipCodeIsValid = false;
+                        Customer.City = "";
+                    }
+                }
+                else
+                {
+                    ZipCodeIsValid = false;
+                    Customer.City = "";
+                }
+            }
+            catch
+            {
+            }
+        }
+
+        public bool numbersOnly(string checkString)
         {
             Regex reg = new Regex("^[0-9]+$");
             return reg.IsMatch(checkString);
         }
 
-        public bool checkEmail(string email)
+        public void CheckEmailIsValid(string email)
         {
-            bool res = false;
             if (email.Length > 6)
             {
-                res = true;
-                customer.Email = email;
+                EmailIsValid = true;
             }
-            return res;
-        }
-
-        public bool setClinic(Clinic clinic)
-        {
-            bool res = false;
-            if (clinic != null)
+            else
             {
-                res = true;
-                customer.ClinicId = clinic.Id;
+                EmailIsValid = false;
             }
-            return res;
         }
 
+        public void checkAddress(string address)
+        {
+            if (address.Length > 6)
+            {
+                AddressIsValid = true;
+            }
+            else
+            {
+                AddressIsValid = false;
+            }
+        }
     }
 }
-
