@@ -2,7 +2,7 @@
 using Desktop.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace UnitTestProject1
+namespace TestProject
 {
     [TestClass]
     public class DesktopTests
