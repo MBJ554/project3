@@ -56,11 +56,11 @@ namespace Web.Callers
         /// <param name="appointmentDate">Appointment date</param>
         /// <param name="id">Practioner ID</param>
         /// <returns></returns>
-        public async Task<IEnumerable<Appointment>> GetByDate(DateTime appointmentDate, string id)
+        public IEnumerable<Appointment> GetByDate(DateTime appointmentDate, string id)
         {
             var request = new RestRequest("api/appointment/" + id, Method.GET);
             request.AddParameter("date", appointmentDate.ToString());
-            var response = await client.ExecuteAsync<List<Appointment>>(request);
+            var response = client.Execute<List<Appointment>>(request);
             return response.Data;
         }
 
@@ -75,7 +75,7 @@ namespace Web.Callers
             var response = client.Execute(request);
             if (response.StatusCode == System.Net.HttpStatusCode.Conflict)
             {
-                throw new Exception(response.ErrorMessage);
+                throw new Exception(response.Content);
             }
         }
     }

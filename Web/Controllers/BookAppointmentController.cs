@@ -21,7 +21,7 @@ namespace Web.Controllers
         /// </summary>
         /// <param name="date">Find all appointment times on this date</param>
         /// <returns></returns>
-        public async Task<ActionResult> ChooseAppointmentTime(DateTime date)
+        public ActionResult ChooseAppointmentTime(DateTime date)
         {
             DateTime currentDate = new DateTime();
             if (date < currentDate || date.DayOfWeek == DayOfWeek.Saturday || date.DayOfWeek == DayOfWeek.Sunday)
@@ -30,7 +30,7 @@ namespace Web.Controllers
                 return View();
             }
             AppointmentCaller appointmentCaller = new AppointmentCaller();
-            var appointments = await appointmentCaller.GetByDate(date, Session["PractitionerId"] as string);
+            var appointments = appointmentCaller.GetByDate(date, Session["PractitionerId"] as string);
             ViewBag.SelectedDate = date.ToShortDateString();
             return View(appointments);
         }
@@ -57,8 +57,8 @@ namespace Web.Controllers
             }
             catch (Exception e)
             {
-                TempData["ErrorMessage"] = "[ERROR] " + e.Message;
-                return View(ChooseAppointmentTime(endDateTime.Date));
+                TempData["ErrorMessage"] = e.Message;
+                return RedirectToAction("ChooseAppointmentTime", startDateTime.Date);
             }
             return View(a); ;
         }
