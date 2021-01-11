@@ -90,12 +90,16 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Callers\AppointmentCaller.cs" />
     <Compile Include="Callers\CityCaller.cs" />
     <Compile Include="Callers\ClinicCaller.cs" />
     <Compile Include="Callers\CustomerCaller.cs" />
     <Compile Include="Callers\ICaller.cs" />
+    <Compile Include="Callers\IAppointmentCaller.cs" />
     <Compile Include="Callers\LoginCaller.cs" />
     <Compile Include="Callers\PractitionerCaller.cs" />
+    <Compile Include="Models\Appointment.cs" />
+    <Compile Include="ViewModels\ViewModelHome.cs" />
     <Compile Include="View\CreatePractitioner.xaml.cs">
       <DependentUpon>CreatePractitioner.xaml</DependentUpon>
     </Compile>

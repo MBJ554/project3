@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Desktop.ViewModels;
+using System;
 using System.Windows.Controls;
 
 namespace Desktop
@@ -11,6 +12,7 @@ namespace Desktop
         public Home()
         {
             InitializeComponent();
+            DataContext = new ViewModelHome();
         }
 
         public static implicit operator UserControl(Home v)
