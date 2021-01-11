@@ -30,5 +30,9 @@
 
         <TextBlock Text="Nyheder" FontSize="18" Grid.Column="5" Grid.Row="1" FontFamily="Segoe UI Semibold" />
         <TextBlock Grid.Row="5" Grid.Column="5" Height="400" Width="300" Background="#FFF0F0F0" Text="Her kommer nyheder i appen til at stå." />
+        <ListBox Grid.Column="4" HorizontalAlignment="Left" Height="271" Margin="41,67,0,0" Grid.Row="5" VerticalAlignment="Top" Width="314"/>
+        <Grid>
+            <ListBox ItemsSource="{Binding Path=appointments}"/>
+        </Grid>
     </Grid>
 </Page>
