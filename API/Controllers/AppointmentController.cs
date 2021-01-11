@@ -79,9 +79,24 @@ namespace API.Controllers
             }
 
             var allowedAppointments = appointments.Where(x => !appointmentsDAL.Any(y => x.Startdate == y.Startdate));
-            if (allowedAppointments != null || allowedAppointments.Count() != 0)
+            if (allowedAppointments != null && allowedAppointments.Count() != 0)
             {
                 return Ok(allowedAppointments);
+            }
+
+            return NotFound();
+        }
+
+        [Route("api/appointment/get/{id}/")]
+        public IHttpActionResult GetAppointments(int id, [FromUri] string date)
+        {
+            DateTime appointmentDate = DateTime.Parse(date);
+            var appointmentsDAL = _appointmentRepository.GetAllByPractitionerAndDate(appointmentDate, id);
+            var appointments = appointmentsDAL.Select(BuildAppointment).ToList();
+
+            if (appointments.Count() != 0)
+            {
+                return Ok(appointments);
             }
 
             return NotFound();
