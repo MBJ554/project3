@@ -95,7 +95,6 @@
     <Compile Include="Callers\ClinicCaller.cs" />
     <Compile Include="Callers\CustomerCaller.cs" />
     <Compile Include="Callers\ICaller.cs" />
-    <Compile Include="Callers\IAppointmentCaller.cs" />
     <Compile Include="Callers\LoginCaller.cs" />
     <Compile Include="Callers\PractitionerCaller.cs" />
     <Compile Include="Models\Appointment.cs" />

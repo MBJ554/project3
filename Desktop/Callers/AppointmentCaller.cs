@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Desktop.Callers
 {
-    class AppointmentCaller : IAppointmentCaller
+    class AppointmentCaller
     {
         private RestClient client;
 
@@ -19,11 +19,11 @@ namespace Desktop.Callers
             client = new RestClient(ConfigurationManager.AppSettings["ProjectApi"]);
         }
 
-        public async Task<ObservableCollection<Appointment>> GetAllAppointmentsByPractitionerId(int Id)
+        public IEnumerable<Appointment> GetAllAppointmentsByPractitionerId(int Id)
         {
-            var request = new RestRequest("/appointment/" + Id, Method.GET);
-            request.AddParameter("date", DateTime.Today);
-            var response = await client.ExecuteAsync<ObservableCollection<Appointment>> (request);       
+            var request = new RestRequest("api/appointment/get/" + Id, Method.GET);
+            request.AddParameter("date", DateTime.Today.ToString());
+            var response = client.Execute<List<Appointment>> (request);       
             return response.Data;
         }
     }
