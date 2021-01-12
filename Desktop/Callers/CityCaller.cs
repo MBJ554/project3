@@ -38,7 +38,7 @@ namespace Desktop.Callers
             if (response.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 RestClient CityClient = new RestClient(ConfigurationManager.AppSettings["ByApi"]);
-                var request2 = new RestRequest("api/postnumre", Method.GET);
+                var request2 = new RestRequest("postnumre", Method.GET);
                 var response2 = await CityClient.ExecuteAsync<List<City>>(request);
                 return response2.Data;
             }
@@ -58,8 +58,11 @@ namespace Desktop.Callers
             if (response.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 RestClient CityClient = new RestClient(ConfigurationManager.AppSettings["ByApi"]);
-                var request2 = new RestRequest("api/postnumre/" + id, Method.GET);
+                var request2 = new RestRequest("postnumre/" + id, Method.GET);
                 var response2 = await CityClient.ExecuteAsync<City>(request2);
+                if (response2.Data.CityName != null) {
+                    AddCity(response2.Data);
+                }   
                 return response2.Data;
             }
            
@@ -69,6 +72,12 @@ namespace Desktop.Callers
         public void Update(City obj)
         {
             throw new NotImplementedException();
+        }
+
+        private void AddCity(City city) {
+            var postRequest = new RestRequest("api/City", Method.POST);
+            postRequest.AddJsonBody(city);
+            ProjectClient.Execute(postRequest);
         }
 
     }

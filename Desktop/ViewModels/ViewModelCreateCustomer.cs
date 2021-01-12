@@ -278,7 +278,7 @@ namespace Desktop.ViewModels
             if (zipCode.Length == 4 & numbersOnly(zipCode))
             {
                 city = await cityCaller.GetByZipCode(zipCode);
-                if (city != null & city.ZipCode != null & city.CityName != null)
+                if (city.CityName != null)
                 {
                     ZipCodeIsValid = true;
                     customer.City = city.CityName;
