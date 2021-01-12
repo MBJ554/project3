@@ -33,7 +33,7 @@
         <ListView Grid.Column="4" HorizontalAlignment="Left" Height="369" Margin="10,0,0,0" Grid.Row="5" VerticalAlignment="Top" Width="440" ItemsSource="{Binding Appointments, Mode=OneWay}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Customer}"/>
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding FirstName}"/>
                     <GridViewColumn Header="StartDate" DisplayMemberBinding="{Binding Startdate}"/>
                     <GridViewColumn Header="EndDate" DisplayMemberBinding="{Binding Enddate}"/>
                 </GridView>

@@ -45,7 +45,9 @@ namespace Desktop.Callers
 
         public Customer GetById(string id)
         {
-            throw new NotImplementedException();
+            var request = new RestRequest(id, Method.GET);
+            var response = client.Execute<Customer>(request);
+            return response.Data;
         }
 
         public void Update(Customer obj)

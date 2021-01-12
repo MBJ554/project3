@@ -43,9 +43,9 @@ namespace API.Controllers
         /// <returns>A city</returns>
         // GET: api/City/5
         [HttpGet]
-        public IHttpActionResult Get(string zipcode)
+        public IHttpActionResult Get(string id)
         {
-            var cityDAL = _cityRepository.GetCityByZipCode(zipcode);
+            var cityDAL = _cityRepository.GetCityByZipCode(id);
             if (cityDAL != null)
             {
                 return Ok(BuildCity(cityDAL));

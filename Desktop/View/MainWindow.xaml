@@ -58,20 +58,20 @@
                     </Button>
                 </Grid>
                 <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" Foreground="White">
-                    <ListViewItem x:Name="Home" Height="60">
-                        <StackPanel Orientation="Horizontal" MouseDown="StackPanel_MouseDown">
+                    <ListViewItem x:Name="Home" Height="60" PreviewMouseLeftButtonDown="StackPanel_MouseDown">
+                        <StackPanel Orientation="Horizontal" >
                             <materialDesign:PackIcon Kind="ViewDashboard" Width="25" Height="25" Margin="10" VerticalAlignment="Center" />
                             <TextBlock Text="Forside" VerticalAlignment="Center" Margin="20 10" />
                         </StackPanel>
                     </ListViewItem>
-                    <ListViewItem Height="60">
-                        <StackPanel Orientation="Horizontal" MouseDown="StackPanel_MouseDown_1">
+                    <ListViewItem Height="60" PreviewMouseLeftButtonDown="StackPanel_MouseDown_1">
+                        <StackPanel Orientation="Horizontal" >
                             <materialDesign:PackIcon Kind="UserAdd"  Width="25" Height="25" Margin="10" VerticalAlignment="Center" />
                             <TextBlock Text="Opret praktiserende" VerticalAlignment="Center" Margin="20 10" />
                         </StackPanel>
                     </ListViewItem>
-                    <ListViewItem x:Name="Create" Height="60">
-                        <StackPanel Orientation="Horizontal" MouseDown="StackPanel_MouseDown_2">
+                    <ListViewItem x:Name="Create" Height="60" PreviewMouseLeftButtonDown="StackPanel_MouseDown_2">
+                        <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="Pencil" Width="25" Height="25" Margin="10" VerticalAlignment="Center" />
                             <TextBlock Text="Opret bruger" VerticalAlignment="Center" Margin="20 10" />
                         </StackPanel>

@@ -33,7 +33,11 @@ namespace Desktop.Models
             set
             {
                 firstName = value;
-                viewModelCreateCustomer.checkFirstName(value);
+                if (viewModelCreateCustomer != null) 
+                {
+                    viewModelCreateCustomer.checkFirstName(value);
+                }
+                          
             }
         }
 
@@ -48,7 +52,10 @@ namespace Desktop.Models
             set
             {
                 lastName = value;
-                viewModelCreateCustomer.checkLastName(value);
+                if (viewModelCreateCustomer != null)
+                {
+                    viewModelCreateCustomer.checkLastName(value);
+                }
             }
         }
 
@@ -63,7 +70,10 @@ namespace Desktop.Models
             set
             {
                 phoneNo = value;
-                viewModelCreateCustomer.checkPhoneNo(value);
+                if (viewModelCreateCustomer != null)
+                {
+                    viewModelCreateCustomer.checkPhoneNo(value);
+                }
             }
         }
 
@@ -78,7 +88,10 @@ namespace Desktop.Models
             set
             {
                 email = value;
-                viewModelCreateCustomer.CheckEmailIsValid(value);
+                if (viewModelCreateCustomer != null)
+                {
+                    viewModelCreateCustomer.CheckEmailIsValid(value);
+                }
             }
         }
 
@@ -93,13 +106,29 @@ namespace Desktop.Models
             set
             {
                 passwordHash = HashPassword(value);
-                viewModelCreateCustomer.checkPassword(value);
+                if (viewModelCreateCustomer != null)
+                {
+                    viewModelCreateCustomer.checkPassword(value);
+                }
             }
         }
 
         public string Salt { get; set; }
         private string address;
-        public string Address { get { return address; } set { address = value; viewModelCreateCustomer.checkAddress(value); } }
+        public string Address { 
+            get 
+            { 
+                return address; 
+            } 
+            set 
+            { 
+                address = value;
+                if (viewModelCreateCustomer != null) {
+                    viewModelCreateCustomer.checkAddress(value);
+                }
+               
+            } 
+        }
 
         public string zipCode;
 
@@ -112,8 +141,11 @@ namespace Desktop.Models
             set
             {
                 zipCode = value;
-                viewModelCreateCustomer.checkZipCode(value);
-                OnPropertyChanged();
+                if (viewModelCreateCustomer != null)
+                {
+                    viewModelCreateCustomer.checkZipCode(value);
+                    OnPropertyChanged();
+                }
             }
         }
 

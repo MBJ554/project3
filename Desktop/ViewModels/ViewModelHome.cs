@@ -33,7 +33,13 @@ namespace Desktop.ViewModels
 
         private void SetupViewModel()
         {
-            Appointments = new ObservableCollection<Appointment>(appointmentCaller.GetAllAppointmentsByPractitionerId(GlobalLoginInfo.UserId));
+            IEnumerable<Appointment> PractitionerAppointments = appointmentCaller.GetAllAppointmentsByPractitionerId(GlobalLoginInfo.UserId);
+            if(PractitionerAppointments != null)
+            {
+                Appointments = new ObservableCollection<Appointment>(appointmentCaller.GetAllAppointmentsByPractitionerId(GlobalLoginInfo.UserId));
+            }
+            
+          
         }
 
     }

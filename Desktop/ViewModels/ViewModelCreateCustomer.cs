@@ -274,21 +274,14 @@ namespace Desktop.ViewModels
         public async void checkZipCode(string zipCode)
         {
             City city = new City();
-            try
+            
+            if (zipCode.Length == 4 & numbersOnly(zipCode))
             {
-                if (zipCode.Length == 4 & numbersOnly(zipCode))
+                city = await cityCaller.GetByZipCode(zipCode);
+                if (city != null & city.ZipCode != null & city.CityName != null)
                 {
-                    city = await cityCaller.GetByZipCode(zipCode);
-                    if (city != null & city.ZipCode != null & city.CityName != null)
-                    {
-                        ZipCodeIsValid = true;
-                        customer.City = city.CityName;
-                    }
-                    else
-                    {
-                        ZipCodeIsValid = false;
-                        Customer.City = "";
-                    }
+                    ZipCodeIsValid = true;
+                    customer.City = city.CityName;
                 }
                 else
                 {
@@ -296,9 +289,11 @@ namespace Desktop.ViewModels
                     Customer.City = "";
                 }
             }
-            catch
+            else
             {
-            }
+                ZipCodeIsValid = false;
+                Customer.City = "";
+            }         
         }
 
         public bool numbersOnly(string checkString)

@@ -9,16 +9,16 @@ namespace Desktop.Callers
 {
     public class CityCaller : ICaller<City>
     {
-        private RestClient ProjectApi;
+        private RestClient ProjectClient;
 
         public CityCaller()
         {
-            ProjectApi = new RestClient(ConfigurationManager.AppSettings["ProjectApi"]);
+            ProjectClient = new RestClient(ConfigurationManager.AppSettings["ProjectApi"]);
         }
 
         public CityCaller(string Url)
         {
-            ProjectApi = new RestClient(Url);
+            ProjectClient = new RestClient(Url);
         }
 
         public void Create(City obj)
@@ -33,13 +33,13 @@ namespace Desktop.Callers
 
         public async Task<IEnumerable<City>> GetAll()
         {
-            var request = new RestRequest("/zipCode", Method.GET);
-            var response = await ProjectApi.ExecuteAsync<List<City>>(request);
+            var request = new RestRequest("api/City", Method.GET);
+            var response = await ProjectClient.ExecuteAsync<List<City>>(request);
             if (response.StatusCode != System.Net.HttpStatusCode.OK)
             {
-                RestClient CityApi = new RestClient(ConfigurationManager.AppSettings["ByApi"]);
+                RestClient CityClient = new RestClient(ConfigurationManager.AppSettings["ByApi"]);
                 var request2 = new RestRequest("api/postnumre", Method.GET);
-                var response2 = await CityApi.ExecuteAsync<List<City>>(request);
+                var response2 = await CityClient.ExecuteAsync<List<City>>(request);
                 return response2.Data;
             }
             return response.Data;
@@ -52,22 +52,18 @@ namespace Desktop.Callers
 
         public async Task<City> GetByZipCode(string id)
         {
-            City c;
-            var request = new RestRequest("/zipCode/" + id, Method.GET);
-            var response = await ProjectApi.ExecuteAsync<City>(request);
+            var request = new RestRequest("api/City/" + id, Method.GET);
+            var response = await ProjectClient.ExecuteAsync<City>(request);
 
             if (response.StatusCode != System.Net.HttpStatusCode.OK)
             {
-                RestClient CityApi = new RestClient(ConfigurationManager.AppSettings["ByApi"]);
+                RestClient CityClient = new RestClient(ConfigurationManager.AppSettings["ByApi"]);
                 var request2 = new RestRequest("api/postnumre/" + id, Method.GET);
-                var response2 = await CityApi.ExecuteAsync<City>(request2);
-                c = response2.Data;
+                var response2 = await CityClient.ExecuteAsync<City>(request2);
+                return response2.Data;
             }
-            else
-            {
-                c = response.Data;
-            }
-            return c;
+           
+            return response.Data;
         }
 
         public void Update(City obj)
