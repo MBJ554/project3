@@ -22,7 +22,7 @@ namespace Desktop.ViewModels
 
         private AppointmentCaller appointmentCaller;
 
-        public ObservableCollection<Appointment> appointments { get; set; }
+        public ObservableCollection<Appointment> Appointments { get; set; }
 
         public ViewModelHome() 
         {
@@ -31,8 +31,15 @@ namespace Desktop.ViewModels
            
         }
 
-        private async void SetupViewModel() {
-            appointments = await appointmentCaller.GetAllAppointmentsByPractitionerId(GlobalLoginInfo.UserId);
+        private void SetupViewModel()
+        {
+            IEnumerable<Appointment> PractitionerAppointments = appointmentCaller.GetAllAppointmentsByPractitionerId(GlobalLoginInfo.UserId);
+            if(PractitionerAppointments != null)
+            {
+                Appointments = new ObservableCollection<Appointment>(appointmentCaller.GetAllAppointmentsByPractitionerId(GlobalLoginInfo.UserId));
+            }
+            
+          
         }
 
     }

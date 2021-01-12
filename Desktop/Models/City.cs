@@ -4,11 +4,15 @@ namespace Desktop.Models
 {
     public class City
     {
-        [DeserializeAs(Name = "navn")]
-        public string CityName { get; set; }
+        public string Navn { get { return cityName; } set { cityName = value; } }
+        private string cityName;
+        //[DeserializeAs(Name = "navn")]
+        public string CityName { get { return cityName; } set { cityName = value; } }
 
-        [DeserializeAs(Name = "nr")]
-        public string ZipCode { get; set; }
+        public string Nr { get { return zipCode; } set { zipCode = value; } }
+        //[DeserializeAs(Name = "nr")]
+        private string zipCode;
+        public string ZipCode { get { return zipCode; } set { zipCode = value; } }
 
         public City()
         {

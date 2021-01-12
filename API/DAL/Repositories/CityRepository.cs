@@ -22,7 +22,7 @@ namespace API.DAL.Repositories
                 {
                     try
                     {
-                        string sql = "INSERT INTO [dbo].[City] ([zipCode], [city]) VALUES (@zipCode, @city)";
+                        string sql = "INSERT INTO [dbo].[City] ([zipCode], [cityName]) VALUES (@zipCode, @cityName)";
                         conn.Execute(sql, obj, transaction: transaction);
                         transaction.Commit();
                     }

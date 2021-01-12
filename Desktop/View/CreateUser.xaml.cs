@@ -38,7 +38,7 @@ namespace Desktop
                 if (viewModelCreateCustomer.Create())
                 {
                     MessageBox.Show("Brugeren er oprettet", "bruger oprettet");
-                    this.NavigationService.Navigate("View/Home.xaml");
+                    this.Visibility = Visibility.Collapsed;
                 }
                 else
                 {

@@ -14,9 +14,11 @@ namespace API.DAL.Repositories
     public class CustomerRepository : ICustomerRepository
     {
         private readonly string connectionString = ConfigurationManager.ConnectionStrings["connStr"].ConnectionString;
-
         public void Create(Customer customer)
         {
+
+
+
             using (var conn = new SqlConnection(connectionString))
             {
                 conn.Open();
