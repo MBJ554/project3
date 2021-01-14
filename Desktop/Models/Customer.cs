@@ -9,14 +9,24 @@ namespace Desktop.Models
 {
     public class Customer : INotifyPropertyChanged
     {
+        //public delegate void PropertyFirstNameChangedEventHandler(Customer source, System.ComponentModel.PropertyChangedEventArgs e);
+        
+        //public event PropertyFirstNameChangedEventHandler PropertyFirstNameChanged;
+
+        //protected virtual void OnPropertyChangedForViewModel([CallerMemberName] string propertyName = "")
+        //{
+        //    if (PropertyFirstNameChanged != null) {
+        //        PropertyFirstNameChanged(this, new PropertyChangedEventArgs(propertyName));
+        //    }
+        //}
+
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected void OnPropertyChanged([CallerMemberName] string name = null)
+        protected void OnPropertyChanged([CallerMemberName] string name = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
-        private ViewModelCreateCustomer viewModelCreateCustomer;
         public int Id { get; set; }
         public int PersonTypeId { get; set; }
         public int ClinicId { get; set; }
@@ -33,11 +43,7 @@ namespace Desktop.Models
             set
             {
                 firstName = value;
-                if (viewModelCreateCustomer != null) 
-                {
-                    viewModelCreateCustomer.checkFirstName(value);
-                }
-                          
+                OnPropertyChanged();                                   
             }
         }
 
@@ -52,10 +58,7 @@ namespace Desktop.Models
             set
             {
                 lastName = value;
-                if (viewModelCreateCustomer != null)
-                {
-                    viewModelCreateCustomer.checkLastName(value);
-                }
+                OnPropertyChanged();
             }
         }
 
@@ -70,10 +73,7 @@ namespace Desktop.Models
             set
             {
                 phoneNo = value;
-                if (viewModelCreateCustomer != null)
-                {
-                    viewModelCreateCustomer.checkPhoneNo(value);
-                }
+                OnPropertyChanged();
             }
         }
 
@@ -88,10 +88,7 @@ namespace Desktop.Models
             set
             {
                 email = value;
-                if (viewModelCreateCustomer != null)
-                {
-                    viewModelCreateCustomer.CheckEmailIsValid(value);
-                }
+                OnPropertyChanged();
             }
         }
 
@@ -105,11 +102,9 @@ namespace Desktop.Models
             }
             set
             {
-                passwordHash = HashPassword(value);
-                if (viewModelCreateCustomer != null)
-                {
-                    viewModelCreateCustomer.checkPassword(value);
-                }
+                passwordHash = value;
+                OnPropertyChanged();
+                passwordHash = HashPassword(value);               
             }
         }
 
@@ -123,14 +118,12 @@ namespace Desktop.Models
             set 
             { 
                 address = value;
-                if (viewModelCreateCustomer != null) {
-                    viewModelCreateCustomer.checkAddress(value);
-                }
-               
+                OnPropertyChanged();
+
             } 
         }
 
-        public string zipCode;
+        private string zipCode;
 
         public string ZipCode
         {
@@ -141,12 +134,9 @@ namespace Desktop.Models
             set
             {
                 zipCode = value;
-                if (viewModelCreateCustomer != null)
-                {
-                    viewModelCreateCustomer.checkZipCode(value);
-                    OnPropertyChanged();
-                }
-            }
+                OnPropertyChanged();
+
+            }           
         }
 
         private string city;
@@ -173,14 +163,9 @@ namespace Desktop.Models
             return Convert.ToBase64String(hashAlgorithm.ComputeHash(Encoding.UTF8.GetBytes(Salt + password)));
         }
 
-        public Customer(ViewModelCreateCustomer viewModelCreateCustomer)
-        {
-            this.viewModelCreateCustomer = viewModelCreateCustomer;
-            GenerateSalt();
-        }
-
         public Customer()
         {
-        }
+            GenerateSalt();
+        }       
     }
 }

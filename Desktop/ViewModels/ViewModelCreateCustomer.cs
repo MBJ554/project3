@@ -1,5 +1,6 @@
 ﻿using Desktop.Callers;
 using Desktop.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -196,6 +197,7 @@ namespace Desktop.ViewModels
             }
         }
 
+        
         protected void OnPropertyChanged([CallerMemberName] string name = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
@@ -205,9 +207,42 @@ namespace Desktop.ViewModels
 
         public ViewModelCreateCustomer()
         {
-            customer = new Customer(this);
+            customer = new Customer();
+            customer.PropertyChanged += this.OnChanged;
             cityCaller = new CityCaller();
             customerCaller = new CustomerCaller();
+          
+        }
+
+        public void OnChanged(object source, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+        
+                switch (e.PropertyName)
+                {
+                    case "FirstName":
+                        checkFirstName(customer.FirstName);
+                        break;
+                    case "LastName":
+                        checkLastName(customer.LastName);
+                        break;
+                    case "PhoneNo":
+                        checkPhoneNo(customer.PhoneNo);
+                        break;
+                    case "Email":
+                        CheckEmailIsValid(customer.Email);
+                        break;
+                    case "PasswordHash":
+                        checkPassword(customer.PasswordHash);
+                        break;
+                    case "Address":
+                        checkAddress(customer.Address);
+                        break;
+                    case "ZipCode":
+                        checkZipCode(customer.ZipCode);
+                        break;
+                     
+
+            }
         }
 
         public bool Create()

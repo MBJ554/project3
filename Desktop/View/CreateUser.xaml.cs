@@ -26,6 +26,7 @@ namespace Desktop
 
             InitializeComponent();
 
+
             DataContext = viewModelCreateCustomer;
         }
 
